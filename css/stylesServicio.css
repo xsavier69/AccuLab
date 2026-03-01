@@ -1,0 +1,438 @@
+/* --- 1. VARIABLES UNIFICADAS (AccuLab Brand) --- */
+:root {
+    --teal-accu: #00665c;
+    /* Dark teal - logo primary */
+    --teal-hover: #005249;
+    --green-accu: #8cc63f;
+    /* Bright green - accent */
+    --green-hover: #78ad32;
+    --negro-profundo: #162625;
+    /* Deep teal-tinted black */
+    --texto: #4a5c5a;
+    /* Grey with hint of teal */
+    --blanco: #ffffff;
+    --gris-fondo: #f4f8f7;
+    /* Clean clinical background */
+    --gris-luxe: #fcfcfc;
+    --teal-light: #e0f0ee;
+    --green-light: #eef6e2;
+    --shadow-premium: 0 12px 36px rgba(0, 102, 92, 0.08);
+    --shadow-premium-hover: 0 20px 48px rgba(0, 102, 92, 0.15);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- 2. ESTILOS BASE --- */
+body.servicios-page {
+    background-color: var(--gris-fondo);
+    font-family: 'Poppins', sans-serif;
+    color: var(--texto);
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* --- 3. HERO SECCIÓN (CENTRADOS) --- */
+.hero-servicios-v2 {
+    background: url('../assets/equipo.jpeg') no-repeat center center/cover;
+    padding: 180px 5% 100px;
+    text-align: center;
+    border-bottom: 2px solid rgba(140, 198, 63, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decoración sutil de fondo */
+.hero-servicios-v2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(160deg, rgba(0, 102, 92, 0.95) 0%, rgba(0, 50, 45, 0.85) 100%);
+    pointer-events: none;
+}
+
+.hero-content {
+    max-width: 850px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-tag {
+    background: rgba(140, 198, 63, 0.2);
+    color: var(--green-accu);
+    padding: 8px 22px;
+    border-radius: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    margin-bottom: 24px;
+    display: inline-block;
+    border: 1px solid rgba(140, 198, 63, 0.5);
+}
+
+.hero-servicios-v2 h1 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    color: var(--blanco);
+    margin: 15px 0 24px;
+    line-height: 1.15;
+    font-weight: 800;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.hero-servicios-v2 h1 span {
+    color: var(--green-accu);
+    display: inline-block;
+    position: relative;
+}
+
+.hero-servicios-v2 h1 span::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 6px;
+    background: var(--green-accu);
+    z-index: -1;
+    border-radius: 10px;
+    opacity: 0.4;
+}
+
+.hero-servicios-v2 p {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/* --- 4. EXTRAS SERVICIOS --- */
+.servicios-features {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.feature-pill {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feature-pill span {
+    color: var(--green-accu);
+    font-size: 1.2rem;
+}
+
+/* --- 5. TABLERO DE PROMOS (TARJETAS) --- */
+.tablero-promos {
+    position: relative;
+    margin-top: -40px;
+    z-index: 10;
+}
+
+.container-promos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+    padding: 0 5% 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.promo-card-v2 {
+    background: var(--blanco);
+    padding: 45px 35px;
+    border-radius: 24px;
+    box-shadow: var(--shadow-premium);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 102, 92, 0.05);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.promo-card-v2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--teal-light);
+    transition: var(--transition);
+}
+
+.promo-card-v2:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-premium-hover);
+}
+
+.promo-card-v2:hover::before {
+    background: var(--green-accu);
+}
+
+.promo-card-v2.destacada {
+    border: 2px solid var(--green-accu);
+    transform: scale(1.04);
+    box-shadow: 0 20px 40px rgba(140, 198, 63, 0.15);
+}
+
+.promo-card-v2.destacada::before {
+    background: linear-gradient(90deg, var(--teal-accu), var(--green-accu));
+    height: 6px;
+}
+
+.promo-card-v2.destacada:hover {
+    transform: translateY(-12px) scale(1.05);
+}
+
+/* Detalles internos de tarjetas */
+.badge-promo {
+    background: var(--teal-light);
+    color: var(--teal-accu);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    align-self: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.promo-card-v2.destacada .badge-promo {
+    background: var(--green-accu);
+    color: white;
+}
+
+.promo-header h3 {
+    font-size: 1.5rem;
+    color: var(--negro-profundo);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.promo-price {
+    font-size: 3.8rem;
+    font-weight: 800;
+    color: var(--teal-accu);
+    margin: 5px 0 15px;
+    line-height: 1;
+}
+
+.promo-price span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--texto);
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+.promo-desc {
+    color: var(--texto);
+    margin-bottom: 25px;
+    font-size: 1rem;
+    flex-grow: 1;
+}
+
+.promo-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin: 20px 0 30px;
+    flex-grow: 1;
+}
+
+.promo-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    font-size: 0.95rem;
+    color: var(--negro-profundo);
+    display: flex;
+    align-items: flex-start;
+}
+
+.promo-list li::before {
+    content: "✓";
+    color: var(--green-accu);
+    margin-right: 12px;
+    font-weight: 900;
+    font-size: 1.1rem;
+}
+
+.promo-list li:last-child {
+    border-bottom: none;
+}
+
+.extra-info {
+    font-size: 0.85rem;
+    color: var(--texto);
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.promo-regalo {
+    background: linear-gradient(135deg, #fffcf0 0%, #fff7d6 100%);
+    color: #b08a1d;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 15px 0 25px;
+    border: 1px dashed #e8c66e;
+    display: inline-block;
+}
+
+/* --- 5. BOTONES Y HOVERS --- */
+.btn-whatsapp-promo,
+.btn-outline-promo {
+    text-decoration: none;
+    padding: 16px;
+    border-radius: 50px;
+    font-weight: 700;
+    margin-top: auto;
+    display: block;
+    width: 100%;
+    transition: var(--transition);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.btn-whatsapp-promo {
+    background: linear-gradient(135deg, var(--green-accu), var(--green-hover));
+    color: var(--blanco);
+    box-shadow: 0 6px 20px rgba(140, 198, 63, 0.3);
+}
+
+.btn-whatsapp-promo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(140, 198, 63, 0.4);
+}
+
+.btn-outline-promo {
+    border: 2px solid var(--teal-accu);
+    color: var(--teal-accu);
+    background: transparent;
+}
+
+.btn-outline-promo:hover {
+    background: var(--teal-accu);
+    color: var(--blanco);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 102, 92, 0.2);
+}
+
+/* --- 6. CATEGORÍAS --- */
+.categorias-salud {
+    padding: 80px 5%;
+    background: var(--blanco);
+}
+
+.grid-categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cat-item {
+    text-align: center;
+    padding: 40px 30px;
+    border-radius: 24px;
+    transition: var(--transition);
+    background: var(--gris-fondo);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.cat-item:hover {
+    background: var(--blanco);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-premium);
+    border-color: rgba(140, 198, 63, 0.3);
+}
+
+.cat-icon {
+    font-size: 3.5rem;
+    margin-bottom: 18px;
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.cat-item h4 {
+    color: var(--teal-accu);
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.cat-item p {
+    color: var(--texto);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* --- 7. RESPONSIVO --- */
+@media (max-width: 900px) {
+    .container-promos {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .promo-card-v2.destacada {
+        transform: none;
+    }
+
+    .promo-card-v2.destacada:hover {
+        transform: translateY(-10px);
+    }
+
+    .tablero-promos {
+        margin-top: -20px;
+    }
+
+    .servicios-features {
+        gap: 15px;
+    }
+
+    .feature-pill {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-servicios-v2 {
+        padding: 160px 5% 70px;
+    }
+
+    .hero-servicios-v2 h1 {
+        font-size: 2.4rem;
+    }
+
+    .container-promos {
+        padding: 40px 5%;
+    }
+
+    .promo-price {
+        font-size: 3.2rem;
+    }
+}
