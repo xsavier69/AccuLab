@@ -1,0 +1,299 @@
+/* --- ESTILOS ESPECÍFICOS COTIZADOR --- */
+.cotizar-page {
+    background-color: var(--gris-fondo);
+}
+
+.cotizar-main {
+    margin-top: 83px;
+}
+
+.hero-cotizador {
+    background: linear-gradient(135deg, var(--teal-accu) 0%, #004d44 100%);
+    color: white;
+    padding: 80px 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-cotizador .hero-tag {
+    background: rgba(140, 198, 63, 0.2);
+    color: var(--green-accu);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.hero-cotizador h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.hero-cotizador h1 span {
+    color: var(--green-accu);
+}
+
+.hero-cotizador p {
+    font-size: 1.1rem;
+    max-width: 650px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+/* LAYOUT COTIZADOR */
+.cotizador-container {
+    max-width: 1200px;
+    margin: -40px auto 80px;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    position: relative;
+    z-index: 10;
+}
+
+/* COLUMNA IZQUIERDA */
+.lista-examenes {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.categoria-lista {
+    background: white;
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0, 102, 92, 0.05);
+}
+
+.categoria-lista h3 {
+    color: var(--teal-accu);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--teal-light);
+}
+
+.grid-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 15px;
+}
+
+.checkbox-box {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: var(--gris-fondo);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid transparent;
+}
+
+.checkbox-box:hover {
+    background: var(--teal-light);
+}
+
+.checkbox-box input[type="checkbox"] {
+    accent-color: var(--green-accu);
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.checkbox-box span {
+    color: var(--negro-texto);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.checkbox-box .precio {
+    margin-left: auto;
+    color: var(--teal-accu);
+    font-weight: 700;
+    font-size: 0.9rem;
+    background: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+/* Estado seleccionado */
+.checkbox-box.selected {
+    background: var(--green-light);
+    border-color: var(--green-accu);
+}
+
+.nota-cotizador {
+    background: #fff3cd;
+    color: #856404;
+    padding: 20px;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    border: 1px solid #ffeeba;
+}
+
+/* COLUMNA DERECHA (STICKY) */
+.panel-resumen {
+    position: relative;
+}
+
+.resumen-sticky {
+    position: sticky;
+    top: 100px;
+    background: white;
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow-lg);
+    border-top: 5px solid var(--green-accu);
+}
+
+.resumen-sticky h3 {
+    color: var(--negro-texto);
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+
+.resumen-lista {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 10px;
+}
+
+.resumen-lista::-webkit-scrollbar {
+    width: 6px;
+}
+
+.resumen-lista::-webkit-scrollbar-thumb {
+    background-color: var(--teal-light);
+    border-radius: 10px;
+}
+
+.empty-state {
+    color: var(--gris-medio);
+    font-size: 0.9rem;
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Items dinámicos */
+.resumen-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--teal-light);
+    font-size: 0.9rem;
+    color: var(--negro-texto);
+}
+
+.resumen-item:last-child {
+    border-bottom: none;
+}
+
+.resumen-item .item-precio {
+    font-weight: 700;
+    color: var(--teal-accu);
+}
+
+.resumen-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 2px solid var(--gris-fondo);
+    margin-bottom: 20px;
+}
+
+.resumen-total span {
+    font-size: 1.1rem;
+    color: var(--gris-medio);
+}
+
+.resumen-total strong {
+    font-size: 2.2rem;
+    color: var(--teal-accu);
+    line-height: 1;
+}
+
+.btn-whatsapp-cotizar {
+    width: 100%;
+    background: linear-gradient(135deg, var(--green-accu), var(--green-hover));
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 6px 20px rgba(140, 198, 63, 0.3);
+}
+
+.btn-whatsapp-cotizar:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(140, 198, 63, 0.4);
+}
+
+.btn-whatsapp-cotizar:disabled {
+    background: var(--gris-medio);
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
+
+.disclaimer-resumen {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--gris-medio);
+    margin-top: 15px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+    .cotizador-container {
+        grid-template-columns: 1fr;
+    }
+    .resumen-sticky {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        border-radius: 20px 20px 0 0;
+        z-index: 1000;
+        padding: 20px;
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+        border-top: none;
+    }
+    .resumen-sticky h3, .empty-state, .disclaimer-resumen {
+        display: none;
+    }
+    .resumen-lista {
+        display: none; /* Ocultamos la lista en móvil para ahorrar espacio */
+    }
+    .resumen-total {
+        padding: 0 0 15px 0;
+        margin-bottom: 10px;
+        border-top: none;
+    }
+    .resumen-total span { font-size: 0.9rem; }
+    .resumen-total strong { font-size: 1.8rem; }
+    .lista-examenes {
+        margin-bottom: 150px; /* Espacio para el panel fixed */
+    }
+}
+@media (max-width: 480px) {
+    .grid-checkboxes {
+        grid-template-columns: 1fr;
+    }
+}

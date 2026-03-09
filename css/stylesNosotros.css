@@ -1,0 +1,323 @@
+/* --- ESTILOS ESPECÍFICOS NOSOTROS --- */
+.nosotros-page {
+    background-color: var(--gris-fondo);
+}
+
+.nosotros-main {
+    margin-top: 83px;
+}
+
+/* HERO NOSOTROS */
+.hero-nosotros {
+    position: relative;
+    padding: 120px 5%;
+    text-align: center;
+    background: url('../assets/portada.webp') no-repeat center 30%/cover;
+    color: white;
+}
+
+.hero-nosotros .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 102, 92, 0.95), rgba(140, 198, 63, 0.75));
+    z-index: 1;
+}
+
+.hero-nosotros .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-nosotros .hero-tag {
+    background: white;
+    color: var(--teal-accu);
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    margin-bottom: 25px;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.hero-nosotros h1 {
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    margin-bottom: 20px;
+    line-height: 1.1;
+    font-weight: 800;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hero-nosotros p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+/* MISIÓN Y VISIÓN */
+.mision-vision {
+    padding: 80px 5%;
+    background: white;
+}
+
+.container-mision {
+    max-width: 1100px;
+    margin: -140px auto 0;
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.card-filosofia {
+    background: white;
+    padding: 50px 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    border-bottom: 5px solid transparent;
+    transition: var(--transition);
+}
+
+.card-vision {
+    border-bottom-color: var(--teal-accu);
+}
+
+.card-mision {
+    border-bottom-color: var(--green-accu);
+}
+
+.card-filosofia:hover {
+    transform: translateY(-10px);
+}
+
+.icono-filosofia {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.card-filosofia h2 {
+    color: var(--teal-accu);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.card-filosofia p {
+    color: var(--texto);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* SERVICIOS RESUMEN */
+.servicios-resumen {
+    padding: 60px 5%;
+    background: var(--gris-fondo);
+}
+
+.container-resumen {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.lista-areas {
+    list-style: none;
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.lista-areas li {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: var(--negro-texto);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: var(--transition);
+}
+
+.lista-areas li:hover {
+    background: var(--teal-accu);
+    color: white;
+    transform: translateX(5px);
+}
+
+.lista-areas li span {
+    font-size: 1.5rem;
+}
+
+.resumen-img img {
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: 20px 20px 0px var(--green-light);
+}
+
+.sello-calidad {
+    background: var(--green-light);
+    color: var(--teal-accu);
+    padding: 15px 25px;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: 700;
+    border: 1px solid var(--green-accu);
+}
+
+/* EXÁMENES OCUPACIONALES */
+.examenes-ocupacionales {
+    padding: 90px 5%;
+    background: white;
+}
+
+.container-ocupacional {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.intro-ocupacional {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+.grid-perfiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.perfil-card {
+    background: var(--gris-fondo);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid rgba(0, 102, 92, 0.05);
+}
+
+.perfil-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.perfil-card.destacada {
+    transform: scale(1.05);
+    background: white;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--green-accu);
+}
+
+.perfil-card.destacada:hover {
+    transform: scale(1.05) translateY(-5px);
+}
+
+.perfil-header {
+    padding: 25px;
+    text-align: center;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.pe-1 {
+    background: var(--teal-accu);
+}
+
+.pe-2 {
+    background: linear-gradient(135deg, var(--teal-accu), var(--green-accu));
+}
+
+.pe-3 {
+    background: #004d44;
+}
+
+.perfil-lista {
+    list-style: none;
+    padding: 30px;
+}
+
+.perfil-lista li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--texto);
+    font-size: 0.95rem;
+    display: flex;
+}
+
+.perfil-lista li::before {
+    content: "✔️";
+    margin-right: 12px;
+    font-size: 0.9rem;
+}
+
+.perfil-card.destacada .perfil-lista li {
+    font-weight: 500;
+    color: var(--negro-texto);
+}
+
+/* CONTACTO FINAL */
+.contacto-wrap {
+    padding: 80px 5%;
+    background: var(--teal-light);
+    text-align: center;
+}
+
+.contacto-final h2 {
+    color: var(--teal-accu);
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.contacto-final p {
+    color: var(--texto);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+    .container-mision {
+        grid-template-columns: 1fr;
+        margin-top: 0;
+    }
+
+    .mision-vision {
+        padding-top: 60px;
+    }
+
+    .container-resumen,
+    .grid-perfiles {
+        grid-template-columns: 1fr;
+    }
+
+    .lista-areas {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-card.destacada {
+        transform: none;
+    }
+
+    .perfil-card.destacada:hover {
+        transform: translateY(-5px);
+    }
+
+    .resumen-img {
+        margin-top: 30px;
+    }
+}
