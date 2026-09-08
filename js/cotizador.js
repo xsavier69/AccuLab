@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 total += precio;
                 examenesSeleccionados.push({ nombre, precio });
                 
-                // Crear nodo HTML para el resumen
+                // Crear nodo HTML para el resumen (sin precio individual)
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'resumen-item';
-                itemDiv.innerHTML = `<span>${nombre}</span> <span class="item-precio">$${precio.toFixed(2)}</span>`;
+                itemDiv.innerHTML = `<span>${nombre}</span>`;
                 resumenLista.appendChild(itemDiv);
             }
         });
@@ -63,11 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const telefono = "593996405647"; // Número Accu-Lab
         let mensaje = "Hola Accu-Lab Clínico, me gustaría agendar y confirmar el precio para los siguientes exámenes que calculé en su página web:\n\n";
-        
+
         examenesSeleccionados.forEach(ex => {
-            mensaje += `✅ ${ex.nombre} ($${ex.precio.toFixed(2)})\n`;
+            mensaje += `✅ ${ex.nombre}\n`;
         });
-        
+
         mensaje += `\n*Total Estimado: $${total.toFixed(2)}* \n\n¿Poseen disponibilidad para el día de hoy o mañana?`;
 
         const mensajeCodificado = encodeURIComponent(mensaje);

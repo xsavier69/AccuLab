@@ -117,13 +117,7 @@
 }
 
 .checkbox-box .precio {
-    margin-left: auto;
-    color: var(--teal-accu);
-    font-weight: 700;
-    font-size: 0.9rem;
-    background: white;
-    padding: 4px 8px;
-    border-radius: 6px;
+    display: none;
 }
 
 /* Estado seleccionado */
@@ -201,8 +195,7 @@
 }
 
 .resumen-item .item-precio {
-    font-weight: 700;
-    color: var(--teal-accu);
+    display: none;
 }
 
 .resumen-total {
