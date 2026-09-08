@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (examenesSeleccionados.length === 0) return;
 
         const telefono = "593996405647"; // Número Accu-Lab
-        let mensaje = "Hola Accu-Lab Clínico, me gustaría agendar y confirmar el precio para los siguientes exámenes que calculé en su página web:\n\n";
+        let mensaje = "Hola, me gustaría cotizar los siguientes exámenes:\n\n";
 
         examenesSeleccionados.forEach(ex => {
             mensaje += `✅ ${ex.nombre}\n`;
         });
 
-        mensaje += `\n*Total Estimado: $${total.toFixed(2)}* \n\n¿Poseen disponibilidad para el día de hoy o mañana?`;
+        mensaje += `\n¿Cuál es el costo total y disponibilidad?`;
 
         const mensajeCodificado = encodeURIComponent(mensaje);
         const urlWa = `https://wa.me/${telefono}?text=${mensajeCodificado}`;

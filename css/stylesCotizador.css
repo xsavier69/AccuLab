@@ -199,23 +199,7 @@
 }
 
 .resumen-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
-    border-top: 2px solid var(--gris-fondo);
-    margin-bottom: 20px;
-}
-
-.resumen-total span {
-    font-size: 1.1rem;
-    color: var(--gris-medio);
-}
-
-.resumen-total strong {
-    font-size: 2.2rem;
-    color: var(--teal-accu);
-    line-height: 1;
+    display: none;
 }
 
 .btn-whatsapp-cotizar {
