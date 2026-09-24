@@ -20,7 +20,7 @@ const FAQS = [
 ---
 <Layout title={r.title} description={r.description} path={r.path} waMensaje={WA_DOM}
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }, { name: 'Domicilio', path: '/domicilio' }]}>
-  <PageHero eyebrow="Servicio a domicilio" title="Exámenes de laboratorio a domicilio en Cuenca"
+  <PageHero title="Exámenes de laboratorio a domicilio en Cuenca"
     lead="Tomamos tus muestras en casa para que no tengas que trasladarte. Agenda por WhatsApp y te confirmamos la cobertura en tu sector.">
     <div class="cluster mt-8">
       <a class="btn btn--whatsapp" href={waLink(WA_DOM)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar a domicilio</a>
@@ -31,7 +31,6 @@ const FAQS = [
   <section class="section section--tint" aria-labelledby="que-es">
     <div class="container grid grid--2" style="align-items:center">
       <div class="stack reveal">
-        <p class="eyebrow">Qué es</p>
         <h2 id="que-es">La toma de muestras, en la comodidad de tu hogar</h2>
         <p class="muted">Con la toma a domicilio, la muestra se recoge en tu casa y se procesa en nuestro laboratorio. Recibes los resultados por WhatsApp o correo, igual que si vinieras a Consultorios El Batán.</p>
         <p class="muted">Antes de la visita te indicamos la preparación que necesitas, por ejemplo, si debes estar en ayunas.</p>
@@ -42,7 +41,7 @@ const FAQS = [
 
   <section class="section" aria-labelledby="para-quien">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">Para quién</p><h2 id="para-quien">Pensado para quienes más lo necesitan</h2></div>
+      <div class="section-head"><h2 id="para-quien">Pensado para quienes más lo necesitan</h2></div>
       <div class="grid grid--3">
         <article class="card reveal"><span class="card__icon"><Icon name="users" /></span><h3>Adultos mayores</h3><p class="muted">Evita traslados y esperas para los controles frecuentes.</p></article>
         <article class="card reveal"><span class="card__icon"><Icon name="heart-pulse" /></span><h3>Pacientes post cirugía</h3><p class="muted">Controles de laboratorio durante la recuperación, sin salir de casa.</p></article>
@@ -53,7 +52,7 @@ const FAQS = [
 
   <section class="section section--tint" aria-labelledby="como-agendar">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">Cómo agendar</p><h2 id="como-agendar">Agenda tu toma a domicilio por WhatsApp</h2></div>
+      <div class="section-head"><h2 id="como-agendar">Agenda tu toma a domicilio por WhatsApp</h2></div>
       <ol class="steps">
         <li class="reveal"><h3>Escríbenos</h3><p class="muted">Envíanos por WhatsApp tu sector y los exámenes que necesitas (o una foto de tu orden).</p></li>
         <li class="reveal"><h3>Confirmamos</h3><p class="muted">Te confirmamos la cobertura en tu sector, el horario y la preparación.</p></li>
@@ -66,7 +65,7 @@ const FAQS = [
   <section class="section" aria-labelledby="examenes-domicilio">
     <div class="container">
       <div class="section-head section-head--row">
-        <div><p class="eyebrow">Exámenes frecuentes</p><h2 id="examenes-domicilio">Algunos exámenes frecuentes</h2><p class="muted">Confírmanos por WhatsApp si tu examen puede tomarse a domicilio.</p></div>
+        <div><h2 id="examenes-domicilio">Algunos exámenes frecuentes</h2><p class="muted">Confírmanos por WhatsApp si tu examen puede tomarse a domicilio.</p></div>
         <a class="link-arrow" href="/examenes">Ver todos los exámenes <Icon name="arrow-right" /></a>
       </div>
       <div class="grid grid--3">{COMUNES.map((p) => <ExamCard pagina={p} />)}</div>

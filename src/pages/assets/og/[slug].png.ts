@@ -21,15 +21,15 @@ async function logo() {
 }
 
 export function getStaticPaths() {
-  const estaticas = Object.values(RUTAS).map((r) => ({ params: { slug: ogSlug(r.path) }, props: { titulo: r.og, sub: 'Laboratorio clínico en Cuenca' } }));
-  const examenes = PAGINAS.map((p) => ({ params: { slug: ogSlug(`/examenes/${p.slug}`) }, props: { titulo: `${p.h1} en Cuenca`, sub: 'Precio y preparación' } }));
-  return [...estaticas, ...examenes, { params: { slug: '404' }, props: { titulo: 'Página no encontrada', sub: 'Accu-Lab' } }];
+  const estaticas = Object.values(RUTAS).map((r) => ({ params: { slug: ogSlug(r.path) }, props: { titulo: r.og } }));
+  const examenes = PAGINAS.map((p) => ({ params: { slug: ogSlug(`/examenes/${p.slug}`) }, props: { titulo: `${p.h1} en Cuenca` } }));
+  return [...estaticas, ...examenes, { params: { slug: '404' }, props: { titulo: 'Página no encontrada' } }];
 }
 
 const h = (type: string, style: Record<string, unknown>, children?: unknown) => ({ type, props: { style, children } });
 
 export const GET: APIRoute = async ({ props }) => {
-  const { titulo, sub } = props as { titulo: string; sub: string };
+  const { titulo } = props as { titulo: string };
   const size = titulo.length > 48 ? 64 : titulo.length > 30 ? 76 : 88;
   const circles = [[980, 120, 260], [980, 120, 200], [980, 120, 120], [1080, 560, 180]].map(([x, y, r], i) =>
     h('div', { position: 'absolute', left: x - r, top: y - r, width: r * 2, height: r * 2, borderRadius: r, border: `${i === 1 ? 1 : 2}px solid rgba(140,198,63,${i === 3 ? 0.18 : 0.28})` }));
@@ -42,7 +42,6 @@ export const GET: APIRoute = async ({ props }) => {
         ]),
       ]),
       h('div', { display: 'flex', flexDirection: 'column' }, [
-        h('div', { fontSize: 26, color: '#d8b986', letterSpacing: 4, textTransform: 'uppercase', marginBottom: 20 }, sub),
         h('div', { fontFamily: 'Fraunces', fontSize: size, lineHeight: 1.08, color: '#ffffff', maxWidth: 900, letterSpacing: -1 }, titulo),
       ]),
       h('div', { display: 'flex', justifyContent: 'space-between', fontSize: 24, color: '#cfe0d8' }, [

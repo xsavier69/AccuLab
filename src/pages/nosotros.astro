@@ -21,13 +21,12 @@ const CALIDAD: { titulo: string; detalle: string }[] = [];
 ---
 <Layout title={r.title} description={r.description} path={r.path}
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Nosotros', path: '/nosotros' }]}>
-  <PageHero eyebrow={`Desde ${SITE.fundacion} en Cuenca`} title="Sobre <span class='nowrap'>Accu-Lab</span>, laboratorio clínico en El Batán"
+  <PageHero title="Sobre <span class='nowrap'>Accu-Lab</span>, laboratorio clínico en El Batán"
     lead="Un laboratorio clínico de Cuenca que acompaña a pacientes, empresas y médicos con análisis de sangre, orina, heces y hormonas, y con resultados generalmente en 24 horas." />
 
   <section class="section section--tint" aria-labelledby="historia">
     <div class="container grid grid--2" style="align-items:center">
       <div class="stack reveal">
-        <p class="eyebrow">Nuestra historia</p>
         <h2 id="historia">Más de una década cuidando la salud de Cuenca</h2>
         <p class="muted">Accu-Lab atiende en Cuenca desde {SITE.fundacion}. Estamos en Consultorios El Batán, en la esquina de la Calle Ecuador y la Av. de las Américas, en los altos de la farmacia Cruz Azul.</p>
         <p class="muted">Entendemos que detrás de cada muestra hay una persona que busca respuestas. Por eso cuidamos la confidencialidad, la rapidez y el trato cercano en cada visita, y publicamos los precios de nuestros {EXAMENES.length} exámenes para que sepas cuánto cuestan antes de venir.</p>
@@ -42,7 +41,7 @@ const CALIDAD: { titulo: string; detalle: string }[] = [];
 
   <section class="section" aria-labelledby="areas">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">Experiencia</p><h2 id="areas">Nuestras áreas de trabajo</h2></div>
+      <div class="section-head"><h2 id="areas">Nuestras áreas de trabajo</h2></div>
       <ul class="areas" role="list">
         {AREAS.map(([i, t]) => <li class="reveal"><span class="card__icon"><Icon name={i} /></span><span class="serif">{t}</span></li>)}
       </ul>
@@ -65,7 +64,7 @@ const CALIDAD: { titulo: string; detalle: string }[] = [];
 
   <section class="section section--tint" aria-labelledby="filosofia">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">Filosofía</p><h2 id="filosofia">Misión y visión</h2></div>
+      <div class="section-head"><h2 id="filosofia">Misión y visión</h2></div>
       <div class="grid grid--2">
         <article class="card reveal">
           <span class="card__icon"><Icon name="target" /></span>

@@ -41,7 +41,7 @@ Se migró el sitio de 4 páginas HTML sueltas a **Astro estático con 38 página
 
 **Fase 3 · Arquitectura:** navegación Exámenes · Paquetes · Empresas · Médicos · Nosotros · Precios · Agendar por WhatsApp. Páginas nuevas: `/examenes`, 25 × `/examenes/[slug]`, `/paquetes`, `/empresas`, `/medicos`, `/domicilio`, `/preparacion` y `/preguntas-frecuentes`. Breadcrumbs visibles; el footer enlaza los 10 exámenes más buscados; anchors descriptivos.
 
-**Fase 4 · On-page:** titles y H1 con palabra clave (home, cotizar, servicios, nosotros); los eyebrows ya no son encabezados; el footer usa `<p>`; descriptions únicas; alts descriptivos y honestos; vocabulario local (biometría hemática, EMO, coproparasitario, beta HCG, preocupacionales); dirección "Av. de las Américas".
+**Fase 4 · On-page:** titles y H1 con palabra clave (home, cotizar, servicios, nosotros); se eliminaron las etiquetas pequeñas sobre los títulos (D-028); el footer usa `<p>`; descriptions únicas; alts descriptivos y honestos; vocabulario local (biometría hemática, EMO, coproparasitario, beta HCG, preocupacionales); dirección "Av. de las Américas".
 
 **Fase 5 · Catálogo:** `data/examenes.json` (97 exámenes: slug, nombre exacto, sinónimos, categoría, precio, página, preparación y relacionados) es la fuente única del cotizador, del `hasOfferCatalog`, de `/examenes`, de los paquetes y de las páginas. Hay 25 páginas de examen con la plantilla pedida: precio, entrega, preparación, WhatsApp prellenado, 5 H2, desglose de perfiles, 3 FAQ, 3 relacionados, paquete, aviso educativo, MedlinePlus y fecha de actualización.
 

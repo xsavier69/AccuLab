@@ -24,12 +24,12 @@ const DEPORTIVO: [string, string | null][] = [
 ---
 <Layout title={r.title} description={r.description} path={r.path}
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }]}>
-  <PageHero eyebrow="Servicios Accu-Lab" title="Servicios de laboratorio clínico en Cuenca"
+  <PageHero title="Servicios de laboratorio clínico en Cuenca"
     lead="Análisis clínicos para pacientes, empresas, deportistas y médicos, con resultados generalmente en 24 horas y atención profesional en Consultorios El Batán." />
 
   <section class="section section--tint" aria-labelledby="portafolio">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">Portafolio</p><h2 id="portafolio">Nuestros servicios</h2></div>
+      <div class="section-head"><h2 id="portafolio">Nuestros servicios</h2></div>
       <div class="grid grid--2">
         {HUB.map((h) => (
           <article class="card card--link reveal">
@@ -46,7 +46,6 @@ const DEPORTIVO: [string, string | null][] = [
   <section class="section" id="deportivo" aria-labelledby="h-deportivo">
     <div class="container grid grid--2" style="align-items:center">
       <div class="stack reveal">
-        <p class="eyebrow">Servicios deportivos</p>
         <h2 id="h-deportivo">Exámenes para deportistas</h2>
         <p class="muted">Evaluación de laboratorio para deportistas amateurs y profesionales. Ideal para clubes, gimnasios y alto rendimiento.</p>
         <ul class="icon-list mt-4">
@@ -64,7 +63,6 @@ const DEPORTIVO: [string, string | null][] = [
   <section class="section section--tint" id="toxicologia" aria-labelledby="h-tox">
     <div class="container grid grid--2">
       <div class="stack reveal">
-        <p class="eyebrow">Pruebas toxicológicas</p>
         <h2 id="h-tox">Toxicología</h2>
         <p class="muted">Detección de sustancias psicoactivas para control laboral, deportivo o clínico.</p>
         <p class="muted"><strong>Aplicaciones:</strong> empresas, control ocupacional, instituciones educativas y programas de rehabilitación.</p>

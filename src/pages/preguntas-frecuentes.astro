@@ -14,7 +14,7 @@ const grupos = [...new Set(FAQ.map((f) => f.grupo))];
 ---
 <Layout title={r.title} description={r.description} path={r.path} schemas={[faqSchema(FAQ)]}
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Preguntas frecuentes', path: '/preguntas-frecuentes' }]}>
-  <PageHero eyebrow="Ayuda" title="Preguntas frecuentes" lead="Todo lo que necesitas saber antes de venir a Accu-Lab: horarios, citas, resultados, ubicación y toma a domicilio." />
+  <PageHero title="Preguntas frecuentes" lead="Todo lo que necesitas saber antes de venir a Accu-Lab: horarios, citas, resultados, ubicación y toma a domicilio." />
 
   <section class="section section--tint" style="padding-top:var(--s-12)">
     <div class="container container--narrow">

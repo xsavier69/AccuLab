@@ -21,8 +21,8 @@ const cats = CATEGORIAS.map((c) => {
 ---
 <Layout title={r.title} description={r.description} path={r.path} catalogo
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Exámenes', path: '/examenes' }]}>
-  <PageHero eyebrow={`${EXAMENES.length} exámenes con precio`} title="Exámenes de laboratorio en Cuenca"
-    lead="Busca tu examen por nombre o sinónimo, conoce qué mide, cómo prepararte y su precio en Accu-Lab. Resultados generalmente en 24 horas.">
+  <PageHero title="Exámenes de laboratorio en Cuenca"
+    lead="Busca tu examen por nombre o sinónimo, conoce qué mide, cómo prepararte y su precio en Accu-Lab. La mayoría de resultados está lista en 24 horas.">
     <div class="search" role="search">
       <label for="buscar-examen" class="sr-only">Buscar examen</label>
       <Icon name="search" size={20} />
@@ -42,7 +42,7 @@ const cats = CATEGORIAS.map((c) => {
           <h2 id={`h-${c.slug}`}>{c.nombre}</h2>
           <p class="muted">Desde <strong>{precio(c.desde)}</strong></p>
         </div>
-        {c.paginas.length > 0 && <div class="grid grid--3">{c.paginas.map((p) => <ExamCard pagina={p} showCat={false} />)}</div>}
+        {c.paginas.length > 0 && <div class="grid grid--3">{c.paginas.map((p) => <ExamCard pagina={p} />)}</div>}
         {c.otros.length > 0 && (
           <div class={c.paginas.length > 0 ? 'mt-12' : ''}>
             {c.paginas.length > 0 && <h3 class="otros-title">Otros exámenes de {c.nombre.toLowerCase()}</h3>}

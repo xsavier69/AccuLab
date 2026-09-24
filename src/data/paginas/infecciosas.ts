@@ -153,7 +153,7 @@ export const INFECCIOSAS: PaginaExamen[] = [
       'El VDRL es una de las pruebas más usadas para el tamizaje de la sífilis, una infección de transmisión sexual que tiene tratamiento. Se realiza con una muestra de sangre.',
     queEs: [
       'La sífilis la causa una bacteria llamada Treponema pallidum. El VDRL no busca la bacteria directamente, sino anticuerpos que el cuerpo produce durante la infección. Por eso se considera una prueba "no treponémica".',
-      'Algunas condiciones distintas de la sífilis pueden dar un VDRL reactivo, y en etapas muy tempranas puede salir negativo. Por eso un resultado reactivo se confirma con otras pruebas, y el médico también puede usar el VDRL para seguir la respuesta al tratamiento.',
+      'Algunas condiciones distintas de la sífilis pueden dar un VDRL reactivo, y en etapas muy tempranas puede salir negativo. Por eso un resultado reactivo se confirma con otras pruebas, y el médico también puede usar el VDRL para seguir la respuesta al tratamiento a lo largo de varios meses.',
     ],
     cuando: {
       intro: 'Es frecuente solicitarlo en:',

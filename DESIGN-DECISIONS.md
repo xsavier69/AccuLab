@@ -170,3 +170,8 @@ Si existe `PUBLIC_GA4_ID` (variable de entorno de Vercel), gtag se carga tras la
 
 **Por qué:** una suma visible junto a un paquete se lee como su precio. Un plazo de 24 h en un examen que puede tardar 72 h genera reclamos. En los tres casos, un visitante podía confundirse.
 **Descartado:** mostrar la suma con una advertencia (sigue pareciendo un precio) y quitar los paquetes del sitio (son contenido publicado y sirven para el SEO).
+
+## D-028 · Sin etiquetas pequeñas sobre los títulos
+**Qué:** se eliminaron todas las etiquetas en versalitas que iban sobre los títulos ("97 exámenes con precio", "Precios publicados", "Proceso simple", la categoría en las tarjetas de examen y la línea dorada de las imágenes OG). También se retiraron sus estilos (`.eyebrow`, `.exam-card__cat`).
+**Por qué:** pedido del cliente: ese recurso se percibe como un sello de sitios generados con IA. La jerarquía la sostienen el título en serif y el espaciado.
+**Descartado:** conservarlas solo en algunas secciones (se pidió quitarlas de todas las páginas).

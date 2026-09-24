@@ -150,7 +150,7 @@ export const ESPECIALES: PaginaExamen[] = [
       'El perfil TORCH agrupa pruebas de anticuerpos contra infecciones que conviene conocer antes o durante el embarazo: toxoplasma, rubéola, citomegalovirus y herpes simple.',
     queEs: [
       'TORCH es una sigla que agrupa infecciones que pueden transmitirse de la madre al bebé durante el embarazo. En Accu-Lab cada componente mide anticuerpos IgG e IgM: la IgG suele indicar contacto previo o inmunidad, y la IgM puede sugerir una infección más reciente.',
-      'El resultado no se interpreta aislado: una IgM positiva, por ejemplo, a veces requiere pruebas adicionales para confirmar su significado. Tu ginecólogo o médico tratante es quien lo valora.',
+      'El resultado no se interpreta aislado: una IgM positiva, por ejemplo, a veces requiere pruebas adicionales para confirmar su significado. Tu ginecólogo o médico tratante es quien lo valora y decide si hace falta repetir alguna prueba más adelante.',
     ],
     cuando: {
       intro: 'Es habitual solicitarlo en:',

@@ -114,12 +114,6 @@ p { text-wrap: pretty; }
 .lead { font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); }
 .muted { color: var(--ink-2); }
 .small { font-size: var(--fs-sm); }
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent-ink);
-}
-.eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
 .prose > * + * { margin-top: 1em; }
 .prose h2 { margin-top: 2.2em; font-size: clamp(var(--fs-lg), 3vw, var(--fs-xl)); }
 .prose h3 { margin-top: 1.6em; }
@@ -138,9 +132,7 @@ p { text-wrap: pretty; }
 .section--ink { background: var(--ink); color: #e9eeef; }
 .section--ink h2, .section--ink h3 { color: #fff; }
 .section--ink .muted, .section--ink .lead { color: #bfcccf; }
-.section--ink .eyebrow { color: #d8b986; }
-.section--ink .eyebrow::before { background: #d8b986; }
-.section-head { max-width: 680px; margin-bottom: var(--s-12); }
+.section--ink .section--ink .section-head { max-width: 680px; margin-bottom: var(--s-12); }
 .section-head > * + * { margin-top: var(--s-4); }
 .section-head--center { margin-inline: auto; text-align: center; }
 .section-head--row { max-width: none; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s-6); }
@@ -247,7 +239,6 @@ p { text-wrap: pretty; }
 
 /* Tarjeta de examen */
 .exam-card { gap: var(--s-2); }
-.exam-card__cat { font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
 .exam-card h3 { font-size: var(--fs-md); margin: 0; }
 .exam-card h3 a { text-decoration: none; }
 .exam-card__syn { font-size: var(--fs-sm); color: var(--ink-3); }

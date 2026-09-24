@@ -64,7 +64,7 @@ export const HORMONAS: PaginaExamen[] = [
       'La testosterona es la principal hormona sexual masculina, aunque también está presente, en menor cantidad, en las mujeres. Su medición se pide tanto en la consulta de hombres como en la de mujeres.',
     queEs: [
       'En los hombres, la testosterona se produce principalmente en los testículos e influye en la libido, la masa muscular, la energía y la producción de espermatozoides. En las mujeres la producen los ovarios y las glándulas suprarrenales.',
-      'Su nivel cambia a lo largo del día: suele ser más alto en la mañana. Por eso el horario de la toma importa, y a veces el médico pide repetir la medición para confirmar un resultado.',
+      'Su nivel cambia a lo largo del día: suele ser más alto en la mañana. Por eso el horario de la toma importa, y a veces el médico pide repetir la medición otro día para confirmar un resultado antes de tomar decisiones.',
     ],
     cuando: {
       intro: 'Suele solicitarse en situaciones como:',

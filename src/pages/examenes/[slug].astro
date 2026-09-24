@@ -39,7 +39,6 @@ const schema = medicalWebPageSchema({
   <section class="exam-hero">
     <Pattern variant="petri" />
     <div class="container">
-      <p class="eyebrow">{nombreCategoria(p.categoria)}</p>
       <h1>{p.h1} en Cuenca</h1>
       <p class="lead">{p.intro}</p>
       <p class="small muted">También conocido como: {p.sinonimos.join(', ')}.</p>
@@ -111,7 +110,7 @@ const schema = medicalWebPageSchema({
   <section class="section section--tint" aria-labelledby="relacionados">
     <div class="container">
       <div class="section-head section-head--row">
-        <div><p class="eyebrow">Sigue explorando</p><h2 id="relacionados">Exámenes relacionados</h2></div>
+        <div><h2 id="relacionados">Exámenes relacionados</h2></div>
         <a class="link-arrow" href="/examenes">Ver todos los exámenes <Icon name="arrow-right" /></a>
       </div>
       <div class="grid grid--3">{relacionados.map((r) => <ExamCard pagina={r} />)}</div>
