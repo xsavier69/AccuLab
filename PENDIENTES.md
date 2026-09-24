@@ -26,11 +26,11 @@ Datos que el sitio necesita y que **no se inventaron**. Cada punto indica qué s
 | **Equipo** (nombres, cargos, registro profesional) | Bloque oculto en /nosotros (`EQUIPO = []`) | `src/pages/nosotros.astro` |
 | **Calidad** (permisos ACESS, certificaciones, controles de calidad) | Bloque oculto en /nosotros (`CALIDAD = []`) | `src/pages/nosotros.astro` |
 | **Responsable técnico / revisor del contenido médico** | Campo `revisadoPor: null` en cada examen; `reviewedBy` no se publica | `src/data/paginas/*.ts` → `revisadoPor: { nombre, cargo }` |
-| **Precio especial de cada paquete** | "Consulta el precio especial del paquete por WhatsApp" + valor de los exámenes por separado | `src/data/paquetes.ts` (agregar un campo de precio y mostrarlo en `PackageCard.astro`) |
-| **Exámenes de paquetes que no están en el cotizador:** vitamina B12, vitamina D, ureaplasma, mycoplasma, HOMA, VSG | "precio a consultar" (chip punteado) | Si el laboratorio los realiza con precio fijo, agregarlos a `data/examenes.json`, actualizar `audit/before/precios-baseline.json` y enlazarlos en `src/data/paquetes.ts` |
+| **Precio de cada paquete** | **Oculto.** Solo se muestra "Precio del paquete: consúltalo por WhatsApp". No se publica ninguna suma, ni en /paquetes, ni en las páginas de examen, ni en el cotizador (`?paquete=` envía la lista sin precios ni total) | `src/data/paquetes.ts` (agregar un campo de precio y mostrarlo en `PackageCard.astro`) |
+| **Exámenes de paquetes que no están en el cotizador:** vitamina B12, vitamina D, ureaplasma, mycoplasma, HOMA, VSG | Se muestran solo como nombre (chip sin precio ni enlace) | Si el laboratorio los realiza con precio fijo, agregarlos a `data/examenes.json`, actualizar `audit/before/precios-baseline.json` y enlazarlos en `src/data/paquetes.ts` |
 | **Composición exacta de los perfiles de los paquetes** ("Función hepática/renal", "Perfil lipídico", "Electrolitos") | Se usó la composición de las páginas de perfil (hepático: TGO, TGP, bilirrubinas, FA, GGT; renal: urea, creatinina, ácido úrico; lipídico: colesterol, HDL, LDL, TG; electrolitos: Na, K, Cl). "PSA" del paquete masculino = PSA total. "Helicobacter pylori" del panel digestivo = heces (mismo precio que en sangre) | `src/data/paquetes.ts` |
-| **Panel toxicológico:** qué 6 sustancias incluye | El texto dice "6 determinaciones" y lista las 7 sustancias publicadas en servicios con "te confirmamos la combinación exacta" | `src/data/paginas/especiales.ts` |
-| **Domicilio:** zonas de cobertura, costo, horario | "Consúltanos por WhatsApp la cobertura en tu sector" | `src/pages/domicilio.astro` |
+| **Panel toxicológico:** qué 6 sustancias incluye | **Oculto** en la página del examen: solo dice "6 determinaciones; te confirmamos cuáles". En /servicios y /empresas se mantiene la lista original publicada en el sitio anterior | `src/data/paginas/especiales.ts` |
+| **Domicilio:** zonas de cobertura, costo, horario | "Consúltanos por WhatsApp la cobertura en tu sector". Se retiró la pregunta sobre el costo | `src/pages/domicilio.astro` |
 | **Formas de pago y seguros** | Omitido (sin datos) | Agregar a `src/data/faq.ts` cuando estén confirmados |
 | **Correo corporativo** | Se mantiene `lilianauo@outlook.com` | `src/lib/site.ts` → `email` |
 | **Dirección en Google Business Profile** | En el sitio y el JSON-LD: "Calle Ecuador y Av. de las Américas, esquina" (confirmado por el cliente el 24/09/2026) | Verificar que la ficha de Google diga exactamente lo mismo (TAREAS-MANUALES.md) |
@@ -42,11 +42,11 @@ Datos que el sitio necesita y que **no se inventaron**. Cada punto indica qué s
 
 Texto general y prudente; conviene que lo revise un profesional del laboratorio:
 
-1. **"¿Necesito orden médica?"** → respuesta publicada: "Puedes realizarte exámenes con o sin orden; tu médico te indicará cuáles necesitas". Está marcada `validar: true` en `src/data/faq.ts`. **Validar.**
-2. **Tiempo de entrega:** todas las páginas de examen dicen "Generalmente en 24 h". Validar sobre todo TORCH, hormonas, PSA, panel toxicológico y cultivos. El sitio anterior decía que "algunos análisis especializados pueden tomar 48-72 horas". Campo `entrega` en `src/data/paginas/*.ts`.
+1. **"¿Necesito orden médica?"** → **Oculta.** La respuesta preparada ("Puedes realizarte exámenes con o sin orden; tu médico te indicará cuáles necesitas") está en `src/data/faq.ts` con `validar: true` y no se publica. Para mostrarla, quitar `validar: true`.
+2. **Tiempo de entrega por examen:** "Generalmente en 24 h" solo aparece en los exámenes básicos (biometría, glucosa, perfiles lipídico, renal y hepático, EMO, coproparasitario, grupo sanguíneo, tiempos de coagulación, VDRL). En los 15 especializados (HbA1c, tiroides, embarazo, PSA, VIH, hepatitis, H. pylori, dengue, ferritina, toxicológico, TORCH, hormonas femeninas, testosterona, insulina y cortisol) dice **"Te lo confirmamos al agendar"**, porque el sitio anterior indicaba que algunos tardan de 48 a 72 horas. Cuando se confirme cada plazo, cambiar `entrega` en `src/data/paginas/*.ts` (y la meta description si se quiere mencionar).
 3. **Ayuno de 8 a 12 horas** para glucosa, perfil lipídico, perfiles renal y hepático, insulina y hierro.
 4. **Preparaciones específicas:** PSA (evitar eyaculación y ciclismo 48 h), testosterona (antes de las 10:00), prolactina (en la mañana y en reposo), H. pylori en heces (antiácidos y antibióticos), cortisol (hora de la toma), EMO (chorro medio, entrega dentro de la primera hora).
 5. **Prueba de embarazo:** diferencia entre "BHCG Cuantitativa" ($15) y "Pruebas de Embarazo" ($7). El cliente confirmó que ambas están bien; el texto no afirma el tipo de muestra ni la técnica de la de $7.
 6. **"Apoyo en interpretación de pruebas"** (beneficio del convenio médico, texto del sitio anterior): confirmar su alcance.
-7. **Paquete "Hormonal Masculino" → PSA:** confirmar si es PSA total o total + libre.
+7. **Paquete "Hormonal Masculino" → PSA:** confirmar si es PSA total o total + libre (hoy `?paquete=` preselecciona el PSA total como sugerencia, sin precio).
 8. **Signos de alarma del dengue** (página /examenes/dengue): texto de salud pública; validar la redacción.

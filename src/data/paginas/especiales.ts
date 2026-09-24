@@ -1,4 +1,4 @@
-import { type PaginaExamen, ENTREGA_24H, ACTUALIZADO } from './tipos';
+import { type PaginaExamen, ENTREGA_24H, ENTREGA_A_CONFIRMAR, ACTUALIZADO } from './tipos';
 
 export const ESPECIALES: PaginaExamen[] = [
   {
@@ -6,7 +6,7 @@ export const ESPECIALES: PaginaExamen[] = [
     nombre: 'Dengue IgM',
     h1: 'Prueba de dengue',
     tituloSeo: 'Prueba de Dengue',
-    descripcion: 'Prueba de dengue (IgM) en Cuenca por $12.00. Sin ayuno y sin cita, con resultados generalmente en 24 h. Si tienes signos de alarma, acude a emergencias.',
+    descripcion: 'Prueba de dengue (IgM) en Cuenca por $12.00. Sin ayuno y sin cita, en Consultorios El Batán. Si tienes signos de alarma, acude de inmediato a emergencias.',
     categoria: 'infecciosas',
     sinonimos: ['dengue IgM', 'anticuerpos contra dengue', 'examen de dengue'],
     componentes: ['dengue-igm'],
@@ -14,7 +14,7 @@ export const ESPECIALES: PaginaExamen[] = [
     complementos: ['hemograma'],
     muestra: 'Sangre venosa',
     resumenPrep: 'No requiere ayuno',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'El dengue es una infección viral transmitida por mosquitos, frecuente en las zonas cálidas de Ecuador. Si viajaste a la Costa o al Oriente y tienes fiebre, tu médico puede pedir esta prueba.',
     queEs: [
@@ -50,7 +50,7 @@ export const ESPECIALES: PaginaExamen[] = [
     nombre: 'Ferritina y hierro',
     h1: 'Ferritina y hierro',
     tituloSeo: 'Ferritina y Hierro',
-    descripcion: 'Ferritina ($10.00) y hierro ($5.00) en Cuenca; también transferrina y saturación. Te indicamos el ayuno. Resultados en 24 h. Agenda por WhatsApp.',
+    descripcion: 'Ferritina ($10.00) y hierro ($5.00) en Cuenca; también transferrina y saturación. Te indicamos el ayuno. Sin cita, en El Batán. Agenda por WhatsApp.',
     categoria: 'quimica',
     sinonimos: ['hierro sérico', 'ferritina sérica', 'reservas de hierro', 'perfil de hierro'],
     componentes: ['ferritina', 'hierro'],
@@ -58,7 +58,7 @@ export const ESPECIALES: PaginaExamen[] = [
     complementos: ['transferrina', 'saturacion', 'hemograma'],
     muestra: 'Sangre venosa',
     resumenPrep: 'Ayuno de 8 a 12 h, de preferencia en la mañana',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'La ferritina y el hierro son los exámenes más usados para estudiar el hierro del cuerpo. Se piden sobre todo cuando se sospecha una anemia o cuando hay cansancio persistente.',
     queEs: [
@@ -95,18 +95,18 @@ export const ESPECIALES: PaginaExamen[] = [
     nombre: 'Panel toxicológico (6 determinaciones)',
     h1: 'Panel toxicológico',
     tituloSeo: 'Panel Toxicológico',
-    descripcion: 'Panel toxicológico de 6 determinaciones en Cuenca por $30.00: prueba de drogas en orina para empresas y personas. Resultados en 24 h. Escríbenos.',
+    descripcion: 'Panel toxicológico de 6 determinaciones en Cuenca por $30.00: prueba de drogas en orina para empresas y personas. Sin cita, en El Batán. Escríbenos.',
     categoria: 'toxicologia',
     sinonimos: ['prueba de drogas', 'examen toxicológico', 'antidoping', 'drogas en orina'],
     componentes: ['panel-toxicologico-6-determinaciones'],
     modoPrecio: 'unico',
     muestra: 'Orina',
     resumenPrep: 'Muestra de orina; informa tus medicamentos',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'El panel toxicológico es una prueba de detección de sustancias psicoactivas en orina. Lo solicitan empresas, instituciones y programas de salud, y también personas que necesitan un certificado.',
     queEs: [
-      'Nuestro panel incluye 6 determinaciones. En nuestra página de servicios se detallan las sustancias que pueden detectarse: cocaína, marihuana (THC), anfetaminas, metanfetaminas, opiáceos, benzodiacepinas y barbitúricos. Te confirmamos cuáles incluye tu panel según tu requerimiento.',
+      'Nuestro panel incluye 6 determinaciones, es decir, busca seis sustancias o grupos de sustancias en una misma muestra de orina. Si tu empresa o tu trámite exige sustancias específicas, escríbenos antes de venir y te confirmamos qué incluye el panel.',
       'Es una prueba de tamizaje: un resultado positivo puede requerir confirmación con otra técnica, y algunos medicamentos pueden interferir en la lectura. Por eso es importante informar lo que tomas.', 'Cada sustancia tiene un periodo distinto en el que puede detectarse en la orina después del consumo, que depende de la cantidad, la frecuencia y de cada persona. Por eso un resultado negativo indica que no se detectó la sustancia en esa muestra, en ese momento.',
     ],
     cuando: {
@@ -124,7 +124,7 @@ export const ESPECIALES: PaginaExamen[] = [
       'Trae tu documento de identidad si el examen es para una empresa o un trámite.',
     ],
     faqs: [
-      { p: '¿Qué sustancias detecta?', r: 'Nuestro panel incluye 6 determinaciones entre las sustancias que publicamos en servicios. Te confirmamos la combinación exacta por WhatsApp.' },
+      { p: '¿Qué sustancias detecta?', r: 'El panel incluye 6 determinaciones. Te confirmamos por WhatsApp cuáles son antes de tu examen, para que verifiques que cumplen lo que te solicitan.' },
       { p: '¿Hacen paneles para empresas?', r: 'Sí. Atendemos exámenes preocupacionales y controles laborales. Escríbenos para coordinar grupos de trabajadores.' },
       { p: '¿Los medicamentos alteran el resultado?', r: 'Algunos pueden hacerlo. Por eso te pedimos informar lo que tomas antes de la muestra.' },
     ],
@@ -138,14 +138,14 @@ export const ESPECIALES: PaginaExamen[] = [
     nombre: 'Perfil TORCH (toxoplasma, rubéola, citomegalovirus y herpes)',
     h1: 'Perfil TORCH',
     tituloSeo: 'Perfil TORCH',
-    descripcion: 'Perfil TORCH en Cuenca: toxoplasma, rubéola, citomegalovirus y herpes 1 y 2 (IgG e IgM), $20.00 cada uno. Resultados en 24 h. Agenda en Accu-Lab.',
+    descripcion: 'Perfil TORCH en Cuenca: toxoplasma, rubéola, citomegalovirus y herpes 1 y 2 (IgG e IgM), $20.00 cada uno. Sin ayuno y sin cita. Agenda en Accu-Lab.',
     categoria: 'infecciosas',
     sinonimos: ['TORCH', 'toxoplasmosis', 'rubéola', 'citomegalovirus', 'herpes'],
     componentes: ['toxoplasma-igg-igm', 'rubeola-igg-igm', 'citomegalovirus-igg-igm', 'herpes-virus-1-igg-igm', 'herpes-virus-2-igg-igm'],
     modoPrecio: 'suma',
     muestra: 'Sangre venosa',
     resumenPrep: 'No requiere ayuno',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'El perfil TORCH agrupa pruebas de anticuerpos contra infecciones que conviene conocer antes o durante el embarazo: toxoplasma, rubéola, citomegalovirus y herpes simple.',
     queEs: [

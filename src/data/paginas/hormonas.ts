@@ -1,4 +1,4 @@
-import { type PaginaExamen, ENTREGA_24H, ACTUALIZADO } from './tipos';
+import { type PaginaExamen, ENTREGA_24H, ENTREGA_A_CONFIRMAR, ACTUALIZADO } from './tipos';
 
 export const HORMONAS: PaginaExamen[] = [
   {
@@ -14,7 +14,7 @@ export const HORMONAS: PaginaExamen[] = [
     complementos: ['tsh', 'bhcg-cuantitativa'],
     muestra: 'Sangre venosa',
     resumenPrep: 'Día del ciclo según tu médico',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'Las hormonas femeninas regulan el ciclo menstrual, la ovulación y la fertilidad. En Accu-Lab puedes realizarte FSH, LH, estradiol, progesterona y prolactina, juntas o por separado.',
     queEs: [
@@ -51,7 +51,7 @@ export const HORMONAS: PaginaExamen[] = [
     nombre: 'Testosterona',
     h1: 'Examen de testosterona',
     tituloSeo: 'Examen de Testosterona',
-    descripcion: 'Examen de testosterona en Cuenca por $12.00, para hombres y mujeres. Se recomienda la toma en la mañana. Resultados en 24 h. Agenda por WhatsApp.',
+    descripcion: 'Examen de testosterona en Cuenca por $12.00, para hombres y mujeres. Se recomienda la toma en la mañana. Sin cita, en El Batán. Agenda por WhatsApp.',
     categoria: 'hormonas',
     sinonimos: ['testosterona total', 'hormona masculina', 'andrógenos'],
     componentes: ['testosterona'],
@@ -59,7 +59,7 @@ export const HORMONAS: PaginaExamen[] = [
     complementos: ['prolactina', 'psa-total'],
     muestra: 'Sangre venosa',
     resumenPrep: 'Toma en la mañana',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'La testosterona es la principal hormona sexual masculina, aunque también está presente, en menor cantidad, en las mujeres. Su medición se pide tanto en la consulta de hombres como en la de mujeres.',
     queEs: [
@@ -94,7 +94,7 @@ export const HORMONAS: PaginaExamen[] = [
     nombre: 'Insulina en sangre',
     h1: 'Examen de insulina',
     tituloSeo: 'Examen de Insulina',
-    descripcion: 'Examen de insulina en sangre en Cuenca por $12.00, con ayuno de 8 a 12 horas. Suele pedirse junto con la glucosa. Resultados en 24 h. Agenda en Accu-Lab.',
+    descripcion: 'Examen de insulina en sangre en Cuenca por $12.00, con ayuno de 8 a 12 horas. Suele pedirse junto con la glucosa. Sin cita, en El Batán. Escríbenos.',
     categoria: 'hormonas',
     sinonimos: ['insulina basal', 'insulina en ayunas', 'resistencia a la insulina'],
     componentes: ['insulina'],
@@ -102,7 +102,7 @@ export const HORMONAS: PaginaExamen[] = [
     complementos: ['glucosa'],
     muestra: 'Sangre venosa',
     resumenPrep: 'Ayuno de 8 a 12 horas (agua sí)',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'El examen de insulina mide la cantidad de esta hormona en la sangre. Se pide casi siempre junto con la glucosa, para entender mejor cómo el cuerpo maneja el azúcar.',
     queEs: [
@@ -138,7 +138,7 @@ export const HORMONAS: PaginaExamen[] = [
     nombre: 'Cortisol',
     h1: 'Examen de cortisol',
     tituloSeo: 'Examen de Cortisol',
-    descripcion: 'Examen de cortisol en sangre en Cuenca por $12.00. La hora de la toma es importante: te ayudamos a coordinarla. Resultados en 24 h. Agenda en Accu-Lab.',
+    descripcion: 'Examen de cortisol en sangre en Cuenca por $12.00. La hora de la toma es importante: te ayudamos a coordinarla. Sin cita, en El Batán. Agenda en Accu-Lab.',
     categoria: 'hormonas',
     sinonimos: ['cortisol sérico', 'cortisol en sangre', 'hormona del estrés'],
     componentes: ['cortisol'],
@@ -146,7 +146,7 @@ export const HORMONAS: PaginaExamen[] = [
     complementos: ['acth'],
     muestra: 'Sangre venosa',
     resumenPrep: 'Hora de toma según tu médico',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'El cortisol es una hormona producida por las glándulas suprarrenales. Su medición en sangre ayuda al médico a evaluar el funcionamiento de esas glándulas.',
     queEs: [

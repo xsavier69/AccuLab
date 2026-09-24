@@ -1,4 +1,4 @@
-import { type PaginaExamen, ENTREGA_24H, ACTUALIZADO } from './tipos';
+import { type PaginaExamen, ENTREGA_24H, ENTREGA_A_CONFIRMAR, ACTUALIZADO } from './tipos';
 
 export const INFECCIOSAS: PaginaExamen[] = [
   {
@@ -6,7 +6,7 @@ export const INFECCIOSAS: PaginaExamen[] = [
     nombre: 'PSA – antígeno prostático específico (total y libre)',
     h1: 'PSA (antígeno prostático)',
     tituloSeo: 'Examen de PSA',
-    descripcion: 'Examen de PSA en Cuenca: PSA total por $15.00 y PSA libre por $15.00. Te indicamos la preparación. Resultados en 24 h. Agenda por WhatsApp en Accu-Lab.',
+    descripcion: 'Examen de PSA en Cuenca: PSA total por $15.00 y PSA libre por $15.00. Te indicamos la preparación. Sin cita, en El Batán. Agenda por WhatsApp en Accu-Lab.',
     categoria: 'inmunologia',
     sinonimos: ['antígeno prostático específico', 'PSA total', 'PSA libre', 'examen de próstata'],
     componentes: ['psa-total', 'psa-libre'],
@@ -14,7 +14,7 @@ export const INFECCIOSAS: PaginaExamen[] = [
     complementos: ['f-acida-prostatica'],
     muestra: 'Sangre venosa',
     resumenPrep: 'Evitar eyaculación y ciclismo 48 h antes',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'El PSA, o antígeno prostático específico, es un examen de sangre que se usa en el control de la salud de la próstata. Puede pedirse el PSA total, el PSA libre o ambos.',
     queEs: [
@@ -59,7 +59,7 @@ export const INFECCIOSAS: PaginaExamen[] = [
     complementos: ['vdrl', 'hepatitis-b-ag', 'hepatitis-c'],
     muestra: 'Sangre venosa',
     resumenPrep: 'No requiere ayuno',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'La prueba de VIH es un examen de sangre que busca señales de infección por el virus de la inmunodeficiencia humana. Hacerla es un acto de cuidado personal, y la atendemos con discreción.',
     queEs: [
@@ -95,7 +95,7 @@ export const INFECCIOSAS: PaginaExamen[] = [
     nombre: 'Pruebas de hepatitis B y C',
     h1: 'Pruebas de hepatitis B y C',
     tituloSeo: 'Hepatitis B y C',
-    descripcion: 'Pruebas de hepatitis B y C en Cuenca: $10.00 cada una, $20.00 juntas. También hepatitis A. Resultados en 24 h. Agenda por WhatsApp en Accu-Lab, El Batán.',
+    descripcion: 'Pruebas de hepatitis B y C en Cuenca: $10.00 cada una, $20.00 juntas. También hepatitis A. Sin ayuno y sin cita. Agenda por WhatsApp en Accu-Lab, El Batán.',
     categoria: 'infecciosas',
     sinonimos: ['hepatitis B', 'hepatitis C', 'antígeno de superficie', 'HBsAg', 'anti-HCV'],
     componentes: ['hepatitis-b-ag', 'hepatitis-c'],
@@ -103,7 +103,7 @@ export const INFECCIOSAS: PaginaExamen[] = [
     complementos: ['hepatitis-a-igg-igm'],
     muestra: 'Sangre venosa',
     resumenPrep: 'No requiere ayuno',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'Las hepatitis B y C son infecciones virales que afectan al hígado y que pueden pasar desapercibidas durante años. Con una muestra de sangre puedes hacerte ambas pruebas.',
     queEs: [
@@ -184,14 +184,14 @@ export const INFECCIOSAS: PaginaExamen[] = [
     nombre: 'Helicobacter pylori (en sangre y en heces)',
     h1: 'Prueba de Helicobacter pylori',
     tituloSeo: 'Helicobacter Pylori',
-    descripcion: 'Prueba de Helicobacter pylori en Cuenca, en sangre o en heces, por $10.00 cada una. Te indicamos la preparación. Resultados en 24 h. Agenda en Accu-Lab.',
+    descripcion: 'Prueba de Helicobacter pylori en Cuenca, en sangre o en heces, por $10.00 cada una. Te indicamos la preparación. Sin cita, en El Batán. Agenda en Accu-Lab.',
     categoria: 'infecciosas',
     sinonimos: ['H. pylori', 'helicobacter', 'bacteria del estómago'],
     componentes: ['helicobacter-pylori', 'helicobacter-pylori-heces'],
     modoPrecio: 'opciones',
     muestra: 'Sangre o heces',
     resumenPrep: 'Heces: consulta antes si tomas antibióticos o antiácidos',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'Helicobacter pylori es una bacteria que puede vivir en el estómago y se relaciona con gastritis y úlceras. En Accu-Lab puedes hacerte la prueba en sangre o en heces.',
     queEs: [

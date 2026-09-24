@@ -1,4 +1,4 @@
-import { type PaginaExamen, ENTREGA_24H, ACTUALIZADO } from './tipos';
+import { type PaginaExamen, ENTREGA_24H, ENTREGA_A_CONFIRMAR, ACTUALIZADO } from './tipos';
 
 export const ORGANOS: PaginaExamen[] = [
   {
@@ -13,7 +13,7 @@ export const ORGANOS: PaginaExamen[] = [
     modoPrecio: 'opciones',
     muestra: 'Sangre venosa',
     resumenPrep: 'No requiere ayuno',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'La prueba de embarazo en sangre busca la hormona gonadotropina coriónica humana (HCG), que el cuerpo produce durante el embarazo. En Accu-Lab tienes dos opciones con precio publicado: la beta HCG cuantitativa y la prueba de embarazo.',
     queEs: [

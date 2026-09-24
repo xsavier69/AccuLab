@@ -263,8 +263,8 @@ p { text-wrap: pretty; }
 .pkg-card__top { display: flex; align-items: start; justify-content: space-between; gap: var(--s-4); }
 .pkg-card h3 { font-size: var(--fs-lg); margin: 0; }
 .pkg-card__for { color: var(--ink-2); font-size: var(--fs-sm); }
-.pkg-card__value { background: var(--surface-2); border-radius: var(--r); padding: var(--s-4); font-size: var(--fs-sm); }
-.pkg-card__value strong { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-lg); display: block; line-height: 1.1; margin-top: 2px; }
+.pkg-card__value { background: var(--surface-2); border-radius: var(--r); padding: var(--s-3) var(--s-4); font-size: var(--fs-sm); color: var(--ink-2); }
+.pkg-card__value strong { color: var(--ink); font-weight: 600; }
 
 /* Chips */
 .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }

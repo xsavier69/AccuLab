@@ -68,6 +68,7 @@ const datos = {
           <ul class="cot-sel" role="list" aria-live="polite"></ul>
           <p class="cot-empty small muted">Aún no has seleccionado exámenes.</p>
           <div class="cot-totalrow"><span>Total referencial</span><strong class="cot-total">$0.00</strong></div>
+          <p class="cot-pq-precio small" hidden><strong>Precio del paquete:</strong> te lo confirmamos por WhatsApp.</p>
           <button type="button" class="btn btn--secondary btn--sm btn--block cot-clear" hidden>Vaciar selección</button>
         </div>
         <a class="btn btn--whatsapp btn--block cot-send" href={waLink('Hola, quiero cotizar exámenes en Accu-Lab.')} target="_blank" rel="noopener" aria-disabled="true">
@@ -173,10 +174,13 @@ const datos = {
   function seleccion() { return boxes.filter((b) => b.checked).map((b) => ({ slug: b.value, nombre: b.dataset.nombre!, precio: Number(b.dataset.precio) })); }
 
   function mensaje(lista: ReturnType<typeof seleccion>, total: number) {
+    // Paquete: sin precios ni total (el precio del paquete aún no está publicado; evita confundir la suma con el precio).
+    if (paquete) {
+      const nombres = [...lista.map((e) => e.nombre), ...paquete.consultar];
+      return `Hola, quiero cotizar el paquete ${paquete.nombre} en Accu-Lab.\nExámenes:\n${nombres.map((n) => `- ${n}`).join('\n')}\n\n¿Me confirman el precio del paquete y la disponibilidad?`;
+    }
     let m = 'Hola, quiero cotizar estos exámenes en Accu-Lab:\n';
-    if (paquete) m += `Paquete: ${paquete.nombre}\n`;
     m += lista.map((e) => `- ${e.nombre} (${money(e.precio)})`).join('\n');
-    if (paquete && paquete.consultar.length) m += `\n- A consultar: ${paquete.consultar.join(', ')}`;
     m += `\n\nTotal: ${money(total)}\n(Precios referenciales, sujetos a confirmación.)\n¿Me confirman el valor y la disponibilidad?`;
     return m;
   }
@@ -188,19 +192,21 @@ const datos = {
       const li = document.createElement('li');
       const name = document.createElement('span'); name.textContent = e.nombre;
       const right = document.createElement('span'); right.style.display = 'flex'; right.style.alignItems = 'center'; right.style.gap = '4px';
-      const pr = document.createElement('span'); pr.textContent = money(e.precio);
+      const pr = document.createElement('span'); pr.textContent = paquete ? '' : money(e.precio);
       const x = document.createElement('button'); x.type = 'button'; x.setAttribute('aria-label', `Quitar ${e.nombre}`);
       x.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
       x.addEventListener('click', () => { const b = boxes.find((b) => b.value === e.slug); if (b) { b.checked = false; actualizar(); } });
       right.append(pr, x); li.append(name, right); return li;
     }));
     const n = lista.length;
-    document.querySelectorAll('.cot-total, .cot-total-inline').forEach((el) => (el.textContent = money(total)));
+    document.querySelectorAll('.cot-total, .cot-total-inline').forEach((el) => (el.textContent = paquete ? 'Paquete' : money(total)));
+    $<HTMLElement>('.cot-totalrow').hidden = !!paquete;
+    $<HTMLElement>('.cot-pq-precio').hidden = !paquete;
     $<HTMLElement>('.cot-count').textContent = `${n} ${n === 1 ? 'examen' : 'exámenes'}`;
     $<HTMLElement>('.cot-empty').hidden = n > 0;
     $<HTMLElement>('.cot-clear').hidden = n === 0;
     paqueteEl.hidden = !paquete;
-    if (paquete) paqueteEl.textContent = `Paquete: ${paquete.nombre}.` + (paquete.consultar.length ? ` A consultar: ${paquete.consultar.join(', ')}.` : '') + ' Consulta el precio especial del paquete por WhatsApp.';
+    if (paquete) paqueteEl.textContent = `Paquete: ${paquete.nombre}. Selección sugerida de exámenes` + (paquete.consultar.length ? ` (también incluye: ${paquete.consultar.join(', ')})` : '') + '; te confirmamos los exámenes y el precio del paquete por WhatsApp.';
     send.setAttribute('aria-disabled', String(n === 0));
     send.href = `https://wa.me/593996405647?text=${encodeURIComponent(mensaje(lista, total))}`;
     send.dataset.n = String(n); send.dataset.total = total.toFixed(2);
@@ -209,7 +215,7 @@ const datos = {
   $<HTMLButtonElement>('.cot-clear').addEventListener('click', () => { boxes.forEach((b) => (b.checked = false)); paquete = null; actualizar(); });
   send.addEventListener('click', (ev) => {
     if (send.getAttribute('aria-disabled') === 'true') { ev.preventDefault(); return; }
-    (window as any).acculabTrack?.('cotizador_enviar', { page_path: location.pathname, num_examenes: Number(send.dataset.n), total: Number(send.dataset.total), paquete: paquete?.nombre });
+    (window as any).acculabTrack?.('cotizador_enviar', { page_path: location.pathname, num_examenes: Number(send.dataset.n), ...(paquete ? { paquete: paquete.nombre } : { total: Number(send.dataset.total) }) });
   });
   if (matchMedia('(max-width: 1023px)').matches) toggle.hidden = false;
   toggle.addEventListener('click', () => {

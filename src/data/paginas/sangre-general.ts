@@ -1,4 +1,4 @@
-import { type PaginaExamen, ENTREGA_24H, ACTUALIZADO } from './tipos';
+import { type PaginaExamen, ENTREGA_24H, ENTREGA_A_CONFIRMAR, ACTUALIZADO } from './tipos';
 
 export const SANGRE_GENERAL: PaginaExamen[] = [
   {
@@ -140,7 +140,7 @@ export const SANGRE_GENERAL: PaginaExamen[] = [
     nombre: 'Hemoglobina glicosilada (HbA1c)',
     h1: 'Hemoglobina glicosilada (HbA1c)',
     tituloSeo: 'Hemoglobina Glicosilada',
-    descripcion: 'Hemoglobina glicosilada (HbA1c) en Cuenca por $12.00. Refleja el promedio de glucosa de los últimos meses. Resultados en 24 h. Agenda por WhatsApp.',
+    descripcion: 'Hemoglobina glicosilada (HbA1c) en Cuenca por $12.00. Refleja el promedio de glucosa de los últimos meses. Sin cita, en El Batán. Agenda por WhatsApp.',
     categoria: 'quimica',
     sinonimos: ['HbA1c', 'A1c', 'hemoglobina glucosilada', 'hemoglobina A1c'],
     componentes: ['hemoglobina-glicosilada'],
@@ -148,7 +148,7 @@ export const SANGRE_GENERAL: PaginaExamen[] = [
     complementos: ['glucosa'],
     muestra: 'Sangre venosa',
     resumenPrep: 'Por lo general no requiere ayuno',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'La hemoglobina glicosilada, o HbA1c, muestra cómo se ha comportado la glucosa en sangre durante un periodo más largo que un examen de glucosa común. Por eso es muy utilizada en el control de la diabetes.',
     queEs: [
@@ -184,14 +184,14 @@ export const SANGRE_GENERAL: PaginaExamen[] = [
     nombre: 'Perfil tiroideo (TSH, T3 libre y T4 libre)',
     h1: 'Perfil tiroideo',
     tituloSeo: 'Perfil Tiroideo',
-    descripcion: 'Perfil tiroideo en Cuenca: TSH, T3 libre y T4 libre por $30.00 en total, o cada uno por separado. Resultados en 24 h. Agenda por WhatsApp en Accu-Lab.',
+    descripcion: 'Perfil tiroideo en Cuenca: TSH, T3 libre y T4 libre por $30.00 en total, o cada uno por separado. Sin cita, en El Batán. Agenda por WhatsApp en Accu-Lab.',
     categoria: 'hormonas',
     sinonimos: ['pruebas de tiroides', 'TSH', 'T3 libre', 'T4 libre', 'FT3', 'FT4'],
     componentes: ['tsh', 't3-libre', 't4-libre'],
     modoPrecio: 'suma',
     muestra: 'Sangre venosa',
     resumenPrep: 'Generalmente sin ayuno; toma en la mañana',
-    entrega: ENTREGA_24H,
+    entrega: ENTREGA_A_CONFIRMAR,
     intro:
       'El perfil tiroideo reúne tres exámenes de sangre que evalúan el funcionamiento de la glándula tiroides: la TSH, la T3 libre y la T4 libre. Tu médico puede pedir el perfil completo o solo alguno de ellos.',
     queEs: [

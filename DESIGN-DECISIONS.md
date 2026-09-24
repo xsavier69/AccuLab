@@ -159,3 +159,14 @@ Si existe `PUBLIC_GA4_ID` (variable de entorno de Vercel), gtag se carga tras la
 
 ## D-026 · El build verifica los precios
 `npm run build` ejecuta `scripts/verificar-precios.mjs` después de `astro build`. Si alguno de los 97 precios difiere de `audit/before/precios-baseline.json`, el build falla y Vercel mantiene el despliegue anterior. Si el laboratorio cambia un precio a propósito, hay que actualizar la línea base en el mismo commit.
+
+# Ajuste previo al PR (pedido del cliente: "lo que no esté confirmado, sin precio u oculto")
+
+## D-027 · Nada publicado que dependa de datos sin confirmar
+**Qué:**
+- **Paquetes sin precio:** se eliminó el "valor de los exámenes por separado" de las tarjetas, de /paquetes, de las páginas de examen y del cotizador. Con `?paquete=` el cotizador preselecciona los exámenes como sugerencia, oculta el total y los precios individuales, y envía por WhatsApp solo la lista de nombres para pedir el precio del paquete. Los 6 exámenes que no están en el catálogo aparecen solo por su nombre, sin la etiqueta "precio a consultar".
+- **Tiempo de entrega:** "Generalmente en 24 h" se mantiene solo en los 10 exámenes básicos. En los 15 especializados dice "Te lo confirmamos al agendar", y sus meta descriptions ya no mencionan 24 h.
+- **Ocultos:** la pregunta "¿Necesito orden médica?" (filtrada por `validar: true`), la pregunta sobre el costo del domicilio y la lista de sustancias en la página del panel toxicológico (el panel tiene 6 determinaciones y el sitio anterior listaba 7 sustancias).
+
+**Por qué:** una suma visible junto a un paquete se lee como su precio. Un plazo de 24 h en un examen que puede tardar 72 h genera reclamos. En los tres casos, un visitante podía confundirse.
+**Descartado:** mostrar la suma con una advertencia (sigue pareciendo un precio) y quitar los paquetes del sitio (son contenido publicado y sirven para el SEO).

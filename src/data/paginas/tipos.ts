@@ -32,4 +32,6 @@ export interface PaginaExamen {
 }
 
 export const ENTREGA_24H = 'Generalmente en 24 h';
+/** Exámenes especializados: el sitio original indica que algunos tardan 48–72 h. Sin dato por examen, no se afirma un plazo. */
+export const ENTREGA_A_CONFIRMAR = 'Te lo confirmamos al agendar';
 export const ACTUALIZADO = '2026-09-24';

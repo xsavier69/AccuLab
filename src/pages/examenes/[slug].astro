@@ -6,7 +6,7 @@ import ExamCard from '../../components/ExamCard.astro';
 import Faq from '../../components/Faq.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { PAGINAS, type PaginaExamen } from '../../data/paginas';
-import { componentes, precioPagina, paquetesDePagina, valorPaquete, examen, nombreCategoria, paginaBySlug } from '../../lib/catalogo';
+import { componentes, precioPagina, paquetesDePagina, examen, nombreCategoria, paginaBySlug } from '../../lib/catalogo';
 import { medicalWebPageSchema } from '../../lib/schema';
 import { precio, waLink, mesAnio } from '../../lib/site';
 
@@ -123,7 +123,7 @@ const schema = medicalWebPageSchema({
           {paquetes.length > 0 ? (
             <ul class="link-list">
               {paquetes.map((pq) => (
-                <li><a href={`/paquetes#${pq.slug}`}>{pq.nombre}</a> <span class="small muted">· valor por separado {precio(valorPaquete(pq).total)}</span></li>
+                <li><a href={`/paquetes#${pq.slug}`}>Paquete {pq.nombre}</a> <span class="small muted">· {pq.paraQuien}</span></li>
               ))}
             </ul>
           ) : (

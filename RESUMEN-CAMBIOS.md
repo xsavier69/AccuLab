@@ -45,7 +45,7 @@ Se migró el sitio de 4 páginas HTML sueltas a **Astro estático con 38 página
 
 **Fase 5 · Catálogo:** `data/examenes.json` (97 exámenes: slug, nombre exacto, sinónimos, categoría, precio, página, preparación y relacionados) es la fuente única del cotizador, del `hasOfferCatalog`, de `/examenes`, de los paquetes y de las páginas. Hay 25 páginas de examen con la plantilla pedida: precio, entrega, preparación, WhatsApp prellenado, 5 H2, desglose de perfiles, 3 FAQ, 3 relacionados, paquete, aviso educativo, MedlinePlus y fecha de actualización.
 
-**Fase 6 · Paquetes y servicios:** 10 tarjetas con chips enlazados, valor por separado calculado, "precio a consultar" para los 6 exámenes que no están en el catálogo y "Cotizar este paquete" (`/cotizar?paquete=`); `/empresas` con WhatsApp B2B; `/medicos` con "Solicitar convenio"; `/domicilio` sin datos inventados.
+**Fase 6 · Paquetes y servicios:** 10 tarjetas con chips enlazados, **sin precio** ("Precio del paquete: consúltalo por WhatsApp", ver D-027) y "Cotizar este paquete" (`/cotizar?paquete=`, que envía la lista sin precios); `/empresas` con WhatsApp B2B; `/medicos` con "Solicitar convenio"; `/domicilio` sin datos inventados.
 
 **Fase 7 · Contenido:** guía de preparación en acordeones (5 temas) y FAQ solo con datos confirmados.
 
@@ -56,6 +56,12 @@ Se migró el sitio de 4 páginas HTML sueltas a **Astro estático con 38 página
 **Fase 10 · QA:** capturas en `audit/after/`, comparativas en `audit/comparativa/` y scripts de verificación en `scripts/`.
 
 ---
+
+## Datos sin confirmar: ocultos o sin precio (D-027)
+- Precio de los paquetes: no se muestra ninguna suma.
+- Tiempo de entrega de los 15 exámenes especializados: "Te lo confirmamos al agendar".
+- La pregunta sobre la orden médica, el costo del domicilio y la lista de sustancias del panel toxicológico: ocultos.
+- Reseñas, equipo, calidad y `reviewedBy`: preparados y ocultos.
 
 ## Estructura del proyecto
 ```

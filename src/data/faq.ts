@@ -15,4 +15,6 @@ export const FAQ: FaqItem[] = [
   { grupo: 'Preparación', p: '¿Necesito ayunar para un examen de sangre?', r: 'Depende del examen. Para glucosa y perfil lipídico, por ejemplo, generalmente se indica ayuno de 8 a 12 horas. Te confirmamos la preparación exacta al agendar.' },
 ];
 
+// Preguntas marcadas `validar: true` NO se publican hasta que el laboratorio las confirme (ver PENDIENTES.md).
+export const FAQ_PUBLICADA = FAQ.filter((f) => !f.validar);
 export const FAQ_CORTA = [0, 1, 4, 5].map((i) => FAQ[i]);
