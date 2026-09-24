@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import logo from '../assets/fotos/logo.png';
+import { SITE, waLink, WA_GENERAL } from '../lib/site';
+import { PAGINAS } from '../data/paginas';
+
+// Los 10 exámenes más buscados (orden según el análisis SEO de palabras clave)
+const TOP = ['biometria-hematica', 'glucosa', 'perfil-lipidico', 'examen-de-orina-emo', 'coproparasitario',
+  'perfil-tiroideo', 'prueba-de-embarazo-en-sangre', 'hemoglobina-glicosilada', 'psa', 'prueba-vih']
+  .map((s) => PAGINAS.find((p) => p.slug === s)!);
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <Image src={logo} alt="Accu-Lab Laboratorio Clínico" width={150} widths={[150, 300]} sizes="150px" format="webp" quality={85} />
+        <p>Laboratorio clínico en El Batán, Cuenca, desde {SITE.fundacion}. Resultados generalmente en 24 horas, entregados por WhatsApp o correo.</p>
+        <a class="btn btn--whatsapp btn--sm" href={waLink(WA_GENERAL)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Escríbenos por WhatsApp</a>
+      </div>
+      <div>
+        <p class="footer-title">Exámenes más buscados</p>
+        <ul class="footer-list">
+          {TOP.map((p) => <li><a href={`/examenes/${p.slug}`}>{p.h1}</a></li>)}
+          <li><a href="/examenes">Todos los exámenes</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-title">Accu-Lab</p>
+        <ul class="footer-list">
+          <li><a href="/cotizar">Precios y cotizador</a></li>
+          <li><a href="/paquetes">Paquetes preventivos</a></li>
+          <li><a href="/servicios">Servicios</a></li>
+          <li><a href="/empresas">Exámenes para empresas</a></li>
+          <li><a href="/medicos">Convenios con médicos</a></li>
+          <li><a href="/domicilio">Exámenes a domicilio</a></li>
+          <li><a href="/preparacion">Preparación para exámenes</a></li>
+          <li><a href="/preguntas-frecuentes">Preguntas frecuentes</a></li>
+          <li><a href="/nosotros">Sobre nosotros</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-title">Visítanos</p>
+        <ul class="footer-list footer-contact">
+          <li><Icon name="map-pin" size={18} /><span>{SITE.direccion.linea1}<br />{SITE.direccion.linea2}<br />Referencia: {SITE.direccion.referencia.toLowerCase()}<br />{SITE.direccion.ciudad}</span></li>
+          <li><Icon name="clock" size={18} /><span>{SITE.horarios.map((h) => <>{h.dias}: {h.horas}<br /></>)}</span></li>
+          <li><Icon name="phone" size={18} /><span>{SITE.telefonos.map((t, i) => <>{i > 0 && ' / '}<a href={`tel:${t.tel}`}>{t.visible}</a></>)}</span></li>
+          <li><Icon name="mail" size={18} /><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li><Icon name="navigation" size={18} /><a href={SITE.mapsUrl} target="_blank" rel="noopener">Cómo llegar (Google Maps)</a></li>
+          <li><Icon name="facebook" size={18} /><a href={SITE.facebook} target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© {year} Accu-Lab. Todos los derechos reservados.</p>
+      <p>Los precios publicados son referenciales; confírmalos con nosotros.</p>
+    </div>
+  </div>
+</footer>

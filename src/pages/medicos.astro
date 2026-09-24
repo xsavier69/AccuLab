@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { RUTAS } from '../data/rutas';
+import { EXAMENES } from '../lib/catalogo';
+import { waLink } from '../lib/site';
+
+const r = RUTAS.medicos;
+const WA_MED = 'Hola, soy médico/a y deseo solicitar información sobre el convenio con Accu-Lab.';
+const BENEFICIOS = [
+  ['clock', 'Atención prioritaria', 'Para los pacientes que usted refiere al laboratorio.'],
+  ['check-circle', 'Resultados rápidos y confiables', 'La mayoría de exámenes, en 24 horas, por WhatsApp o correo.'],
+  ['microscope', 'Apoyo en la interpretación', 'Acompañamiento en la lectura de pruebas de laboratorio.'],
+  ['list-checks', 'Amplio menú de exámenes', `${EXAMENES.length} exámenes con precio publicado, además de paquetes preventivos.`],
+  ['message-circle', 'Comunicación directa', 'Contacto directo con el laboratorio para coordinar a sus pacientes.'],
+  ['receipt', 'Tarifas preferenciales', 'Para los pacientes del médico en convenio.'],
+] as const;
+const ESPECIALIDADES = ['Medicina general', 'Ginecología', 'Pediatría', 'Medicina interna', 'Urología', 'Endocrinología', 'Gastroenterología', 'Medicina deportiva', 'Medicina ocupacional'];
+---
+<Layout title={r.title} description={r.description} path={r.path} waMensaje={WA_MED}
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }, { name: 'Médicos', path: '/medicos' }]}>
+  <PageHero eyebrow="Alianzas con profesionales de la salud" title="Convenios con médicos en Cuenca"
+    lead="En Accu-Lab trabajamos en alianza con médicos especialistas para ofrecer a sus pacientes resultados confiables, oportunos y con altos estándares de calidad.">
+    <div class="cluster mt-8">
+      <a class="btn btn--whatsapp" href={waLink(WA_MED)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Solicitar convenio</a>
+      <a class="btn btn--secondary" href="/examenes">Ver menú de exámenes</a>
+    </div>
+  </PageHero>
+
+  <section class="section section--tint" aria-labelledby="beneficios">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">Beneficios</p><h2 id="beneficios">Beneficios del convenio</h2></div>
+      <div class="grid grid--3">
+        {BENEFICIOS.map(([i, t, d]) => (
+          <article class="card reveal"><span class="card__icon"><Icon name={i} /></span><h3>{t}</h3><p class="muted">{d}</p></article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="especialidades">
+    <div class="container grid grid--2" style="align-items:center">
+      <div class="stack">
+        <p class="eyebrow">Especialidades</p>
+        <h2 id="especialidades">Especialidades con las que trabajamos</h2>
+        <p class="muted">Colaboramos con profesionales de distintas áreas que requieren exámenes de laboratorio para el diagnóstico y el seguimiento de sus pacientes.</p>
+      </div>
+      <ul class="chips chips--lg" role="list">
+        {ESPECIALIDADES.map((e) => <li class="chip chip--tint"><Icon name="stethoscope" size={16} /> {e}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="como-convenio">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow">Proceso</p><h2 id="como-convenio">¿Cómo formar parte del convenio?</h2></div>
+      <ol class="steps">
+        <li class="reveal"><h3>Contáctenos</h3><p class="muted">Escríbanos por WhatsApp indicando su nombre y especialidad.</p></li>
+        <li class="reveal"><h3>Acordamos el convenio</h3><p class="muted">Conversamos sobre los exámenes que suele solicitar y las condiciones de colaboración.</p></li>
+        <li class="reveal"><h3>Refiera a sus pacientes</h3><p class="muted">Sus pacientes acuden sin cita a Consultorios El Batán y reciben sus resultados por WhatsApp o correo.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <CtaBand titulo="Solicitar convenio médico" texto="Si usted es médico y desea trabajar con nuestro laboratorio, contáctenos para establecer un convenio de colaboración." mensaje={WA_MED} secundario={{ href: '/cotizar', label: 'Ver lista de precios' }} />
+</Layout>
+<style>
+  .chips--lg .chip { min-height: 44px; padding: 10px 16px; font-size: var(--fs-base); }
+</style>

@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import logo from '../assets/fotos/logo.png';
+import { waLink, WA_GENERAL } from '../lib/site';
+
+interface Props { path: string }
+const { path } = Astro.props;
+const NAV = [
+  { href: '/examenes', label: 'Exámenes' },
+  { href: '/paquetes', label: 'Paquetes' },
+  { href: '/empresas', label: 'Empresas' },
+  { href: '/medicos', label: 'Médicos' },
+  { href: '/nosotros', label: 'Nosotros' },
+];
+const EXTRA = [
+  { href: '/servicios', label: 'Servicios' },
+  { href: '/domicilio', label: 'Exámenes a domicilio' },
+  { href: '/preparacion', label: 'Preparación' },
+  { href: '/preguntas-frecuentes', label: 'Preguntas frecuentes' },
+];
+const current = (href: string) => (path === href || path.startsWith(href + '/') ? 'page' : undefined);
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="site-header__logo" aria-label="Accu-Lab, ir al inicio">
+      <Image src={logo} alt="Accu-Lab Laboratorio Clínico" width={140} widths={[140, 280]} sizes="140px" loading="eager" format="webp" quality={85} />
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        {NAV.map((n) => <li><a href={n.href} aria-current={current(n.href)}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="site-header__cta">
+      <a class="btn btn--secondary btn--sm" href="/cotizar" aria-current={current('/cotizar')}>Precios</a>
+      <a class="btn btn--whatsapp btn--sm" href={waLink(WA_GENERAL)} target="_blank" rel="noopener">
+        <Icon name="whatsapp" /> Agendar por WhatsApp
+      </a>
+    </div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú">
+      <span data-open><Icon name="menu" size={20} /></span>
+      <span data-close style="display:none"><Icon name="x" size={20} /></span>
+    </button>
+  </div>
+  <div id="menu-movil" class="mobile-menu" hidden>
+    <nav class="container" aria-label="Menú móvil">
+      <ul>
+        {[...NAV, { href: '/cotizar', label: 'Precios' }, ...EXTRA].map((n) => (
+          <li><a href={n.href} aria-current={current(n.href)}>{n.label}<Icon name="chevron-right" size={18} /></a></li>
+        ))}
+      </ul>
+      <div class="cluster">
+        <a class="btn btn--whatsapp" href={waLink(WA_GENERAL)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar por WhatsApp</a>
+        <a class="btn btn--secondary" href="tel:+593996405647"><Icon name="phone" /> 099-640-5647</a>
+      </div>
+    </nav>
+  </div>
+</header>

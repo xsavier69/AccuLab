@@ -1,0 +1,88 @@
+---
+// /_styleguide (noindex). Astro ignora archivos que empiezan con "_", por eso se genera con una ruta dinámica.
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import Pattern from '../components/Pattern.astro';
+import ExamCard from '../components/ExamCard.astro';
+import PackageCard from '../components/PackageCard.astro';
+import Faq from '../components/Faq.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import MapFacade from '../components/MapFacade.astro';
+import { RUTAS } from '../data/rutas';
+import { PAGINAS, PAQUETES } from '../lib/catalogo';
+
+export function getStaticPaths() { return [{ params: { guia: '_styleguide' } }]; }
+const r = RUTAS.styleguide;
+const COLORES = [
+  ['--ink', '#0E2A33', 'Texto principal'], ['--ink-2', '#3B525A', 'Texto secundario'], ['--ink-3', '#5A6D73', 'Metadatos'],
+  ['--primary', '#1F5F4F', 'Marca / acciones'], ['--primary-700', '#174A3D', 'Hover'], ['--primary-50', '#E9F1EC', 'Tinte'],
+  ['--leaf', '#8CC63F', 'Lima del logo (solo decorativo)'], ['--accent', '#B08448', 'Latón (filetes)'], ['--accent-ink', '#85602B', 'Latón para texto'],
+  ['--surface', '#FAF8F5', 'Fondo'], ['--surface-2', '#F2EDE5', 'Arena'], ['--line', '#E5DED3', 'Bordes'], ['--whatsapp', '#25D366', 'Solo WhatsApp'],
+];
+const ICONOS = ['flask-conical', 'test-tube', 'microscope', 'droplet', 'house', 'briefcase', 'stethoscope', 'shield-check', 'activity', 'clock', 'calendar', 'map-pin', 'phone', 'mail', 'clipboard-list', 'package', 'car', 'utensils', 'sun', 'search', 'info', 'users', 'building-2', 'receipt'] as const;
+---
+<Layout title={r.title} description={r.description} path={r.path} noindex>
+  <div class="container section">
+    <p class="eyebrow">Sistema de diseño</p>
+    <h1>Guía de estilo Accu-Lab</h1>
+    <p class="lead mt-4">Dirección "clínica boutique": calma, precisión y espacio en blanco. Tokens en <code>src/styles/global.css</code>.</p>
+
+    <h2 class="mt-12">Color</h2>
+    <div class="sg-colors mt-6">
+      {COLORES.map(([t, hex, uso]) => (
+        <div class="sg-color"><span style={`background:var(${t})`}></span><strong>{t}</strong><code>{hex}</code><small class="muted">{uso}</small></div>
+      ))}
+    </div>
+    <p class="small muted mt-4">Opción descartada (D-002): primario teal del brief #1F6F78 <span class="sg-dot" style="background:#1f6f78"></span> vs. elegido #1F5F4F <span class="sg-dot" style="background:#1f5f4f"></span>, más cercano al verde del logo.</p>
+
+    <h2 class="mt-12">Tipografía</h2>
+    <div class="stack mt-6">
+      <p class="serif" style="font-size:var(--fs-4xl)">Fraunces 61 — Titulares</p>
+      <p class="serif" style="font-size:var(--fs-2xl)">Fraunces 39 — <em>cursiva de acento</em></p>
+      <p class="serif" style="font-size:var(--fs-md)">Fraunces 20 — subtítulos</p>
+      <p>Manrope 16/17 — texto de lectura con interlineado 1.65.</p>
+      <p class="small">Manrope 14 — texto pequeño</p>
+      <p class="eyebrow">Eyebrow · 12.8 · versalitas</p>
+    </div>
+
+    <h2 class="mt-12">Botones</h2>
+    <div class="cluster mt-6">
+      <a class="btn" href="#">Primario</a>
+      <a class="btn btn--secondary" href="#">Secundario</a>
+      <a class="btn btn--whatsapp" href="#"><Icon name="whatsapp" /> WhatsApp</a>
+      <a class="btn btn--ghost" href="#">Ghost</a>
+      <a class="link-arrow" href="#">Enlace con flecha <Icon name="arrow-right" /></a>
+    </div>
+
+    <h2 class="mt-12">Iconos (Lucide, trazo 1.6)</h2>
+    <div class="sg-icons mt-6">{ICONOS.map((i) => <span title={i}><Icon name={i} /></span>)}</div>
+
+    <h2 class="mt-12">Tarjetas</h2>
+    <div class="grid grid--3 mt-6">{PAGINAS.slice(0, 3).map((p) => <ExamCard pagina={p} />)}</div>
+    <div class="grid grid--2 mt-6">{PAQUETES.slice(0, 2).map((p) => <PackageCard paquete={p} />)}</div>
+
+    <h2 class="mt-12">Chips, stat y avisos</h2>
+    <ul class="chips mt-6"><li class="chip">Chip</li><li><a class="chip" href="#">Chip enlace</a></li><li class="chip chip--tint">Tinte</li><li class="chip chip--muted">Precio a consultar</li></ul>
+    <div class="stats mt-8"><div class="stat"><span class="stat__num">2010</span><span class="stat__label">Stat en serif</span></div><div class="stat"><span class="stat__num">24<span>h</span></span><span class="stat__label">Con unidad</span></div></div>
+    <div class="note note--educativo mt-8"><Icon name="info" size={18} /><p>Información educativa; no reemplaza la indicación de tu médico.</p></div>
+
+    <h2 class="mt-12">Acordeón</h2>
+    <div class="mt-6"><Faq items={[{ p: 'Pregunta de ejemplo', r: 'Respuesta de ejemplo.' }, { p: 'Otra pregunta', r: 'Otra respuesta.' }]} /></div>
+
+    <h2 class="mt-12">Patrones y espacios para fotos</h2>
+    <div class="grid grid--3 mt-6">
+      <div class="card" style="color:var(--primary)"><Pattern variant="petri" /></div>
+      <div class="card" style="color:var(--primary)"><Pattern variant="pipeta" /></div>
+      <PhotoSlot ratio="4 / 3" id="ejemplo" />
+    </div>
+    <div class="mt-6" style="max-width:520px"><MapFacade /></div>
+  </div>
+</Layout>
+<style>
+  .sg-colors { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .sg-color { display: grid; gap: 2px; font-size: var(--fs-sm); }
+  .sg-color span { height: 64px; border-radius: var(--r); border: 1px solid var(--line); margin-bottom: 6px; }
+  .sg-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: middle; }
+  .sg-icons { display: flex; flex-wrap: wrap; gap: var(--s-4); color: var(--primary); }
+  .sg-icons span { width: 56px; height: 56px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--r); background: var(--card); }
+</style>

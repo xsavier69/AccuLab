@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+import type { Paquete } from '../data/paquetes';
+import { valorPaquete, examen } from '../lib/catalogo';
+import { precio, waLink } from '../lib/site';
+interface Props { paquete: Paquete; detallado?: boolean; headingLevel?: 'h2' | 'h3' }
+const { paquete: pq, detallado = false, headingLevel = 'h3' } = Astro.props;
+const v = valorPaquete(pq);
+const H = headingLevel;
+---
+<article class="card pkg-card reveal" id={pq.slug}>
+  <div class="pkg-card__top">
+    <div>
+      <H>{pq.nombre}</H>
+      <p class="pkg-card__for mt-2">{pq.paraQuien}</p>
+    </div>
+    <span class="card__icon" style="margin:0"><Icon name={pq.icono as any} /></span>
+  </div>
+  {detallado && <p class="muted">{pq.descripcion}</p>}
+  <ul class="chips" aria-label={`Exámenes incluidos en ${pq.nombre}`}>
+    {pq.items.map((it) =>
+      it.examenes.length === 0 ? (
+        <li class="chip chip--muted" title="No figura en el cotizador: precio a consultar">{it.etiqueta} · precio a consultar</li>
+      ) : it.pagina ? (
+        <li><a class="chip" href={`/examenes/${it.pagina}`}>{it.etiqueta}</a></li>
+      ) : (
+        <li class="chip">{it.etiqueta}</li>
+      )
+    )}
+  </ul>
+  {detallado && (
+    <details class="small">
+      <summary style="cursor:pointer;font-weight:600">Ver el detalle de precios</summary>
+      <ul class="mt-2" style="padding-left:18px">
+        {v.slugs.map((s) => <li>{examen(s).nombre}: {precio(examen(s).precio)}</li>)}
+        {v.aConsultar.map((n) => <li>{n}: precio a consultar</li>)}
+      </ul>
+    </details>
+  )}
+  <div class="pkg-card__value">
+    Valor de los exámenes por separado{v.aConsultar.length > 0 && ' (con precio publicado)'}:
+    <strong>{precio(v.total)}</strong>
+    <span class="muted">{v.aConsultar.length > 0 ? `+ ${v.aConsultar.join(', ')} a consultar. ` : ''}Consulta el precio especial del paquete por WhatsApp.</span>
+  </div>
+  {detallado && <p class="small muted"><strong>Preparación:</strong> {pq.preparacion}</p>}
+  <div class="cluster card__foot">
+    <a class="btn btn--primary btn--sm" href={`/cotizar?paquete=${pq.slug}`} data-paquete={pq.slug}>Cotizar este paquete</a>
+    <a class="btn btn--whatsapp btn--sm" href={waLink(`Hola, quiero consultar el precio del paquete: ${pq.nombre}`)} target="_blank" rel="noopener" data-paquete={pq.slug}><Icon name="whatsapp" /> Consultar precio</a>
+  </div>
+</article>

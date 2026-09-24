@@ -1,0 +1,14 @@
+---
+import Icon from './Icon.astro';
+interface Props { items: { p: string; r: string }[]; headingLevel?: 'h3' | 'h2' }
+const { items, headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+---
+<div class="accordion">
+  {items.map((f) => (
+    <details>
+      <summary><H>{f.p}</H><span class="acc-icon"><Icon name="plus" size={16} /></span></summary>
+      <div class="acc-body"><p>{f.r}</p></div>
+    </details>
+  ))}
+</div>

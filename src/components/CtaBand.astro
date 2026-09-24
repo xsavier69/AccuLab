@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+import Pattern from './Pattern.astro';
+import { waLink, WA_GENERAL } from '../lib/site';
+interface Props { titulo?: string; texto?: string; mensaje?: string; secundario?: { href: string; label: string } }
+const {
+  titulo = 'Agenda tu examen hoy',
+  texto = 'Escríbenos por WhatsApp o visítanos sin cita en Consultorios El Batán. Te confirmamos precio y preparación antes de venir.',
+  mensaje = WA_GENERAL,
+  secundario = { href: '/cotizar', label: 'Ver precios' },
+} = Astro.props;
+---
+<section class="section">
+  <div class="container">
+    <div class="cta-band reveal">
+      <Pattern variant="petri" />
+      <h2>{titulo}</h2>
+      <p class="mt-4">{texto}</p>
+      <div class="cluster">
+        <a class="btn btn--whatsapp" href={waLink(mensaje)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar por WhatsApp</a>
+        <a class="btn btn--light" href={secundario.href}>{secundario.label}</a>
+      </div>
+    </div>
+  </div>
+</section>

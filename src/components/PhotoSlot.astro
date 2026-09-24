@@ -1,0 +1,22 @@
+---
+// Contenedor con proporción fija para fotos. Hoy muestra una foto existente o el patrón de marca.
+// Para reemplazar: cambia el archivo en src/assets/fotos/ o pasa `src` (ver PENDIENTES.md → Fotos).
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Pattern from './Pattern.astro';
+interface Props {
+  src?: ImageMetadata; alt?: string; ratio?: string; widths?: number[]; sizes?: string;
+  priority?: boolean; class?: string; id?: string;
+}
+const { src, alt = '', ratio = '4 / 3', widths = [480, 768, 1024, 1400], sizes = '(min-width: 1024px) 50vw, 100vw', priority = false, class: cls = '', id } = Astro.props;
+---
+{src ? (
+  <div class={`photo ${cls}`} style={`aspect-ratio:${ratio}`} data-photo-slot={id}>
+    <Picture src={src} alt={alt} widths={widths.filter((w) => w <= src.width)} sizes={sizes} formats={['avif']} fallbackFormat="webp"
+      loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding={priority ? 'sync' : 'async'} quality={72} />
+  </div>
+) : (
+  <div class={`photo photo--placeholder ${cls}`} style={`aspect-ratio:${ratio}`} data-photo-slot={id} role="presentation">
+    <Pattern variant="petri" />
+  </div>
+)}

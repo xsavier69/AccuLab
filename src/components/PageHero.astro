@@ -1,0 +1,16 @@
+---
+import Pattern from './Pattern.astro';
+interface Props { eyebrow?: string; title: string; lead?: string }
+const { eyebrow, title, lead } = Astro.props;
+---
+<section class="page-hero">
+  <Pattern variant="petri" />
+  <div class="container">
+    <div class="page-hero__inner">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1 set:html={title} />
+      {lead && <p class="lead">{lead}</p>}
+      <slot />
+    </div>
+  </div>
+</section>

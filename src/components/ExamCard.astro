@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+import type { PaginaExamen } from '../data/paginas';
+import { precioPagina, nombreCategoria } from '../lib/catalogo';
+import { precio } from '../lib/site';
+interface Props { pagina: PaginaExamen; headingLevel?: 'h2' | 'h3'; showCat?: boolean }
+const { pagina: p, headingLevel = 'h3', showCat = true } = Astro.props;
+const pr = precioPagina(p);
+const H = headingLevel;
+const label = p.modoPrecio === 'suma' ? 'Perfil completo' : pr.desde ? 'Desde' : 'Precio';
+---
+<article class="card card--link exam-card reveal" data-search={[p.nombre, ...p.sinonimos].join(' ')}>
+  {showCat && <p class="exam-card__cat">{nombreCategoria(p.categoria)}</p>}
+  <H><a class="stretched" href={`/examenes/${p.slug}`}>{p.h1}</a></H>
+  <p class="exam-card__syn">{p.sinonimos.slice(0, 3).join(' · ')}</p>
+  <div class="exam-card__foot">
+    <p class="price"><small>{label}</small>{precio(pr.valor)}</p>
+    <a class="exam-card__add" href={`/cotizar?add=${p.slug}`} data-examen={p.slug} aria-label={`Agregar ${p.h1} a la cotización`}>
+      <Icon name="plus" size={16} /> Cotizar
+    </a>
+  </div>
+</article>

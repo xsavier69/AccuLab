@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_styleguide
+
+Sitemap: https://acculab.bio/sitemap.xml

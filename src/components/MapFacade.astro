@@ -1,0 +1,34 @@
+---
+// Mapa diferido: no carga Google Maps hasta que la persona pulsa "Ver mapa".
+import Icon from './Icon.astro';
+import Pattern from './Pattern.astro';
+import { SITE } from '../lib/site';
+---
+<div class="map-facade" data-map-embed={SITE.mapsEmbed}>
+  <Pattern variant="grid" />
+  <div class="map-facade__pin">
+    <span class="pin"><Icon name="map-pin" /></span>
+    <p><strong>Consultorios El Batán, 2.º piso</strong><br /><span class="small muted">Calle Ecuador y Av. de las Américas</span></p>
+    <div class="cluster" style="justify-content:center">
+      <button type="button" class="btn btn--secondary btn--sm" data-map-load><Icon name="map-pin" /> Ver mapa</button>
+      <a class="btn btn--sm" href={SITE.mapsUrl} target="_blank" rel="noopener"><Icon name="navigation" /> Cómo llegar</a>
+    </div>
+  </div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-map-load]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const box = btn.closest<HTMLElement>('.map-facade');
+      if (!box) return;
+      const f = document.createElement('iframe');
+      f.src = box.dataset.mapEmbed!;
+      f.title = 'Ubicación de Accu-Lab en Google Maps';
+      f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer-when-downgrade';
+      f.allowFullscreen = true;
+      box.appendChild(f);
+      btn.remove();
+      (window as any).acculabTrack?.('maps_click', { page_path: location.pathname, tipo: 'ver_mapa' });
+    });
+  });
+</script>

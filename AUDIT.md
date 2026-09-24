@@ -170,9 +170,9 @@ No hay `AggregateRating` ni `Review` (correcto).
 
 ---
 
-## 6. Decisión de stack (pendiente de tu OK)
+## 6. Decisión de stack
 
-Propuesta: **migrar a Astro con salida estática.** La justificación completa y las alternativas descartadas están en `DESIGN-DECISIONS.md` (D-001).
+**Aprobada el 24/09/2026:** migrar a Astro con salida estática. La justificación y las alternativas descartadas están en `DESIGN-DECISIONS.md` (D-001).
 
 ## Evidencia
 - Capturas: `audit/before/{home,servicios,cotizar,nosotros}-{1440,390}.png` (páginas completas; el iframe de Google Maps aparece en blanco porque no carga en el entorno de captura).

@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import ExamCard from '../components/ExamCard.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { RUTAS } from '../data/rutas';
+import { PAGINAS } from '../lib/catalogo';
+import { waLink } from '../lib/site';
+
+const r = RUTAS.empresas;
+const WA_B2B = 'Hola, represento a una empresa y quiero cotizar exámenes preocupacionales/ocupacionales. Número de trabajadores: ';
+const EXAMENES = ['biometria-hematica', 'glucosa', 'perfil-lipidico', 'perfil-hepatico', 'perfil-renal', 'examen-de-orina-emo', 'panel-toxicologico', 'coproparasitario', 'grupo-sanguineo']
+  .map((s) => PAGINAS.find((p) => p.slug === s)!);
+const FAQS = [
+  { p: '¿Qué exámenes incluye un preocupacional?', r: 'Depende del puesto y de los riesgos del trabajo. Los más frecuentes son biometría hemática, glucosa, perfil lipídico, función hepática y renal, examen de orina y, si la empresa lo requiere, prueba de drogas. Definimos la lista con tu empresa o con su médico ocupacional.' },
+  { p: '¿Hacen pruebas de drogas para empresas?', r: 'Sí. Realizamos pruebas toxicológicas en orina para control laboral, con un panel de 6 determinaciones.' },
+  { p: '¿Cómo reciben la empresa y el trabajador los resultados?', r: 'Entregamos los resultados por WhatsApp o correo electrónico, generalmente en 24 horas. Coordinamos contigo el canal de entrega.' },
+];
+---
+<Layout title={r.title} description={r.description} path={r.path}
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }, { name: 'Empresas', path: '/empresas' }]} waMensaje={WA_B2B}>
+  <PageHero eyebrow="Salud ocupacional" title="Exámenes preocupacionales y ocupacionales en Cuenca"
+    lead="Evaluaciones de laboratorio para empresas y trabajadores, orientadas a la prevención y al control de la salud laboral: exámenes de ingreso, controles periódicos y pruebas de drogas.">
+    <div class="cluster mt-8">
+      <a class="btn btn--whatsapp" href={waLink(WA_B2B)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Cotizar para mi empresa</a>
+      <a class="btn btn--secondary" href="/cotizar">Ver precios individuales</a>
+    </div>
+  </PageHero>
+
+  <section class="section section--tint" aria-labelledby="servicios-empresa">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Qué ofrecemos</p>
+        <h2 id="servicios-empresa">Exámenes para empresas y trabajadores</h2>
+      </div>
+      <div class="grid grid--3">
+        <article class="card reveal">
+          <span class="card__icon"><Icon name="briefcase" /></span>
+          <h3>Exámenes preocupacionales</h3>
+          <p class="muted">Exámenes de ingreso laboral para conocer el estado de salud del trabajador antes de iniciar sus funciones.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__icon"><Icon name="calendar" /></span>
+          <h3>Exámenes ocupacionales periódicos</h3>
+          <p class="muted">Controles de salud durante la relación laboral, con marcadores según el riesgo de cada puesto.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__icon"><Icon name="flask-conical" /></span>
+          <h3>Prueba de drogas para empresas</h3>
+          <p class="muted">Detección de sustancias psicoactivas en orina para control laboral. <a href="/examenes/panel-toxicologico">Ver el panel toxicológico</a>.</p>
+        </article>
+      </div>
+      <div class="grid grid--2 mt-12">
+        <div class="card">
+          <h3>El perfil ocupacional puede incluir</h3>
+          <ul class="icon-list mt-4">
+            {['Exámenes de ingreso laboral', 'Exámenes periódicos ocupacionales', 'Perfil bioquímico y perfil lipídico', 'Hemograma completo', 'Glucosa, función hepática y renal', 'Examen de orina', 'Pruebas de alcohol y drogas', 'Marcadores según el riesgo laboral']
+              .map((t) => <li><Icon name="check" /><span>{t}</span></li>)}
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Pruebas toxicológicas disponibles</h3>
+          <ul class="icon-list mt-4">
+            {['Panel de drogas en orina', 'Cocaína, marihuana (THC), anfetaminas', 'Opiáceos, benzodiacepinas', 'Barbitúricos, metanfetaminas']
+              .map((t) => <li><Icon name="check" /><span>{t}</span></li>)}
+          </ul>
+          <p class="small muted mt-6"><strong>Aplicaciones:</strong> empresas, control ocupacional, instituciones educativas y programas de rehabilitación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="proceso">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Proceso</p>
+        <h2 id="proceso">Cómo trabajamos con tu empresa</h2>
+      </div>
+      <ol class="steps">
+        <li class="reveal"><h3>Cuéntanos qué necesitas</h3><p class="muted">Escríbenos por WhatsApp con el número de trabajadores y los exámenes que requiere tu empresa o tu médico ocupacional.</p></li>
+        <li class="reveal"><h3>Recibe tu cotización</h3><p class="muted">Te enviamos la cotización según los exámenes solicitados y coordinamos los horarios de atención.</p></li>
+        <li class="reveal"><h3>Toma de muestras y resultados</h3><p class="muted">Los trabajadores acuden a Consultorios El Batán sin cita, y entregamos los resultados por WhatsApp o correo, generalmente en 24 horas.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="examenes-ocupacionales">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Precios publicados</p>
+        <h2 id="examenes-ocupacionales">Exámenes ocupacionales frecuentes</h2>
+        <p class="muted">Precios referenciales por persona. Para grupos, solicita tu cotización.</p>
+      </div>
+      <div class="grid grid--3">{EXAMENES.map((p) => <ExamCard pagina={p} />)}</div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-empresas">
+    <div class="container container--narrow">
+      <h2 id="faq-empresas">Preguntas de empresas</h2>
+      <div class="mt-8"><Faq items={FAQS} /></div>
+    </div>
+  </section>
+
+  <CtaBand titulo="Solicita la cotización para tu empresa" texto="Indícanos el número de trabajadores y los exámenes que necesitas. Te respondemos por WhatsApp." mensaje={WA_B2B} secundario={{ href: '/servicios', label: 'Ver todos los servicios' }} />
+</Layout>

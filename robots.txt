@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://acculab.vercel.app/sitemap.xml

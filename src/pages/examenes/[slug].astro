@@ -1,0 +1,171 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import Pattern from '../../components/Pattern.astro';
+import ExamCard from '../../components/ExamCard.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { PAGINAS, type PaginaExamen } from '../../data/paginas';
+import { componentes, precioPagina, paquetesDePagina, valorPaquete, examen, nombreCategoria, paginaBySlug } from '../../lib/catalogo';
+import { medicalWebPageSchema } from '../../lib/schema';
+import { precio, waLink, mesAnio } from '../../lib/site';
+
+export function getStaticPaths() {
+  return PAGINAS.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+interface Props { p: PaginaExamen }
+const { p } = Astro.props;
+const path = `/examenes/${p.slug}`;
+const full = `${p.tituloSeo} en Cuenca: Precio y Preparación | Accu-Lab`;
+const title = full.length > 65 ? `${p.tituloSeo} en Cuenca: Precio y Preparación` : full;
+const cs = componentes(p);
+const pr = precioPagina(p);
+const total = cs.reduce((a, c) => a + c.precio, 0);
+const complementos = (p.complementos ?? []).map(examen);
+const relacionados = p.relacionados.map((s) => paginaBySlug(s)!);
+const paquetes = paquetesDePagina(p);
+const waMsg = `Hola, quiero agendar: ${p.h1}`;
+const etiquetaPrecio = p.modoPrecio === 'suma' ? 'Precio del perfil' : pr.desde ? 'Desde' : 'Precio';
+
+const schema = medicalWebPageSchema({
+  path, name: title, description: p.descripcion, lastReviewed: p.actualizado, reviewedBy: p.revisadoPor,
+  about: cs.length > 1 && p.modoPrecio === 'suma'
+    ? { '@type': 'MedicalTestPanel', name: p.nombre, alternateName: p.sinonimos, subTest: cs.map((c) => ({ '@type': 'MedicalTest', name: c.nombre })) }
+    : { '@type': 'MedicalTest', name: p.nombre, alternateName: p.sinonimos },
+});
+---
+<Layout title={title} description={p.descripcion} path={path} schemas={[schema]} waMensaje={waMsg}
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Exámenes', path: '/examenes' }, { name: p.h1, path }]}>
+  <section class="exam-hero">
+    <Pattern variant="petri" />
+    <div class="container">
+      <p class="eyebrow">{nombreCategoria(p.categoria)}</p>
+      <h1>{p.h1} en Cuenca</h1>
+      <p class="lead">{p.intro}</p>
+      <p class="small muted">También conocido como: {p.sinonimos.join(', ')}.</p>
+    </div>
+  </section>
+
+  <div class="container exam-layout">
+    <aside class="exam-summary" aria-label="Resumen del examen">
+      <div class="card">
+        <p class="price"><small>{etiquetaPrecio}</small>{precio(pr.valor)}</p>
+        <dl class="exam-facts">
+          <div><dt><Icon name="clock" size={18} /> Entrega</dt><dd>{p.entrega}</dd></div>
+          <div><dt><Icon name="clipboard-list" size={18} /> Preparación</dt><dd>{p.resumenPrep}</dd></div>
+          <div><dt><Icon name="test-tube" size={18} /> Muestra</dt><dd>{p.muestra}</dd></div>
+        </dl>
+        <a class="btn btn--whatsapp btn--block" href={waLink(waMsg)} target="_blank" rel="noopener" data-examen={p.slug}><Icon name="whatsapp" /> Agendar por WhatsApp</a>
+        <a class="btn btn--secondary btn--block mt-2" href={`/cotizar?add=${p.slug}`} data-examen={p.slug}><Icon name="plus" /> Agregar al cotizador</a>
+        <p class="small muted mt-4">Precio referencial. Sin cita, en Consultorios El Batán.</p>
+      </div>
+    </aside>
+
+    <article class="prose exam-body">
+      <h2>¿Qué es y qué mide?</h2>
+      {p.queEs.map((t) => <p>{t}</p>)}
+
+      <h2>¿Cuándo se solicita?</h2>
+      <p>{p.cuando.intro}</p>
+      <ul>{p.cuando.items.map((i) => <li>{i}</li>)}</ul>
+      {p.cuando.cierre && <p>{p.cuando.cierre}</p>}
+
+      <h2>Preparación</h2>
+      <ul>{p.preparacion.map((i) => <li>{i}</li>)}</ul>
+      <p>Consulta también nuestra <a href="/preparacion">guía de preparación para exámenes de laboratorio</a>.</p>
+
+      <h2>Precio en <span class="nowrap">Accu-Lab</span></h2>
+      <div class="price-table" role="table" aria-label={`Precio de ${p.h1}`}>
+        {cs.map((c) => (
+          <div class="price-row" role="row"><span role="cell">{c.nombre}</span><span role="cell">{precio(c.precio)}</span></div>
+        ))}
+        {p.modoPrecio === 'suma' && cs.length > 1 && (
+          <div class="price-row price-row--total" role="row"><span role="cell">Total del perfil</span><span role="cell">{precio(total)}</span></div>
+        )}
+      </div>
+      {p.notaPrecio && <p>{p.notaPrecio}</p>}
+      {complementos.length > 0 && (
+        <>
+          <p>Exámenes que tu médico puede pedir junto a este (se cobran aparte):</p>
+          <ul class="chips" role="list">
+            {complementos.map((c) => <li><a class="chip" href={`/cotizar?add=${c.slug}`}>{c.nombre} · {precio(c.precio)}</a></li>)}
+          </ul>
+        </>
+      )}
+      <p>Revisa el <a href={`/cotizar?add=${p.slug}`} data-examen={p.slug}>precio de {p.h1.toLowerCase().startsWith('examen') ? p.h1.toLowerCase() : `${p.h1.charAt(0).toLowerCase()}${p.h1.slice(1)}`} en nuestro cotizador</a> junto con otros exámenes.</p>
+
+      <h2>Preguntas frecuentes</h2>
+      <Faq items={p.faqs} />
+
+      <div class="note note--educativo mt-8" role="note">
+        <Icon name="info" size={18} />
+        <p>Información educativa; no reemplaza la indicación de tu médico. Confirma la preparación con nosotros antes de tu examen.</p>
+      </div>
+      <p class="small muted">
+        Referencia: <a href={p.medline.url} target="_blank" rel="noopener">MedlinePlus en español: {p.medline.titulo}</a>.
+        <br />Actualizado: <time datetime={p.actualizado}>{mesAnio(p.actualizado)}</time>.
+      </p>
+    </article>
+  </div>
+
+  <section class="section section--tint" aria-labelledby="relacionados">
+    <div class="container">
+      <div class="section-head section-head--row">
+        <div><p class="eyebrow">Sigue explorando</p><h2 id="relacionados">Exámenes relacionados</h2></div>
+        <a class="link-arrow" href="/examenes">Ver todos los exámenes <Icon name="arrow-right" /></a>
+      </div>
+      <div class="grid grid--3">{relacionados.map((r) => <ExamCard pagina={r} />)}</div>
+
+      <div class="grid grid--2 mt-12">
+        <div class="card">
+          <span class="card__icon"><Icon name="package" /></span>
+          <h3>{paquetes.length > 0 ? 'Paquetes que lo incluyen' : 'Paquetes preventivos'}</h3>
+          {paquetes.length > 0 ? (
+            <ul class="link-list">
+              {paquetes.map((pq) => (
+                <li><a href={`/paquetes#${pq.slug}`}>{pq.nombre}</a> <span class="small muted">· valor por separado {precio(valorPaquete(pq).total)}</span></li>
+              ))}
+            </ul>
+          ) : (
+            <p class="muted">Este examen no forma parte de nuestros paquetes publicados. <a href="/paquetes">Conoce los paquetes de exámenes preventivos</a>.</p>
+          )}
+        </div>
+        <div class="card">
+          <span class="card__icon"><Icon name="clipboard-list" /></span>
+          <h3>Antes de venir</h3>
+          <p class="muted">Revisa la <a href="/preparacion">guía de ayuno y recolección de muestras</a> o escríbenos para confirmar tu preparación.</p>
+          <div class="card__foot"><a class="btn btn--whatsapp btn--sm" href={waLink(waMsg)} target="_blank" rel="noopener" data-examen={p.slug}><Icon name="whatsapp" /> Consultar por WhatsApp</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand titulo={`Agenda tu ${p.h1.charAt(0).toLowerCase()}${p.h1.slice(1)}`} mensaje={waMsg} />
+</Layout>
+
+<style>
+  .exam-hero { position: relative; overflow: hidden; padding-block: var(--s-10) var(--s-12); }
+  .exam-hero > .container > * + * { margin-top: var(--s-4); }
+  .exam-hero .lead { max-width: 64ch; }
+  .exam-hero :global(.pattern) { position: absolute; right: -140px; top: -80px; width: 480px; color: var(--primary); opacity: 0.08; }
+  .exam-layout { display: grid; gap: var(--s-10); padding-bottom: var(--section); }
+  .exam-body > h2:first-child { margin-top: 0; }
+  .exam-summary .card { gap: var(--s-4); }
+  .exam-facts { display: grid; gap: var(--s-3); margin: var(--s-2) 0 var(--s-2); font-size: var(--fs-sm); }
+  .exam-facts div { display: grid; grid-template-columns: 120px 1fr; gap: var(--s-2); padding-top: var(--s-3); border-top: 1px solid var(--line); }
+  .exam-facts dt { display: flex; gap: 8px; align-items: center; color: var(--ink-3); }
+  .exam-facts dt :global(svg) { color: var(--primary); }
+  .exam-facts dd { margin: 0; font-weight: 600; }
+  @media (min-width: 1024px) {
+    .exam-layout { grid-template-columns: minmax(0, 1fr) 340px; gap: var(--s-16); }
+    .exam-summary { order: 2; }
+    .exam-summary .card { position: sticky; top: calc(var(--header-h) + 24px); }
+    .exam-body { max-width: 720px; }
+  }
+  .price-table { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--card); }
+  .price-row { display: flex; justify-content: space-between; gap: var(--s-4); padding: 12px 16px; border-top: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+  .price-row:first-child { border-top: 0; }
+  .price-row--total { background: var(--surface-2); font-weight: 700; }
+  .link-list { list-style: none; padding: 0; display: grid; gap: 10px; margin-top: var(--s-3); }
+  .link-list a { color: var(--primary); font-weight: 600; }
+</style>

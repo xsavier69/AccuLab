@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { RUTAS } from '../data/rutas';
+import { medicalWebPageSchema } from '../lib/schema';
+import { waLink, mesAnio } from '../lib/site';
+
+const r = RUTAS.preparacion;
+const PUBLICADO = '2026-09-24';
+const schema = medicalWebPageSchema({
+  path: r.path, name: r.title, description: r.description, lastReviewed: r.lastmod,
+  about: { '@type': 'MedicalEntity', name: 'Preparación para exámenes de laboratorio clínico' },
+});
+const GUIAS = [
+  {
+    id: 'ayuno', icono: 'utensils', titulo: 'Ayuno para glucosa y perfil lipídico',
+    enlaces: [['/examenes/glucosa', 'Examen de glucosa'], ['/examenes/perfil-lipidico', 'Perfil lipídico'], ['/examenes/insulina', 'Insulina']],
+    pasos: [
+      'Por lo general se indica ayuno de 8 a 12 horas. Más de 12 horas no suele ser necesario.',
+      'Durante el ayuno puedes tomar agua. Evita café, té, jugos, leche, chicles y caramelos.',
+      'La noche anterior, cena de forma habitual y ligera. Evita el alcohol en las 24 horas previas, sobre todo antes del perfil lipídico.',
+      'Evita el ejercicio intenso la mañana del examen.',
+      'No suspendas tus medicamentos por tu cuenta: pregunta a tu médico si debes tomarlos antes o después de la muestra.',
+    ],
+  },
+  {
+    id: 'orina', icono: 'sun', titulo: 'Primera orina de la mañana para el EMO',
+    enlaces: [['/examenes/examen-de-orina-emo', 'Examen de orina (EMO)']],
+    pasos: [
+      'Consigue un frasco estéril de boca ancha (se vende en farmacias). No uses frascos reutilizados.',
+      'Recoge la primera orina del día, al levantarte.',
+      'Lava la zona genital con agua y sécala. Descarta el primer chorro, recoge el chorro medio y termina de orinar en el inodoro.',
+      'Cierra bien el frasco, escribe tu nombre y tráelo lo antes posible, idealmente dentro de la primera hora.',
+      'Si estás menstruando, avísanos antes de recoger la muestra.',
+    ],
+  },
+  {
+    id: 'heces', icono: 'test-tube', titulo: 'Recolección de muestras de heces',
+    enlaces: [['/examenes/coproparasitario', 'Coproparasitario'], ['/examenes/helicobacter-pylori', 'Helicobacter pylori']],
+    pasos: [
+      'Usa un frasco limpio con tapa de rosca (se vende en farmacias).',
+      'Deposita las heces en un recipiente limpio o sobre papel, sin que se mezclen con orina ni con agua del inodoro.',
+      'Con la paleta del frasco, toma una porción del tamaño de una nuez; si las heces son líquidas, unos mililitros.',
+      'Cierra el frasco, escribe tu nombre y tráelo lo antes posible.',
+      'Si tomas antibióticos, antiparasitarios o antiácidos, avísanos: pueden influir en algunos exámenes de heces.',
+    ],
+  },
+  {
+    id: 'hormonas', icono: 'calendar', titulo: 'Hormonas femeninas según el día del ciclo',
+    enlaces: [['/examenes/hormonas-femeninas', 'Hormonas femeninas'], ['/examenes/prueba-de-embarazo-en-sangre', 'Prueba de embarazo en sangre']],
+    pasos: [
+      'Algunas hormonas, como la FSH, la LH, el estradiol y la progesterona, cambian a lo largo del ciclo menstrual.',
+      'El día del ciclo en que debe tomarse la muestra lo indica tu médico. Cuenta como día 1 el primer día de tu menstruación.',
+      'Si no tienes clara la indicación, escríbenos con tu orden médica antes de venir.',
+      'Informa si usas anticonceptivos u otros tratamientos hormonales.',
+    ],
+  },
+  {
+    id: 'que-llevar', icono: 'clipboard-list', titulo: 'Qué llevar el día de tu examen',
+    enlaces: [],
+    pasos: [
+      'Tu orden médica, si la tienes, en papel o en foto.',
+      'La lista de medicamentos y suplementos que tomas.',
+      'Las muestras de orina o heces, si te las pidieron, bien cerradas y con tu nombre.',
+      'Si el examen es para tu empresa o para un trámite, los datos o el formato que te solicitaron.',
+    ],
+  },
+] as const;
+---
+<Layout title={r.title} description={r.description} path={r.path} schemas={[schema]} ogType="article"
+  article={{ published: PUBLICADO, modified: r.lastmod }}
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Preparación', path: '/preparacion' }]}>
+  <PageHero eyebrow="Guía para pacientes" title="Preparación para exámenes de laboratorio"
+    lead="Una buena preparación ayuda a que tus resultados sean comparables con los valores de referencia. Estas son indicaciones generales; la preparación exacta depende de tu examen y de la indicación de tu médico." />
+
+  <section class="section section--tint" style="padding-top:var(--s-12)">
+    <div class="container container--narrow">
+      <div class="note note--educativo" role="note">
+        <Icon name="info" size={18} />
+        <p><strong>Confirma siempre tu preparación.</strong> Información educativa; no reemplaza la indicación de tu médico. Confirma la preparación con nosotros antes de tu examen.</p>
+      </div>
+      <nav aria-label="Temas de la guía" class="chips mt-8">
+        {GUIAS.map((g) => <a class="chip" href={`#${g.id}`}>{g.titulo}</a>)}
+      </nav>
+
+      <div class="accordion mt-8">
+        {GUIAS.map((g, i) => (
+          <details id={g.id} open={i === 0}>
+            <summary>
+              <Icon name={g.icono} class="acc-lead" /><h2 class="acc-title">{g.titulo}</h2>
+              <span class="acc-icon"><Icon name="plus" size={16} /></span>
+            </summary>
+            <div class="acc-body">
+              <ol class="guia-pasos">{g.pasos.map((p) => <li>{p}</li>)}</ol>
+              {g.enlaces.length > 0 && (
+                <p class="small">Más información: {g.enlaces.map(([href, label], j) => <>{j > 0 && ' · '}<a href={href}>{label}</a></>)}</p>
+              )}
+            </div>
+          </details>
+        ))}
+      </div>
+      <p class="small muted mt-8">Actualizado: <time datetime={r.lastmod}>{mesAnio(r.lastmod)}</time>.</p>
+      <div class="cluster mt-6">
+        <a class="btn btn--whatsapp" href={waLink('Hola, quiero confirmar la preparación para mi examen.')} target="_blank" rel="noopener"><Icon name="whatsapp" /> Confirmar mi preparación</a>
+        <a class="btn btn--secondary" href="/preguntas-frecuentes">Preguntas frecuentes</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>
+
+<style>
+  :global(.acc-lead) { width: 22px; height: 22px; color: var(--primary); flex: none; }
+  .acc-title { flex: 1; font-size: var(--fs-md); font-family: var(--font-serif); }
+  .guia-pasos { padding-left: 20px; display: grid; gap: 10px; }
+  .guia-pasos li::marker { color: var(--accent-ink); font-weight: 600; }
+  .acc-body a { color: var(--primary); }
+</style>
