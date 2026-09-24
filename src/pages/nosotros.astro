@@ -27,13 +27,9 @@ const CALIDAD: { titulo: string; detalle: string }[] = [];
   <section class="section section--tint" aria-labelledby="historia">
     <div class="container grid grid--2" style="align-items:center">
       <div class="stack reveal">
-        <h2 id="historia">Más de una década cuidando la salud de Cuenca</h2>
+        <h2 id="historia">Cuidando la salud de Cuenca desde El Batán</h2>
         <p class="muted">Accu-Lab atiende en Cuenca desde {SITE.fundacion}. Estamos en Consultorios El Batán, en la esquina de la Calle Ecuador y la Av. de las Américas, en los altos de la farmacia Cruz Azul.</p>
         <p class="muted">Entendemos que detrás de cada muestra hay una persona que busca respuestas. Por eso cuidamos la confidencialidad, la rapidez y el trato cercano en cada visita, y publicamos los precios de nuestros {EXAMENES.length} exámenes para que sepas cuánto cuestan antes de venir.</p>
-        <div class="stats mini-stats mt-6">
-          <div class="stat"><span class="stat__num">{SITE.fundacion}</span><span class="stat__label">Año de inicio</span></div>
-          <div class="stat"><span class="stat__num">24<span>h</span></span><span class="stat__label">Resultados en la mayoría de exámenes</span></div>
-        </div>
       </div>
       <PhotoSlot src={equipo} alt="Profesionales de laboratorio analizando muestras al microscopio" ratio="4 / 3" widths={[480, 750]} sizes="(min-width: 1024px) 50vw, 100vw" id="nosotros-historia" />
     </div>
@@ -89,6 +85,4 @@ const CALIDAD: { titulo: string; detalle: string }[] = [];
   .areas li { display: flex; align-items: center; gap: var(--s-4); padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card); font-size: var(--fs-md); }
   .areas .card__icon { margin: 0; flex: none; }
   @media (max-width: 520px) { .areas li { flex-direction: column; align-items: start; font-size: var(--fs-base); } }
-  .mini-stats { grid-template-columns: repeat(2, 1fr); }
-  @media (min-width: 900px) { .mini-stats { grid-template-columns: repeat(2, 1fr); } }
 </style>
