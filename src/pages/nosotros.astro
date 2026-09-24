@@ -8,7 +8,6 @@ import CtaBand from '../components/CtaBand.astro';
 import equipo from '../assets/fotos/equipo.jpeg';
 import { RUTAS } from '../data/rutas';
 import { SITE } from '../lib/site';
-import { EXAMENES } from '../lib/catalogo';
 
 const r = RUTAS.nosotros;
 const AREAS = [
@@ -29,7 +28,7 @@ const CALIDAD: { titulo: string; detalle: string }[] = [];
       <div class="stack reveal">
         <h2 id="historia">Cuidando la salud de Cuenca desde El Batán</h2>
         <p class="muted">Accu-Lab atiende en Cuenca desde {SITE.fundacion}. Estamos en Consultorios El Batán, en la esquina de la Calle Ecuador y la Av. de las Américas, en los altos de la farmacia Cruz Azul.</p>
-        <p class="muted">Entendemos que detrás de cada muestra hay una persona que busca respuestas. Por eso cuidamos la confidencialidad, la rapidez y el trato cercano en cada visita, y publicamos los precios de nuestros {EXAMENES.length} exámenes para que sepas cuánto cuestan antes de venir.</p>
+        <p class="muted">Entendemos que detrás de cada muestra hay una persona que busca respuestas. Por eso cuidamos la confidencialidad, la rapidez y el trato cercano en cada visita, y publicamos los precios de nuestros exámenes para que sepas cuánto cuestan antes de venir.</p>
       </div>
       <PhotoSlot src={equipo} alt="Profesionales de laboratorio analizando muestras al microscopio" ratio="4 / 3" widths={[480, 750]} sizes="(min-width: 1024px) 50vw, 100vw" id="nosotros-historia" />
     </div>

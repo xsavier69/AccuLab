@@ -11,7 +11,7 @@ import CtaBand from '../components/CtaBand.astro';
 import Resenas from '../components/Resenas.astro';
 import portada from '../assets/fotos/portada.webp';
 import { RUTAS } from '../data/rutas';
-import { EXAMENES, PAGINAS, PAQUETES } from '../lib/catalogo';
+import { PAGINAS, PAQUETES } from '../lib/catalogo';
 import { SITE, waLink, WA_GENERAL } from '../lib/site';
 import { FAQ_CORTA } from '../data/faq';
 
@@ -55,7 +55,7 @@ const DESTACADOS = ['chequeo-preventivo-anual', 'hormonal-femenino', 'perfil-met
     <div class="container">
       <div class="stats stats--3">
         <div class="stat reveal"><span class="stat__num">24<span>h</span></span><span class="stat__label">Resultados en la mayoría de exámenes</span></div>
-        <div class="stat reveal"><span class="stat__num">{EXAMENES.length}</span><span class="stat__label">Exámenes con precio publicado</span></div>
+        <div class="stat reveal"><span class="stat__num"><Icon name="calendar" size={44} class="stat__icon" /></span><span class="stat__label">Atención sin cita previa</span></div>
         <div class="stat reveal"><span class="stat__num"><Icon name="house" size={44} class="stat__icon" /></span><span class="stat__label">Toma de muestras a domicilio</span></div>
       </div>
     </div>

@@ -183,3 +183,7 @@ Si existe `PUBLIC_GA4_ID` (variable de entorno de Vercel), gtag se carga tras la
 ## D-030 · "2010" en un solo lugar y texto del hero más corto
 **Qué:** el texto bajo el H1 del home ahora es "Consulta el precio de tu examen y agéndalo por WhatsApp." El año de fundación aparece **solo** en el párrafo de historia de /nosotros ("Accu-Lab atiende en Cuenca desde 2010"). Se quitó de la cifra del home (que pasa de 4 a 3 datos), del pie de página, del title, la description y la imagen OG de /nosotros, de la meta description del home y del subtítulo "Más de una década…". El `foundingDate` del JSON-LD se mantiene porque no es visible y Google lo usa para la ficha del negocio.
 **Por qué:** pedido del cliente: repetir el año en todas las páginas resultaba redundante.
+
+## D-031 · Sin el conteo "97 exámenes" en el sitio
+**Qué:** se quitó toda mención visible a la cantidad de exámenes: la cifra "97 · Exámenes con precio publicado" del home (reemplazada por "Atención sin cita previa", un dato confirmado), el subtítulo y la meta description de /cotizar, el beneficio "Amplio menú de exámenes" de /medicos y el párrafo de historia de /nosotros. El catálogo interno y la verificación de precios siguen trabajando con los 97 exámenes; solo deja de mostrarse el número.
+**Por qué:** pedido del cliente: publicar el número da a entender que el laboratorio solo realiza esos exámenes.
