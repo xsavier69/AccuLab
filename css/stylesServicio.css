@@ -1,33 +1,295 @@
-/* --- 1. VARIABLES UNIFICADAS (AccuLab Brand) --- */
+/* --- 1. TOKENS LOCALES (heredan del sistema en styles.css) --- */
 :root {
-    --teal-accu: #00665c;
-    /* Dark teal - logo primary */
-    --teal-hover: #005249;
-    --green-accu: #8cc63f;
-    /* Bright green - accent */
-    --green-hover: #78ad32;
     --negro-profundo: #162625;
-    /* Deep teal-tinted black */
     --texto: #4a5c5a;
-    /* Grey with hint of teal */
-    --blanco: #ffffff;
-    --gris-fondo: #f4f8f7;
-    /* Clean clinical background */
     --gris-luxe: #fcfcfc;
-    --teal-light: #e0f0ee;
-    --green-light: #eef6e2;
     --shadow-premium: 0 12px 36px rgba(0, 102, 92, 0.08);
     --shadow-premium-hover: 0 20px 48px rgba(0, 102, 92, 0.15);
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    /* Acentos por categoría de servicio */
+    --acento-ocupacional: #00665c;
+    --acento-deportivo: #c2633f;
+    --acento-toxicologico: #9c4a42;
 }
 
 /* --- 2. ESTILOS BASE --- */
 body.servicios-page {
     background-color: var(--gris-fondo);
-    font-family: 'Poppins', sans-serif;
     color: var(--texto);
     margin: 0;
-    line-height: 1.7;
+}
+
+/* --- 2b. ESTRUCTURA DE SECCIONES --- */
+.seccion {
+    padding: 100px 5%;
+}
+
+.seccion-clara {
+    background: var(--blanco);
+}
+
+.seccion-tinte {
+    background: var(--gris-fondo);
+}
+
+.contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.seccion-head {
+    text-align: center;
+    margin-bottom: 56px;
+}
+
+.seccion-head .subtitulo {
+    color: var(--teal-accu);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.78rem;
+}
+
+.seccion-head h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+    color: var(--negro-profundo);
+    font-weight: 800;
+}
+
+.seccion-head p {
+    max-width: 68ch;
+    margin: 18px auto 0;
+    color: var(--texto);
+    font-size: 1.05rem;
+}
+
+/* --- 2c. TARJETAS DE SERVICIO --- */
+.grid-servicios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+}
+
+.servicio-card {
+    background: var(--blanco);
+    border-radius: var(--radius);
+    padding: 36px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--linea);
+    border-top: 3px solid var(--acento, var(--teal-accu));
+    transition: var(--transition);
+}
+
+.servicio-card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-4px);
+}
+
+.servicio-card-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.servicio-icono {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--acento, var(--teal-accu)) 12%, transparent);
+    color: var(--acento, var(--teal-accu));
+}
+
+.servicio-icono svg {
+    width: 21px;
+    height: 21px;
+}
+
+.servicio-card-head h3 {
+    font-size: 1.3rem;
+    margin: 0;
+    color: var(--acento, var(--teal-accu));
+    font-weight: 700;
+}
+
+.servicio-card>p {
+    margin-bottom: 22px;
+    color: var(--texto);
+}
+
+.servicio-card h4 {
+    font-size: 0.8rem;
+    margin-bottom: 14px;
+    color: var(--negro-profundo);
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    font-weight: 700;
+}
+
+.servicio-card .lista-check li {
+    font-size: 0.94rem;
+}
+
+/* --- 2d. CONVENIOS --- */
+.grid-convenios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+}
+
+.convenio-card {
+    background: var(--blanco);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--linea);
+}
+
+.convenio-card h3 {
+    color: var(--teal-accu);
+    margin-bottom: 24px;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.grid-especialidades {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px 20px;
+}
+
+.convenio-cta {
+    text-align: center;
+    margin-top: 32px;
+    background: var(--blanco);
+    padding: 44px 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--linea);
+}
+
+.convenio-cta h3 {
+    color: var(--negro-profundo);
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.convenio-cta p {
+    color: var(--texto);
+    margin-bottom: 28px;
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- 2e. PROGRAMAS ESPECIALIZADOS --- */
+.grid-especiales {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+    gap: 20px;
+}
+
+.especial-card {
+    background: var(--blanco);
+    padding: 28px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--linea);
+    transition: var(--transition);
+}
+
+.especial-card:hover {
+    border-color: rgba(0, 102, 92, 0.25);
+    box-shadow: var(--shadow-sm);
+}
+
+.especial-card h4 {
+    color: var(--negro-profundo);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.especial-card .para-quien {
+    color: var(--teal-accu);
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+.especial-card .incluye {
+    color: var(--texto);
+    font-size: 0.89rem;
+    line-height: 1.6;
+    padding-top: 14px;
+    border-top: 1px solid var(--linea);
+}
+
+/* --- 2f. CTA DOMICILIO --- */
+.cta-domicilio {
+    margin-top: 64px;
+    background: var(--teal-accu);
+    padding: 52px 40px;
+    border-radius: var(--radius);
+    text-align: center;
+    color: var(--blanco);
+}
+
+.cta-domicilio svg {
+    width: 34px;
+    height: 34px;
+    color: var(--green-accu);
+    margin-bottom: 16px;
+}
+
+.cta-domicilio h3 {
+    color: var(--blanco);
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.cta-domicilio p {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+    max-width: 56ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-claro {
+    display: inline-block;
+    background: var(--green-accu);
+    color: var(--negro-profundo);
+    padding: 15px 36px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.btn-claro:hover {
+    background: #9ad44f;
+    transform: translateY(-2px);
+}
+
+.cta-centrado {
+    text-align: center;
+    margin-top: 48px;
+}
+
+.cta-centrado .btn-solicitar-cita {
+    padding: 15px 36px;
+    font-size: 1rem;
+    display: inline-block;
 }
 
 /* --- 3. HERO SECCIÓN (CENTRADOS) --- */
@@ -142,22 +404,35 @@ body.servicios-page {
 }
 
 .feature-pill {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     color: white;
-    padding: 10px 25px;
+    padding: 11px 24px;
     border-radius: 50px;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.feature-pill span {
+.feature-pill svg {
+    width: 18px;
+    height: 18px;
+    flex: none;
     color: var(--green-accu);
-    font-size: 1.2rem;
+}
+
+.feature-pill.destacado {
+    background: var(--green-accu);
+    border-color: transparent;
+    color: var(--negro-profundo);
+    font-weight: 700;
+}
+
+.feature-pill.destacado svg {
+    color: var(--negro-profundo);
 }
 
 /* --- 5. TABLERO DE PROMOS (TARJETAS) --- */

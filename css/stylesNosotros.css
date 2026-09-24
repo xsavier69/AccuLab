@@ -79,10 +79,11 @@
 
 .card-filosofia {
     background: white;
-    padding: 50px 40px;
+    padding: 46px 40px;
     border-radius: var(--radius);
-    box-shadow: var(--shadow-lg);
-    border-bottom: 5px solid transparent;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--linea);
+    border-bottom: 3px solid transparent;
     transition: var(--transition);
 }
 
@@ -95,12 +96,25 @@
 }
 
 .card-filosofia:hover {
-    transform: translateY(-10px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
 }
 
 .icono-filosofia {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    width: 58px;
+    height: 58px;
+    border-radius: var(--radius-sm);
+    background: var(--teal-light);
+    color: var(--teal-accu);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.icono-filosofia svg {
+    width: 27px;
+    height: 27px;
 }
 
 .card-filosofia h2 {
@@ -157,14 +171,22 @@
     transform: translateX(5px);
 }
 
-.lista-areas li span {
-    font-size: 1.5rem;
+.lista-areas li svg {
+    width: 21px;
+    height: 21px;
+    flex: none;
+    color: var(--teal-accu);
+    transition: var(--transition);
+}
+
+.lista-areas li:hover svg {
+    color: var(--green-accu);
 }
 
 .resumen-img img {
     width: 100%;
-    border-radius: var(--radius);
-    box-shadow: 20px 20px 0px var(--green-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
 }
 
 .sello-calidad {
@@ -243,7 +265,7 @@
 }
 
 .pe-3 {
-    background: #004d44;
+    background: var(--teal-deep);
 }
 
 .perfil-lista {
@@ -260,9 +282,10 @@
 }
 
 .perfil-lista li::before {
-    content: "✔️";
+    content: "✓";
+    color: var(--green-accu);
+    font-weight: 800;
     margin-right: 12px;
-    font-size: 0.9rem;
 }
 
 .perfil-card.destacada .perfil-lista li {

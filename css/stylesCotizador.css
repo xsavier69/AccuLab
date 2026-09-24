@@ -8,7 +8,7 @@
 }
 
 .hero-cotizador {
-    background: linear-gradient(135deg, var(--teal-accu) 0%, #004d44 100%);
+    background: linear-gradient(135deg, var(--teal-accu) 0%, var(--teal-deep) 100%);
     color: white;
     padding: 80px 5%;
     text-align: center;
@@ -204,21 +204,23 @@
 
 .btn-whatsapp-cotizar {
     width: 100%;
-    background: linear-gradient(135deg, var(--green-accu), var(--green-hover));
-    color: white;
+    background: var(--green-accu);
+    color: var(--negro-texto);
     border: none;
     padding: 16px;
     border-radius: 50px;
+    font-family: var(--font-body);
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 6px 20px rgba(140, 198, 63, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 40, 36, 0.14);
 }
 
 .btn-whatsapp-cotizar:hover:not(:disabled) {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(140, 198, 63, 0.4);
+    background: #9ad44f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 40, 36, 0.2);
 }
 
 .btn-whatsapp-cotizar:disabled {

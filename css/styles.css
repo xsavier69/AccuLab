@@ -1,27 +1,39 @@
-/* --- 1. VARIABLES (AccuLab Brand: Facebook Colors) --- */
+/* --- 1. SISTEMA DE DISEÑO (AccuLab) --- */
 :root {
+    /* Marca */
     --teal-accu: #00665c;
-    /* Dark teal - logo primary */
     --teal-hover: #005249;
-    /* Darker teal for hover */
+    --teal-deep: #003f38;
     --green-accu: #8cc63f;
-    /* Bright green - accent */
     --green-hover: #78ad32;
-    /* Slightly darker for hover */
     --green-light: #eef6e2;
-    /* Light green background tint */
     --teal-light: #e0f0ee;
-    /* Light teal background tint */
+
+    /* Texto y superficies (grises con matiz teal, nunca neutros fríos) */
     --negro-texto: #1a2e2d;
-    /* Dark teal-tinted black */
+    --gris-medio: #5d6f6c;
+    --gris-suave: #869794;
     --gris-fondo: #f4f8f7;
-    /* Very subtle teal-grey background */
     --blanco: #ffffff;
-    --gris-medio: #6b7b78;
-    --shadow: 0 8px 24px rgba(0, 102, 92, 0.12);
-    --shadow-lg: 0 16px 48px rgba(0, 102, 92, 0.16);
+    --linea: #e3ecea;
+
+    /* Elevación: sombras teñidas y estratificadas */
+    --shadow-sm: 0 2px 8px rgba(0, 102, 92, 0.05), 0 1px 2px rgba(0, 102, 92, 0.04);
+    --shadow: 0 10px 28px rgba(0, 102, 92, 0.08), 0 2px 6px rgba(0, 102, 92, 0.04);
+    --shadow-lg: 0 20px 52px rgba(0, 102, 92, 0.12), 0 4px 12px rgba(0, 102, 92, 0.05);
+
+    /* Forma */
+    --radius-sm: 10px;
     --radius: 16px;
-    --transition: all 0.3s ease;
+    --radius-lg: 24px;
+
+    /* Movimiento */
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Tipografía */
+    --font-display: 'Poppins', system-ui, sans-serif;
+    --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
 /* --- 2. RESET Y BASE --- */
@@ -32,23 +44,83 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-body);
     background-color: var(--gris-fondo);
     color: var(--negro-texto);
-    line-height: 1.6;
+    line-height: 1.65;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+}
+
+/* Foco visible y consistente en toda la navegación por teclado */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--green-accu);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* --- 2b. LISTAS CON CHECK VECTORIAL --- */
+.lista-check {
+    list-style: none;
+    padding: 0;
+}
+
+.lista-check li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 11px;
+    color: var(--gris-medio);
+    line-height: 1.55;
+}
+
+.lista-check li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.42em;
+    width: 17px;
+    height: 17px;
+    background-color: var(--green-accu);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") no-repeat center/contain;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") no-repeat center/contain;
 }
 
 /* --- 3. HEADER Y NAV --- */
 header {
-    background-color: var(--blanco);
+    background-color: rgba(255, 255, 255, 0.88);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
     padding: 12px 5%;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 16px rgba(0, 102, 92, 0.1);
-    border-bottom: 3px solid var(--green-accu);
+    box-shadow: 0 1px 0 var(--linea), 0 4px 20px rgba(0, 102, 92, 0.05);
 }
 
 nav {
@@ -100,21 +172,23 @@ nav ul a:hover::after {
 }
 
 .btn-solicitar-cita {
-    background: linear-gradient(135deg, var(--green-accu), var(--green-hover));
+    background: var(--teal-accu);
     color: var(--blanco);
-    padding: 11px 28px;
+    padding: 12px 28px;
     border-radius: 50px;
     text-decoration: none;
+    font-family: var(--font-body);
     font-weight: 700;
     font-size: 0.9rem;
     transition: var(--transition);
-    box-shadow: 0 4px 12px rgba(140, 198, 63, 0.35);
-    letter-spacing: 0.3px;
+    box-shadow: var(--shadow-sm);
+    letter-spacing: 0.2px;
 }
 
 .btn-solicitar-cita:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(140, 198, 63, 0.45);
+    background: var(--teal-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
 }
 
 /* --- 4. HERO SECTION --- */
@@ -124,7 +198,7 @@ main {
 
 .hero-premium {
     position: relative;
-    height: calc(100vh - 83px);
+    height: min(86vh, 760px);
     min-height: 520px;
     display: flex;
     align-items: center;
@@ -198,37 +272,41 @@ main {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--green-accu), var(--green-hover));
-    color: white;
-    padding: 14px 36px;
+    background: var(--green-accu);
+    color: var(--negro-texto);
+    padding: 15px 36px;
     border-radius: 50px;
     text-decoration: none;
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-weight: 800;
     transition: var(--transition);
-    box-shadow: 0 6px 20px rgba(140, 198, 63, 0.4);
-    letter-spacing: 0.3px;
+    box-shadow: 0 4px 16px rgba(0, 40, 36, 0.18);
+    letter-spacing: 0.2px;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(140, 198, 63, 0.5);
+    background: #9ad44f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 40, 36, 0.24);
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(8px);
-    border: 2px solid rgba(255, 255, 255, 0.7);
+    border: 1.5px solid rgba(255, 255, 255, 0.45);
     color: white;
-    padding: 14px 36px;
+    padding: 15px 36px;
     border-radius: 50px;
     text-decoration: none;
+    font-family: var(--font-body);
     font-weight: 700;
     transition: var(--transition);
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.22);
-    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
 }
 
 /* STATS BAR */
@@ -238,16 +316,17 @@ main {
     left: 0;
     right: 0;
     z-index: 3;
-    background: rgba(0, 40, 36, 0.6);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(140, 198, 63, 0.3);
+    background: rgba(0, 35, 31, 0.55);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
     display: flex;
     justify-content: center;
     gap: 0;
 }
 
 .stat-item {
-    padding: 18px 50px;
+    padding: 20px 46px;
     text-align: center;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
@@ -258,19 +337,23 @@ main {
 }
 
 .stat-num {
-    font-size: 1.6rem;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
     font-weight: 800;
     color: var(--green-accu);
     display: block;
     line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
 }
 
 .stat-label {
-    font-size: 0.75rem;
-    opacity: 0.8;
+    font-size: 0.72rem;
+    opacity: 0.78;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 4px;
+    letter-spacing: 1.4px;
+    font-weight: 600;
+    margin-top: 6px;
     display: block;
 }
 
@@ -295,35 +378,42 @@ main {
 
 .nosotros-imagen img {
     width: 100%;
-    border-radius: 24px;
-    box-shadow: 20px 20px 0px var(--green-accu);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
     display: block;
 }
 
 .experiencia-badge {
     position: absolute;
-    bottom: -20px;
-    right: -20px;
-    background: linear-gradient(135deg, var(--teal-accu), var(--teal-hover));
-    color: white;
-    padding: 22px 26px;
-    border-radius: 20px;
+    bottom: -24px;
+    right: -18px;
+    background: var(--blanco);
+    color: var(--negro-texto);
+    padding: 20px 26px;
+    border-radius: var(--radius);
     text-align: center;
     box-shadow: var(--shadow-lg);
+    border: 1px solid var(--linea);
 }
 
 .experiencia-badge .numero {
     display: block;
+    font-family: var(--font-display);
     font-size: 2rem;
     font-weight: 800;
-    color: var(--green-accu);
+    color: var(--teal-accu);
+    line-height: 1;
+    letter-spacing: -0.03em;
 }
 
 .experiencia-badge .texto {
-    font-size: 0.8rem;
-    opacity: 0.9;
+    font-size: 0.72rem;
+    color: var(--gris-medio);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+    margin-top: 6px;
+    display: block;
 }
 
 .subtitulo {
@@ -362,18 +452,20 @@ main {
 }
 
 .punto .check {
-    width: 28px;
-    height: 28px;
-    background: var(--green-light);
-    color: var(--teal-accu);
-    font-weight: 800;
+    width: 34px;
+    height: 34px;
+    background: var(--teal-accu);
+    color: var(--blanco);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-size: 0.85rem;
-    border: 2px solid var(--green-accu);
+}
+
+.punto .check svg {
+    width: 16px;
+    height: 16px;
 }
 
 .punto h4 {
@@ -407,8 +499,8 @@ main {
 
 /* --- 6. SECCIÓN PASOS --- */
 .pasos-analisis {
-    padding: 90px 5%;
-    background: linear-gradient(180deg, var(--gris-fondo) 0%, var(--teal-light) 100%);
+    padding: 100px 5%;
+    background: var(--gris-fondo);
     text-align: center;
 }
 
@@ -440,37 +532,36 @@ main {
 
 .paso-card {
     background: white;
-    padding: 44px 32px;
+    padding: 40px 32px;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--linea);
     transition: var(--transition);
-    border-bottom: 4px solid transparent;
     position: relative;
-    overflow: hidden;
-}
-
-.paso-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--teal-accu), var(--green-accu));
+    text-align: left;
 }
 
 .paso-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: rgba(0, 102, 92, 0.18);
 }
 
 .paso-num {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--teal-light);
-    display: block;
-    margin-bottom: 14px;
-    line-height: 1;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--teal-accu);
+    background: var(--teal-light);
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
 }
 
 .paso-card h4 {
@@ -487,7 +578,7 @@ main {
 
 /* --- 7. BANNER CONFIANZA --- */
 .banner-confianza {
-    background: linear-gradient(135deg, var(--teal-accu) 0%, #004d44 100%);
+    background: linear-gradient(135deg, var(--teal-accu) 0%, var(--teal-deep) 100%);
     color: white;
     padding: 90px 5%;
     text-align: center;
@@ -539,21 +630,22 @@ main {
 .btn-blanco-accu {
     display: inline-block;
     background: var(--green-accu);
-    color: white;
+    color: var(--negro-texto);
     padding: 16px 40px;
     border-radius: 50px;
     text-decoration: none;
+    font-family: var(--font-body);
     font-weight: 800;
     margin-top: 28px;
     transition: var(--transition);
-    box-shadow: 0 6px 20px rgba(140, 198, 63, 0.4);
+    box-shadow: 0 4px 18px rgba(0, 30, 27, 0.22);
     font-size: 1rem;
 }
 
 .btn-blanco-accu:hover {
-    background: var(--green-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(140, 198, 63, 0.5);
+    background: #9ad44f;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 30, 27, 0.28);
 }
 
 /* --- 8. CONTACTO Y MAPA --- */
@@ -595,17 +687,20 @@ main {
 }
 
 .icono {
-    background: var(--green-light);
+    background: var(--teal-light);
     color: var(--teal-accu);
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 14px;
-    font-size: 1.3rem;
+    border-radius: var(--radius-sm);
     flex-shrink: 0;
-    border: 2px solid var(--teal-light);
+}
+
+.icono svg {
+    width: 22px;
+    height: 22px;
 }
 
 .item-contacto p {
@@ -635,9 +730,38 @@ main {
 
 /* --- 9. FOOTER --- */
 .footer-acculab {
-    background: linear-gradient(135deg, #002e2a 0%, var(--teal-accu) 100%);
-    padding: 65px 5% 20px;
-    color: rgba(255, 255, 255, 0.8);
+    background: var(--teal-deep);
+    padding: 72px 5% 24px;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+/* Datos de contacto con icono vectorial */
+.footer-dato {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 9px;
+    opacity: 0.82;
+}
+
+.footer-dato svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--green-accu);
+}
+
+.footer-dato a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-dato a:hover {
+    color: var(--green-accu);
 }
 
 .footer-container {
@@ -672,20 +796,25 @@ main {
 .btn-whatsapp-footer {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
     background: var(--green-accu);
-    color: white;
-    padding: 10px 22px;
+    color: var(--negro-texto);
+    padding: 11px 24px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 700;
-    margin-top: 16px;
+    margin-top: 18px;
     font-size: 0.9rem;
     transition: var(--transition);
 }
 
+.btn-whatsapp-footer svg {
+    width: 17px;
+    height: 17px;
+}
+
 .btn-whatsapp-footer:hover {
-    background: var(--green-hover);
+    background: #9ad44f;
     transform: translateY(-2px);
 }
 
