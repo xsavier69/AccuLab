@@ -1,0 +1,588 @@
+{
+ "fuente": "cotizar.html (commit 698cf1c, idéntico a https://acculab.bio/cotizar el 2026-09-24)",
+ "total": 97,
+ "examenes": [
+  {
+   "categoria": "Hematológicos",
+   "nombre": "Hemograma",
+   "etiqueta": "Hemograma",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Hematológicos",
+   "nombre": "Grupo Sanguíneo",
+   "etiqueta": "Grupo Sanguíneo",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Hematológicos",
+   "nombre": "Plaquetas",
+   "etiqueta": "Plaquetas",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Hematológicos",
+   "nombre": "T. Sangría",
+   "etiqueta": "T. Sangría",
+   "precio": 1.0
+  },
+  {
+   "categoria": "Hematológicos",
+   "nombre": "T. Coagulación",
+   "etiqueta": "T. Coagulación",
+   "precio": 1.0
+  },
+  {
+   "categoria": "Hematológicos",
+   "nombre": "TP",
+   "etiqueta": "TP",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Hematológicos",
+   "nombre": "TPT",
+   "etiqueta": "TPT",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Hematológicos",
+   "nombre": "Fibrinógeno",
+   "etiqueta": "Fibrinógeno",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Hematológicos",
+   "nombre": "Reticulocitos",
+   "etiqueta": "Reticulocitos",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Colesterol",
+   "etiqueta": "Colesterol",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "HDL",
+   "etiqueta": "HDL",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "LDL",
+   "etiqueta": "LDL",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Triglicéridos",
+   "etiqueta": "Triglicéridos",
+   "precio": 3.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Glucosa",
+   "etiqueta": "Glucosa",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Hemoglobina Glicosilada",
+   "etiqueta": "Hemoglobina Glicosilada",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Urea",
+   "etiqueta": "Urea",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Creatinina",
+   "etiqueta": "Creatinina",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Ácido Úrico",
+   "etiqueta": "Ácido Úrico",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Proteínas",
+   "etiqueta": "Proteínas",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Albúmina",
+   "etiqueta": "Albúmina",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Globulina",
+   "etiqueta": "Globulina",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Bilirrubinas",
+   "etiqueta": "Bilirrubinas",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "B. Indirecta",
+   "etiqueta": "B. Indirecta",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "B. Directa",
+   "etiqueta": "B. Directa",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "TGO",
+   "etiqueta": "TGO",
+   "precio": 2.5
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "TGP",
+   "etiqueta": "TGP",
+   "precio": 2.5
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "F. Alcalina",
+   "etiqueta": "F. Alcalina",
+   "precio": 3.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "F. Ácida",
+   "etiqueta": "F. Ácida",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "F. Ácida Prostática",
+   "etiqueta": "F. Ácida Prostática",
+   "precio": 9.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "DHL",
+   "etiqueta": "DHL",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "GGT",
+   "etiqueta": "GGT",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Sodio",
+   "etiqueta": "Sodio",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Potasio",
+   "etiqueta": "Potasio",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Cloro",
+   "etiqueta": "Cloro",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Calcio",
+   "etiqueta": "Calcio",
+   "precio": 3.5
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Fósforo",
+   "etiqueta": "Fósforo",
+   "precio": 3.5
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Magnesio",
+   "etiqueta": "Magnesio",
+   "precio": 3.5
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Hierro",
+   "etiqueta": "Hierro",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Transferrina",
+   "etiqueta": "Transferrina",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Saturación",
+   "etiqueta": "Saturación",
+   "precio": 2.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Ferritina",
+   "etiqueta": "Ferritina",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Amilasa",
+   "etiqueta": "Amilasa",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Lipasa",
+   "etiqueta": "Lipasa",
+   "precio": 7.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "CPK",
+   "etiqueta": "CPK",
+   "precio": 6.0
+  },
+  {
+   "categoria": "Química General",
+   "nombre": "Colinesterasa",
+   "etiqueta": "Colinesterasa",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "BHCG Cuantitativa",
+   "etiqueta": "BHCG Cuantitativa",
+   "precio": 15.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "Foliculoestimulante",
+   "etiqueta": "Foliculoestimulante",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "Luteinizante",
+   "etiqueta": "Luteinizante",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "Progesterona",
+   "etiqueta": "Progesterona",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "Prolactina",
+   "etiqueta": "Prolactina",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "Estradiol",
+   "etiqueta": "Estradiol",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "Testosterona",
+   "etiqueta": "Testosterona",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "TSH",
+   "etiqueta": "TSH",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "T3 Libre",
+   "etiqueta": "T3 Libre",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "T4 Libre",
+   "etiqueta": "T4 Libre",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "Insulina",
+   "etiqueta": "Insulina",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "Cortisol",
+   "etiqueta": "Cortisol",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Hormonas",
+   "nombre": "ACTH",
+   "etiqueta": "ACTH",
+   "precio": 18.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Citomegalovirus IgG IgM",
+   "etiqueta": "Citomegalovirus IgG IgM",
+   "precio": 20.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Rubeola IgG IgM",
+   "etiqueta": "Rubeola IgG IgM",
+   "precio": 20.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Toxoplasma IgG IgM",
+   "etiqueta": "Toxoplasma IgG IgM",
+   "precio": 20.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Dengue IgM",
+   "etiqueta": "Dengue IgM",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Herpes Virus 1 IgG IgM",
+   "etiqueta": "Herpes Virus 1 IgG IgM",
+   "precio": 20.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Herpes Virus 2 IgG IgM",
+   "etiqueta": "Herpes Virus 2 IgG IgM",
+   "precio": 20.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Helicobacter Pylori",
+   "etiqueta": "Helicobacter Pylori",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Clamidia IgG IgM",
+   "etiqueta": "Clamidia IgG IgM",
+   "precio": 30.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Mononucleosis Infecciosa",
+   "etiqueta": "Mononucleosis Infecciosa",
+   "precio": 12.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "HIV",
+   "etiqueta": "HIV",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Hepatitis A IgG IgM",
+   "etiqueta": "Hepatitis A IgG IgM",
+   "precio": 15.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Hepatitis B Ag",
+   "etiqueta": "Hepatitis B Ag",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "Hepatitis C",
+   "etiqueta": "Hepatitis C",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "PSA Total",
+   "etiqueta": "PSA Total",
+   "precio": 15.0
+  },
+  {
+   "categoria": "Retrovirales Infecciosos",
+   "nombre": "PSA Libre",
+   "etiqueta": "PSA Libre",
+   "precio": 15.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "FR Semicuantitativo",
+   "etiqueta": "FR Semicuantitativo",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "ASTO Semicuantitativo",
+   "etiqueta": "ASTO Semicuantitativo",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "PCR Semicuantitativo",
+   "etiqueta": "PCR Semicuantitativo",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "VDRL",
+   "etiqueta": "VDRL",
+   "precio": 6.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "Pruebas de Embarazo",
+   "etiqueta": "Pruebas de Embarazo",
+   "precio": 7.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "Reacción de Widal",
+   "etiqueta": "Reacción de Widal",
+   "precio": 7.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "Inmunoglobulina A",
+   "etiqueta": "Inmunoglobulina A",
+   "precio": 15.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "Inmunoglobulina M",
+   "etiqueta": "Inmunoglobulina M",
+   "precio": 15.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "Inmunoglobulina E",
+   "etiqueta": "Inmunoglobulina E",
+   "precio": 15.0
+  },
+  {
+   "categoria": "Seroinmunológicos",
+   "nombre": "Inmunoglobulina G",
+   "etiqueta": "Inmunoglobulina G",
+   "precio": 15.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "EMO",
+   "etiqueta": "EMO (Orina)",
+   "precio": 4.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Microalbuminuria",
+   "etiqueta": "Microalbuminuria",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Parasitario (Heces)",
+   "etiqueta": "Parasitario (Heces)",
+   "precio": 3.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Azúcares Reductores",
+   "etiqueta": "Azúcares Reductores",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Azúcares No Reductores",
+   "etiqueta": "Azúcares No Reductores",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Actividad Tríptica",
+   "etiqueta": "Actividad Tríptica",
+   "precio": 5.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "PH en Heces",
+   "etiqueta": "PH en Heces",
+   "precio": 3.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Rotavirus",
+   "etiqueta": "Rotavirus",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Adenovirus",
+   "etiqueta": "Adenovirus",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Sangre Oculta",
+   "etiqueta": "Sangre Oculta",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Helicobacter Pylori (Heces)",
+   "etiqueta": "Helicobacter Pylori (Heces)",
+   "precio": 10.0
+  },
+  {
+   "categoria": "Orina y Heces",
+   "nombre": "Polimorfonucleares",
+   "etiqueta": "Polimorfonucleares",
+   "precio": 3.0
+  },
+  {
+   "categoria": "Toxicología y Otros",
+   "nombre": "Panel Toxicológico 6 Determinaciones",
+   "etiqueta": "Panel Toxicológico (6 Det.)",
+   "precio": 30.0
+  },
+  {
+   "categoria": "Toxicología y Otros",
+   "nombre": "Cultivos Varios",
+   "etiqueta": "Cultivos Varios",
+   "precio": 13.0
+  }
+ ]
+}
