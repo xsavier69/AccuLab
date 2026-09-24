@@ -112,6 +112,26 @@ body.servicios-page {
     margin: 0 auto;
 }
 
+/* --- 3b. PALABRAS CLAVE DEL HERO --- */
+.hero-examenes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 28px 0 4px;
+}
+
+.hero-examenes span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: var(--blanco);
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    padding: 7px 18px;
+    border-radius: 50px;
+}
+
 /* --- 4. EXTRAS SERVICIOS --- */
 .servicios-features {
     display: flex;
@@ -391,6 +411,98 @@ body.servicios-page {
     line-height: 1.6;
 }
 
+/* --- 6b. PREGUNTAS FRECUENTES --- */
+.faq-servicios {
+    padding: 90px 5% 100px;
+    background: var(--gris-fondo);
+}
+
+.faq-container {
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.faq-intro {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.faq-intro .subtitulo {
+    color: var(--teal-accu);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.faq-intro h2 {
+    font-size: 2.2rem;
+    color: var(--negro-profundo);
+    margin-bottom: 10px;
+}
+
+.faq-intro p {
+    color: var(--texto);
+    font-size: 1rem;
+}
+
+.faq-lista {
+    display: flex;
+    flex-direction: column;
+}
+
+.faq-item {
+    border-bottom: 1px solid rgba(0, 102, 92, 0.14);
+    padding: 22px 4px;
+}
+
+.faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--negro-profundo);
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '';
+    flex: none;
+    width: 11px;
+    height: 11px;
+    border-right: 2px solid var(--teal-accu);
+    border-bottom: 2px solid var(--teal-accu);
+    transform: rotate(45deg);
+    transition: var(--transition);
+    margin-top: -4px;
+}
+
+.faq-item[open] summary::after {
+    transform: rotate(-135deg);
+    margin-top: 4px;
+}
+
+.faq-item summary:hover {
+    color: var(--teal-accu);
+}
+
+.faq-item p {
+    margin: 16px 0 4px;
+    color: var(--texto);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 68ch;
+}
+
 /* --- 7. RESPONSIVO --- */
 @media (max-width: 900px) {
     .container-promos {
@@ -434,5 +546,17 @@ body.servicios-page {
 
     .promo-price {
         font-size: 3.2rem;
+    }
+
+    .faq-servicios {
+        padding: 60px 5% 70px;
+    }
+
+    .faq-intro h2 {
+        font-size: 1.8rem;
+    }
+
+    .faq-item summary {
+        font-size: 0.95rem;
     }
 }
