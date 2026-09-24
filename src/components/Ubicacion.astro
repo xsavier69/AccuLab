@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro';
+import MapFacade from './MapFacade.astro';
+import { SITE, waLink, WA_GENERAL } from '../lib/site';
+interface Props { titulo?: string }
+const { titulo = 'Visítanos en El Batán' } = Astro.props;
+---
+<section class="section" id="ubicacion" aria-labelledby="ubicacion-titulo">
+  <div class="container grid grid--2" style="align-items:center">
+    <div class="stack reveal">
+      <h2 id="ubicacion-titulo">{titulo}</h2>
+      <ul class="icon-list mt-6">
+        <li><Icon name="map-pin" /><span><strong>{SITE.direccion.linea1}</strong><br />{SITE.direccion.linea2}<br /><span class="muted">Referencia: {SITE.direccion.referencia.toLowerCase()}. {SITE.direccion.ciudad}.</span></span></li>
+        <li><Icon name="clock" /><span>{SITE.horarios.map((h) => <>{h.dias}: <strong>{h.horas}</strong><br /></>)}<span class="muted">Atendemos sin cita.</span></span></li>
+        <li><Icon name="phone" /><span>{SITE.telefonos.map((t, i) => <>{i > 0 && ' · '}<a href={`tel:${t.tel}`}>{t.visible}</a></>)}</span></li>
+      </ul>
+      <div class="cluster mt-8">
+        <a class="btn" href={SITE.mapsUrl} target="_blank" rel="noopener"><Icon name="navigation" /> Cómo llegar</a>
+        <a class="btn btn--whatsapp" href={waLink(WA_GENERAL)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+      </div>
+    </div>
+    <div class="reveal"><MapFacade /></div>
+  </div>
+</section>

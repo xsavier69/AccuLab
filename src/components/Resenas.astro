@@ -1,0 +1,19 @@
+---
+// Sección de reseñas PREPARADA PERO OCULTA: no se publica nada hasta tener reseñas reales
+// verificables (p. ej., de la ficha de Google). No agregar AggregateRating ni Review en JSON-LD.
+// Ver PENDIENTES.md → Datos del cliente.
+interface Resena { autor: string; texto: string; fuente: string; fecha: string }
+const RESENAS: Resena[] = [];
+---
+{RESENAS.length > 0 && (
+  <section class="section section--tint" aria-labelledby="resenas-titulo">
+    <div class="container">
+      <div class="section-head"><h2 id="resenas-titulo">Lo que dicen nuestros pacientes</h2></div>
+      <div class="grid grid--3">
+        {RESENAS.map((r) => (
+          <figure class="card"><blockquote>{r.texto}</blockquote><figcaption class="small muted mt-4">{r.autor} · {r.fuente}</figcaption></figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

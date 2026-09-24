@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import Ubicacion from '../components/Ubicacion.astro';
+import CtaBand from '../components/CtaBand.astro';
+import equipo from '../assets/fotos/equipo.jpeg';
+import { RUTAS } from '../data/rutas';
+import { SITE } from '../lib/site';
+import { EXAMENES } from '../lib/catalogo';
+
+const r = RUTAS.nosotros;
+const AREAS = [
+  ['droplet', 'Hematología'], ['flask-conical', 'Química sanguínea'], ['activity', 'Hormonas'],
+  ['microscope', 'Microbiología'], ['test-tube', 'Uroanálisis'], ['bug', 'Parasitología'],
+] as const;
+// Bloques PREPARADOS PERO OCULTOS hasta tener datos reales del cliente (ver PENDIENTES.md):
+const EQUIPO: { nombre: string; cargo: string; registro?: string }[] = [];
+const CALIDAD: { titulo: string; detalle: string }[] = [];
+---
+<Layout title={r.title} description={r.description} path={r.path}
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Nosotros', path: '/nosotros' }]}>
+  <PageHero title="Sobre <span class='nowrap'>Accu-Lab</span>, laboratorio clínico en El Batán"
+    lead="Un laboratorio clínico de Cuenca que acompaña a pacientes, empresas y médicos con análisis de sangre, orina, heces y hormonas, y con resultados generalmente en 24 horas." />
+
+  <section class="section section--tint" aria-labelledby="historia">
+    <div class="container grid grid--2" style="align-items:center">
+      <div class="stack reveal">
+        <h2 id="historia">Más de una década cuidando la salud de Cuenca</h2>
+        <p class="muted">Accu-Lab atiende en Cuenca desde {SITE.fundacion}. Estamos en Consultorios El Batán, en la esquina de la Calle Ecuador y la Av. de las Américas, en los altos de la farmacia Cruz Azul.</p>
+        <p class="muted">Entendemos que detrás de cada muestra hay una persona que busca respuestas. Por eso cuidamos la confidencialidad, la rapidez y el trato cercano en cada visita, y publicamos los precios de nuestros {EXAMENES.length} exámenes para que sepas cuánto cuestan antes de venir.</p>
+        <div class="stats mini-stats mt-6">
+          <div class="stat"><span class="stat__num">{SITE.fundacion}</span><span class="stat__label">Año de inicio</span></div>
+          <div class="stat"><span class="stat__num">24<span>h</span></span><span class="stat__label">Resultados en la mayoría de exámenes</span></div>
+        </div>
+      </div>
+      <PhotoSlot src={equipo} alt="Profesionales de laboratorio analizando muestras al microscopio" ratio="4 / 3" widths={[480, 750]} sizes="(min-width: 1024px) 50vw, 100vw" id="nosotros-historia" />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="areas">
+    <div class="container">
+      <div class="section-head"><h2 id="areas">Nuestras áreas de trabajo</h2></div>
+      <ul class="areas" role="list">
+        {AREAS.map(([i, t]) => <li class="reveal"><span class="card__icon"><Icon name={i} /></span><span class="serif">{t}</span></li>)}
+      </ul>
+      <p class="mt-8"><a class="link-arrow" href="/examenes">Explora los exámenes de laboratorio por categoría <Icon name="arrow-right" /></a></p>
+    </div>
+  </section>
+
+  {EQUIPO.length > 0 && (
+    <section class="section section--tint" aria-labelledby="equipo"><div class="container">
+      <div class="section-head"><h2 id="equipo">Nuestro equipo</h2></div>
+      <div class="grid grid--3">{EQUIPO.map((e) => <article class="card"><h3>{e.nombre}</h3><p class="muted">{e.cargo}</p>{e.registro && <p class="small muted">{e.registro}</p>}</article>)}</div>
+    </div></section>
+  )}
+  {CALIDAD.length > 0 && (
+    <section class="section" aria-labelledby="calidad"><div class="container">
+      <div class="section-head"><h2 id="calidad">Calidad</h2></div>
+      <div class="grid grid--3">{CALIDAD.map((c) => <article class="card"><h3>{c.titulo}</h3><p class="muted">{c.detalle}</p></article>)}</div>
+    </div></section>
+  )}
+
+  <section class="section section--tint" aria-labelledby="filosofia">
+    <div class="container">
+      <div class="section-head"><h2 id="filosofia">Misión y visión</h2></div>
+      <div class="grid grid--2">
+        <article class="card reveal">
+          <span class="card__icon"><Icon name="target" /></span>
+          <h3>Nuestra misión</h3>
+          <p class="muted">Proporcionar servicio de laboratorio de análisis clínico a la comunidad, basado en el conocimiento científico, principios éticos, utilización de moderna tecnología, enfocados en procesos para la satisfacción del cliente, procurando que los resultados sean de la más alta calidad.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__icon"><Icon name="eye" /></span>
+          <h3>Nuestra visión</h3>
+          <p class="muted">Ser un laboratorio reconocido por la capacidad de nuestro personal, la eficiencia de todos los procesos, la realización de pruebas básicas y especiales toxicológicas, además del mejoramiento continuo de la calidad con lo cual lograremos la satisfacción y confianza de nuestros clientes.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <Ubicacion />
+  <CtaBand />
+</Layout>
+<style>
+  .areas { display: grid; gap: var(--s-4); grid-template-columns: repeat(2, 1fr); list-style: none; padding: 0; }
+  @media (min-width: 900px) { .areas { grid-template-columns: repeat(3, 1fr); } }
+  .areas li { display: flex; align-items: center; gap: var(--s-4); padding: var(--s-5); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--card); font-size: var(--fs-md); }
+  .areas .card__icon { margin: 0; flex: none; }
+  @media (max-width: 520px) { .areas li { flex-direction: column; align-items: start; font-size: var(--fs-base); } }
+  .mini-stats { grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 900px) { .mini-stats { grid-template-columns: repeat(2, 1fr); } }
+</style>

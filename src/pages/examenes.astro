@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import ExamCard from '../components/ExamCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { RUTAS } from '../data/rutas';
+import { CATEGORIAS, EXAMENES, PAGINAS } from '../lib/catalogo';
+import { precio } from '../lib/site';
+
+const r = RUTAS.examenes;
+const cats = CATEGORIAS.map((c) => {
+  const items = EXAMENES.filter((e) => e.categoria === c.slug);
+  return {
+    ...c,
+    desde: Math.min(...items.map((e) => e.precio)),
+    paginas: PAGINAS.filter((p) => p.categoria === c.slug),
+    otros: items.filter((e) => !e.tienePagina),
+  };
+});
+---
+<Layout title={r.title} description={r.description} path={r.path} catalogo
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Exámenes', path: '/examenes' }]}>
+  <PageHero title="Exámenes de laboratorio en Cuenca"
+    lead="Busca tu examen por nombre o sinónimo, conoce qué mide, cómo prepararte y su precio en Accu-Lab. La mayoría de resultados está lista en 24 horas.">
+    <div class="search" role="search">
+      <label for="buscar-examen" class="sr-only">Buscar examen</label>
+      <Icon name="search" size={20} />
+      <input id="buscar-examen" type="search" placeholder="Ej.: biometría, glucosa, orina, tiroides…" autocomplete="off" />
+    </div>
+    <nav aria-label="Categorías" class="chips mt-4">
+      {cats.map((c) => <a class="chip" href={`#${c.slug}`}>{c.nombre}</a>)}
+    </nav>
+  </PageHero>
+
+  <p class="container small muted" id="sin-resultados" hidden role="status">No encontramos ese examen. Escríbenos por WhatsApp y te ayudamos a encontrarlo.</p>
+
+  {cats.map((c, i) => (
+    <section class={`section cat ${i % 2 === 0 ? 'section--tint' : ''}`} id={c.slug} aria-labelledby={`h-${c.slug}`} data-cat>
+      <div class="container">
+        <div class="section-head section-head--row">
+          <h2 id={`h-${c.slug}`}>{c.nombre}</h2>
+          <p class="muted">Desde <strong>{precio(c.desde)}</strong></p>
+        </div>
+        {c.paginas.length > 0 && <div class="grid grid--3">{c.paginas.map((p) => <ExamCard pagina={p} />)}</div>}
+        {c.otros.length > 0 && (
+          <div class={c.paginas.length > 0 ? 'mt-12' : ''}>
+            {c.paginas.length > 0 && <h3 class="otros-title">Otros exámenes de {c.nombre.toLowerCase()}</h3>}
+            <ul class="otros" role="list">
+              {c.otros.map((e) => (
+                <li data-search={[e.nombre, ...e.sinonimos].join(' ')}>
+                  <span>{e.nombre}{e.sinonimos[0] && <span class="small muted"> · {e.sinonimos[0]}</span>}</span>
+                  <span class="otros__price">{precio(e.precio)}</span>
+                  <a href={`/cotizar?add=${e.slug}`} aria-label={`Cotizar ${e.nombre}`} class="exam-card__add"><Icon name="plus" size={16} /> Cotizar</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </section>
+  ))}
+
+  <CtaBand titulo="¿No encuentras tu examen?" texto="Escríbenos con tu orden médica por WhatsApp y te confirmamos si lo realizamos, su precio y la preparación." mensaje="Hola, quiero consultar si realizan un examen." secundario={{ href: '/cotizar', label: 'Ver lista de precios' }} />
+</Layout>
+
+<style>
+  .search { position: relative; display: flex; align-items: center; margin-top: var(--s-8); max-width: 560px; }
+  .search :global(svg) { position: absolute; left: 18px; color: var(--ink-3); pointer-events: none; }
+  .search input { width: 100%; min-height: 56px; padding: 14px 18px 14px 50px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); background: var(--card); font-size: var(--fs-base); }
+  .search input:focus { outline: 2px solid var(--primary); outline-offset: 2px; border-color: var(--primary); }
+  .otros-title { font-family: var(--font-sans); font-size: var(--fs-sm); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--s-4); }
+  .otros { list-style: none; padding: 0; display: grid; gap: 0 var(--s-8); }
+  @media (min-width: 900px) { .otros { grid-template-columns: repeat(2, 1fr); } }
+  .otros li { display: grid; grid-template-columns: 1fr auto auto; gap: var(--s-4); align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .otros__price { font-variant-numeric: tabular-nums; font-weight: 600; }
+  [hidden] { display: none !important; }
+</style>
+
+<script>
+  const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const input = document.getElementById('buscar-examen') as HTMLInputElement;
+  const items = [...document.querySelectorAll<HTMLElement>('[data-search]')];
+  const cats = [...document.querySelectorAll<HTMLElement>('[data-cat]')];
+  const vacio = document.getElementById('sin-resultados')!;
+  items.forEach((el) => (el.dataset.norm = norm(el.dataset.search + ' ' + el.textContent)));
+  input?.addEventListener('input', () => {
+    const q = norm(input.value.trim());
+    const terms = q.split(/\s+/).filter(Boolean);
+    items.forEach((el) => (el.hidden = terms.length > 0 && !terms.every((t) => el.dataset.norm!.includes(t))));
+    let total = 0;
+    cats.forEach((c) => {
+      const vis = c.querySelectorAll('[data-search]:not([hidden])').length;
+      c.hidden = vis === 0; total += vis;
+      const t = c.querySelector('.otros-title') as HTMLElement | null;
+      if (t) t.hidden = c.querySelectorAll('.otros [data-search]:not([hidden])').length === 0;
+    });
+    vacio.hidden = total > 0;
+  });
+</script>

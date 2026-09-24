@@ -1,0 +1,41 @@
+---
+// Patrones de marca en SVG (sin fotos): placa de Petri y graduaciones de pipeta.
+// Heredan el color con currentColor; la opacidad se controla desde CSS.
+interface Props { variant?: 'petri' | 'pipeta' | 'grid'; class?: string }
+const { variant = 'petri', class: cls = '' } = Astro.props;
+const colonies = [
+  [148, 118, 7], [190, 150, 4], [122, 176, 5], [210, 212, 9], [160, 236, 3.5], [96, 132, 3],
+  [232, 170, 3], [176, 196, 2.5], [138, 212, 2], [204, 118, 2.5], [112, 222, 4], [244, 236, 2],
+];
+---
+{variant === 'petri' && (
+  <svg class={`pattern ${cls}`} viewBox="0 0 360 360" fill="none" aria-hidden="true" focusable="false">
+    <circle cx="180" cy="180" r="170" stroke="currentColor" stroke-width="1.2" />
+    <circle cx="180" cy="180" r="156" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 6" />
+    <circle cx="180" cy="180" r="118" stroke="currentColor" stroke-width="0.8" />
+    <circle cx="180" cy="180" r="72" stroke="currentColor" stroke-width="0.8" stroke-dasharray="1 5" />
+    <path d="M40 180h280M180 40v280" stroke="currentColor" stroke-width="0.6" stroke-dasharray="3 7" />
+    {colonies.map(([x, y, r]) => <circle cx={x} cy={y} r={r} fill="currentColor" />)}
+  </svg>
+)}
+{variant === 'pipeta' && (
+  <svg class={`pattern ${cls}`} viewBox="0 0 360 120" fill="none" aria-hidden="true" focusable="false">
+    <path d="M0 60h360" stroke="currentColor" stroke-width="1" />
+    {Array.from({ length: 37 }, (_, i) => (
+      <path d={`M${i * 10} 60v${i % 5 === 0 ? -26 : -12}`} stroke="currentColor" stroke-width={i % 5 === 0 ? 1.2 : 0.8} />
+    ))}
+    <circle cx="330" cy="60" r="5" fill="currentColor" />
+  </svg>
+)}
+{variant === 'grid' && (
+  <svg class={`pattern ${cls}`} viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="acc-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M24 0H0v24" stroke="currentColor" stroke-width="0.6" />
+      </pattern>
+    </defs>
+    <rect width="400" height="300" fill="url(#acc-grid)" />
+    <path d="M-10 210C60 180 110 240 180 200S300 110 410 150" stroke="currentColor" stroke-width="6" stroke-linecap="round" opacity="0.5" />
+    <path d="M150 -10C170 60 130 120 190 180S250 260 240 310" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.4" />
+  </svg>
+)}

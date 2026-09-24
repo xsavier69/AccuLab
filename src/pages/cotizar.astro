@@ -1,0 +1,239 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { RUTAS } from '../data/rutas';
+import { CATEGORIAS, EXAMENES, PAGINAS, PAQUETES, valorPaquete } from '../lib/catalogo';
+import { precio, waLink } from '../lib/site';
+
+const r = RUTAS.cotizar;
+const cats = CATEGORIAS.map((c) => ({ ...c, items: EXAMENES.filter((e) => e.categoria === c.slug) }));
+// Datos mínimos para ?add= (páginas) y ?paquete= (paquetes)
+const datos = {
+  paginas: Object.fromEntries(PAGINAS.map((p) => [p.slug, { nombre: p.h1, items: p.modoPrecio === 'opciones' ? [p.componentes[0]] : p.componentes }])),
+  paquetes: Object.fromEntries(PAQUETES.map((p) => { const v = valorPaquete(p); return [p.slug, { nombre: p.nombre, items: v.slugs, consultar: v.aConsultar }]; })),
+};
+---
+<Layout title={r.title} description={r.description} path={r.path} catalogo hideWaFloat
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Precios', path: '/cotizar' }]}>
+  <PageHero title="Precios de exámenes de laboratorio en Cuenca"
+    lead={`Consulta los precios de nuestros ${EXAMENES.length} exámenes, selecciona los que necesitas y envíanos la lista por WhatsApp para confirmar valor y disponibilidad.`} />
+
+  <div class="container cot">
+    <div class="cot-list">
+      <div class="cot-tools" role="search">
+        <div class="search">
+          <label for="cot-buscar" class="sr-only">Buscar examen por nombre o sinónimo</label>
+          <Icon name="search" size={20} />
+          <input id="cot-buscar" type="search" placeholder="Buscar: biometría, TSH, orina, embarazo…" autocomplete="off" />
+        </div>
+        <div class="chips cot-chips" role="group" aria-label="Filtrar por categoría">
+          <button type="button" class="chip" aria-pressed="true" data-cat="">Todos</button>
+          {cats.map((c) => <button type="button" class="chip" aria-pressed="false" data-cat={c.slug}>{c.nombre}</button>)}
+        </div>
+      </div>
+      <p id="cot-vacio" class="note" hidden role="status"><Icon name="info" size={18} /> No encontramos ese examen. Escríbenos por WhatsApp y te ayudamos.</p>
+
+      {cats.map((c) => (
+        <section class="cot-cat" data-cat-section={c.slug} aria-labelledby={`c-${c.slug}`}>
+          <h2 id={`c-${c.slug}`}>{c.nombre}</h2>
+          <ul class="cot-items" role="list">
+            {c.items.map((e) => (
+              <li class="cot-item" data-search={[e.nombre, ...e.sinonimos, c.nombre].join(' ')}>
+                <label>
+                  <input type="checkbox" name="examen" value={e.slug} data-nombre={e.nombre} data-precio={e.precio} />
+                  <span class="cot-item__name">{e.nombre}{e.sinonimos.length > 0 && <span class="cot-item__syn">{e.sinonimos.slice(0, 2).join(' · ')}</span>}</span>
+                  <span class="cot-item__price">{precio(e.precio)}</span>
+                </label>
+                {e.pagina && <a class="cot-item__link" href={`/examenes/${e.pagina}`} aria-label={`Ver información y preparación de ${e.nombre}`}>Ver examen</a>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+      <p class="small muted mt-8">Todos los precios están en dólares y son referenciales. Confírmalos con nosotros antes de tu examen.</p>
+    </div>
+
+    <aside class="cot-summary" aria-labelledby="resumen-titulo">
+      <div class="cot-panel" id="cot-panel">
+        <div class="cot-panel__head">
+          <h2 id="resumen-titulo" class="h3">Tu cotización</h2>
+          <button type="button" class="cot-toggle" aria-expanded="false" aria-controls="cot-panel-body" hidden>
+            <span class="cot-count">0 exámenes</span> · <strong class="cot-total-inline">$0.00</strong>
+            <Icon name="chevron-down" size={18} />
+          </button>
+        </div>
+        <div id="cot-panel-body" class="cot-panel__body">
+          <p class="cot-paquete small" hidden></p>
+          <ul class="cot-sel" role="list" aria-live="polite"></ul>
+          <p class="cot-empty small muted">Aún no has seleccionado exámenes.</p>
+          <div class="cot-totalrow"><span>Total referencial</span><strong class="cot-total">$0.00</strong></div>
+          <p class="cot-pq-precio small" hidden><strong>Precio del paquete:</strong> te lo confirmamos por WhatsApp.</p>
+          <button type="button" class="btn btn--secondary btn--sm btn--block cot-clear" hidden>Vaciar selección</button>
+        </div>
+        <a class="btn btn--whatsapp btn--block cot-send" href={waLink('Hola, quiero cotizar exámenes en Accu-Lab.')} target="_blank" rel="noopener" aria-disabled="true">
+          <Icon name="whatsapp" /> Enviar por WhatsApp
+        </a>
+        <p class="small muted cot-disclaimer">Precios referenciales; te confirmamos el valor final y la disponibilidad.</p>
+        <noscript><p class="small">Para cotizar, escríbenos por WhatsApp con la lista de exámenes que necesitas.</p></noscript>
+      </div>
+    </aside>
+  </div>
+
+  <script type="application/json" id="cot-data" set:html={JSON.stringify(datos)} />
+</Layout>
+
+<style>
+  .cot { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-10); padding-bottom: calc(var(--section) + 80px); }
+  .cot-list { min-width: 0; }
+  @media (min-width: 1024px) { .cot { grid-template-columns: minmax(0, 1fr) 360px; gap: var(--s-12); padding-bottom: var(--section); } }
+  .cot-tools { position: sticky; top: var(--header-h); z-index: 5; background: var(--surface); padding-block: var(--s-4); border-bottom: 1px solid var(--line); }
+  .search { position: relative; display: flex; align-items: center; }
+  .search :global(svg) { position: absolute; left: 18px; color: var(--ink-3); pointer-events: none; }
+  .search input { width: 100%; min-height: 52px; padding: 12px 18px 12px 50px; border: 1px solid var(--line-strong); border-radius: var(--r-pill); background: var(--card); }
+  .search input:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .cot-chips { margin-top: var(--s-3); flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .cot-chips .chip { flex: none; }
+  .cot-cat { margin-top: var(--s-10); }
+  .cot-cat h2 { font-size: var(--fs-lg); margin-bottom: var(--s-4); }
+  .cot-items { list-style: none; padding: 0; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+  .cot-item { display: flex; align-items: center; border-top: 1px solid var(--line); }
+  .cot-item:first-child { border-top: 0; }
+  .cot-item label { flex: 1; display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-3); align-items: center; padding: 14px 16px; cursor: pointer; min-height: 56px; }
+  .cot-item label:hover { background: var(--surface); }
+  .cot-item input { width: 20px; height: 20px; accent-color: var(--primary); }
+  .cot-item:has(input:checked) { background: var(--primary-50); }
+  .cot-item__name { font-weight: 600; line-height: 1.35; }
+  .cot-item__syn { display: block; font-weight: 400; font-size: var(--fs-xs); color: var(--ink-3); }
+  .cot-item__price { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .cot-item__link { flex: none; font-size: var(--fs-xs); font-weight: 600; color: var(--primary); padding: 12px 16px 12px 0; }
+  .cot-panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-6); box-shadow: var(--shadow-2); display: grid; gap: var(--s-4); }
+  .h3 { font-size: var(--fs-md); }
+  .cot-sel { list-style: none; padding: 0; display: grid; gap: 8px; max-height: 42vh; overflow-y: auto; font-size: var(--fs-sm); }
+  .cot-sel :global(li) { display: flex; justify-content: space-between; gap: var(--s-3); align-items: center; }
+  .cot-sel :global(button) { border: 0; background: none; cursor: pointer; color: var(--ink-3); padding: 6px; border-radius: 50%; display: grid; }
+  .cot-sel :global(button:hover) { color: var(--ink); background: var(--surface-2); }
+  .cot-totalrow { display: flex; justify-content: space-between; align-items: baseline; padding-top: var(--s-4); border-top: 1px solid var(--line); }
+  .cot-total { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-xl); }
+  .cot-paquete { background: var(--surface-2); border-radius: var(--r); padding: var(--s-3) var(--s-4); }
+  [hidden] { display: none !important; }
+  @media (min-width: 1024px) { .cot-summary .cot-panel { position: sticky; top: calc(var(--header-h) + 24px); } }
+  /* Móvil: barra inferior fija, expandible */
+  @media (max-width: 1023px) {
+    .cot-summary { position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; }
+    .cot-panel { border-radius: var(--r-lg) var(--r-lg) 0 0; padding: var(--s-4) var(--gutter) calc(var(--s-4) + env(safe-area-inset-bottom)); gap: var(--s-3); box-shadow: 0 -12px 32px -16px rgb(14 42 51 / 0.3); }
+    .cot-panel__head { display: flex; justify-content: space-between; align-items: center; }
+    .cot-panel__head .h3 { font-size: var(--fs-base); font-family: var(--font-sans); font-weight: 600; }
+    .cot-toggle:not([hidden]) { display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; font-size: var(--fs-sm); cursor: pointer; min-height: 44px; }
+    .cot-panel:not(.is-open) .cot-panel__body, .cot-panel:not(.is-open) .cot-disclaimer { display: none; }
+    .cot-panel.is-open .cot-toggle :global(svg) { transform: rotate(180deg); }
+  }
+</style>
+
+<script>
+  type Datos = { paginas: Record<string, { nombre: string; items: string[] }>; paquetes: Record<string, { nombre: string; items: string[]; consultar: string[] }> };
+  const datos: Datos = JSON.parse(document.getElementById('cot-data')!.textContent!);
+  const $ = <T extends Element>(s: string) => document.querySelector(s) as T;
+  const boxes = [...document.querySelectorAll<HTMLInputElement>('input[name="examen"]')];
+  const items = [...document.querySelectorAll<HTMLElement>('.cot-item')];
+  const sections = [...document.querySelectorAll<HTMLElement>('[data-cat-section]')];
+  const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-cat]')];
+  const input = $<HTMLInputElement>('#cot-buscar');
+  const sel = $<HTMLUListElement>('.cot-sel');
+  const send = $<HTMLAnchorElement>('.cot-send');
+  const panel = $<HTMLElement>('#cot-panel');
+  const toggle = $<HTMLButtonElement>('.cot-toggle');
+  const paqueteEl = $<HTMLElement>('.cot-paquete');
+  const money = (n: number) => `$${n.toFixed(2)}`;
+  const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  items.forEach((li) => (li.dataset.norm = norm(li.dataset.search || '')));
+  let categoria = '';
+  let paquete: { nombre: string; consultar: string[] } | null = null;
+
+  function filtrar() {
+    const terms = norm(input.value.trim()).split(/\s+/).filter(Boolean);
+    let visibles = 0;
+    sections.forEach((sec) => {
+      const enCat = !categoria || sec.dataset.catSection === categoria;
+      let n = 0;
+      sec.querySelectorAll<HTMLElement>('.cot-item').forEach((li) => {
+        const ok = enCat && terms.every((t) => li.dataset.norm!.includes(t));
+        li.hidden = !ok; if (ok) n++;
+      });
+      sec.hidden = n === 0; visibles += n;
+    });
+    $<HTMLElement>('#cot-vacio').hidden = visibles > 0;
+  }
+  input.addEventListener('input', filtrar);
+  chips.forEach((c) => c.addEventListener('click', () => {
+    categoria = c.dataset.cat || '';
+    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+    filtrar();
+  }));
+
+  function seleccion() { return boxes.filter((b) => b.checked).map((b) => ({ slug: b.value, nombre: b.dataset.nombre!, precio: Number(b.dataset.precio) })); }
+
+  function mensaje(lista: ReturnType<typeof seleccion>, total: number) {
+    // Paquete: sin precios ni total (el precio del paquete aún no está publicado; evita confundir la suma con el precio).
+    if (paquete) {
+      const nombres = [...lista.map((e) => e.nombre), ...paquete.consultar];
+      return `Hola, quiero cotizar el paquete ${paquete.nombre} en Accu-Lab.\nExámenes:\n${nombres.map((n) => `- ${n}`).join('\n')}\n\n¿Me confirman el precio del paquete y la disponibilidad?`;
+    }
+    let m = 'Hola, quiero cotizar estos exámenes en Accu-Lab:\n';
+    m += lista.map((e) => `- ${e.nombre} (${money(e.precio)})`).join('\n');
+    m += `\n\nTotal: ${money(total)}\n(Precios referenciales, sujetos a confirmación.)\n¿Me confirman el valor y la disponibilidad?`;
+    return m;
+  }
+
+  function actualizar() {
+    const lista = seleccion();
+    const total = lista.reduce((a, e) => a + e.precio, 0);
+    sel.replaceChildren(...lista.map((e) => {
+      const li = document.createElement('li');
+      const name = document.createElement('span'); name.textContent = e.nombre;
+      const right = document.createElement('span'); right.style.display = 'flex'; right.style.alignItems = 'center'; right.style.gap = '4px';
+      const pr = document.createElement('span'); pr.textContent = paquete ? '' : money(e.precio);
+      const x = document.createElement('button'); x.type = 'button'; x.setAttribute('aria-label', `Quitar ${e.nombre}`);
+      x.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+      x.addEventListener('click', () => { const b = boxes.find((b) => b.value === e.slug); if (b) { b.checked = false; actualizar(); } });
+      right.append(pr, x); li.append(name, right); return li;
+    }));
+    const n = lista.length;
+    document.querySelectorAll('.cot-total, .cot-total-inline').forEach((el) => (el.textContent = paquete ? 'Paquete' : money(total)));
+    $<HTMLElement>('.cot-totalrow').hidden = !!paquete;
+    $<HTMLElement>('.cot-pq-precio').hidden = !paquete;
+    $<HTMLElement>('.cot-count').textContent = `${n} ${n === 1 ? 'examen' : 'exámenes'}`;
+    $<HTMLElement>('.cot-empty').hidden = n > 0;
+    $<HTMLElement>('.cot-clear').hidden = n === 0;
+    paqueteEl.hidden = !paquete;
+    if (paquete) paqueteEl.textContent = `Paquete: ${paquete.nombre}. Selección sugerida de exámenes` + (paquete.consultar.length ? ` (también incluye: ${paquete.consultar.join(', ')})` : '') + '; te confirmamos los exámenes y el precio del paquete por WhatsApp.';
+    send.setAttribute('aria-disabled', String(n === 0));
+    send.href = `https://wa.me/593996405647?text=${encodeURIComponent(mensaje(lista, total))}`;
+    send.dataset.n = String(n); send.dataset.total = total.toFixed(2);
+  }
+  boxes.forEach((b) => b.addEventListener('change', actualizar));
+  $<HTMLButtonElement>('.cot-clear').addEventListener('click', () => { boxes.forEach((b) => (b.checked = false)); paquete = null; actualizar(); });
+  send.addEventListener('click', (ev) => {
+    if (send.getAttribute('aria-disabled') === 'true') { ev.preventDefault(); return; }
+    (window as any).acculabTrack?.('cotizador_enviar', { page_path: location.pathname, num_examenes: Number(send.dataset.n), ...(paquete ? { paquete: paquete.nombre } : { total: Number(send.dataset.total) }) });
+  });
+  if (matchMedia('(max-width: 1023px)').matches) toggle.hidden = false;
+  toggle.addEventListener('click', () => {
+    const open = !panel.classList.contains('is-open');
+    panel.classList.toggle('is-open', open); toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  // Parámetros ?add=slug (examen o página) y ?paquete=slug
+  const params = new URLSearchParams(location.search);
+  const marcar = (slugs: string[]) => slugs.forEach((s) => { const b = boxes.find((b) => b.value === s); if (b) b.checked = true; });
+  params.getAll('add').flatMap((v) => v.split(',')).forEach((s) => {
+    if (datos.paginas[s]) marcar(datos.paginas[s].items); else marcar([s]);
+  });
+  const pq = params.get('paquete');
+  if (pq && datos.paquetes[pq]) { paquete = datos.paquetes[pq]; marcar(paquete.items as unknown as string[]); }
+  actualizar();
+  if (params.has('add') || pq) {
+    const first = boxes.find((b) => b.checked);
+    first?.closest('.cot-item')?.scrollIntoView({ block: 'center' });
+  }
+</script>

@@ -1,0 +1,147 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, waLink, WA_GENERAL } from '../lib/site';
+import { labSchema, breadcrumbSchema, type Crumb } from '../lib/schema';
+import { ogSlug } from '../data/rutas';
+import manrope400 from '@fontsource/manrope/files/manrope-latin-400-normal.woff2?url';
+import manrope600 from '@fontsource/manrope/files/manrope-latin-600-normal.woff2?url';
+import manrope700 from '@fontsource/manrope/files/manrope-latin-700-normal.woff2?url';
+import fraunces400 from '@fontsource/fraunces/files/fraunces-latin-400-normal.woff2?url';
+import fraunces400i from '@fontsource/fraunces/files/fraunces-latin-400-italic.woff2?url';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  crumbs?: Crumb[];
+  schemas?: Record<string, unknown>[];
+  catalogo?: boolean; // incluir hasOfferCatalog en el JSON-LD global
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  article?: { published: string; modified: string }; // solo guías
+  hideWaFloat?: boolean;
+  waMensaje?: string;
+}
+const { title, description, path, crumbs, schemas = [], catalogo = false, noindex = false, ogType = 'website', article, hideWaFloat = false, waMensaje = WA_GENERAL } = Astro.props;
+const canonical = path === '/' ? `${SITE.url}/` : `${SITE.url}${path}`;
+const ogImage = `${SITE.url}/assets/og/${ogSlug(path)}.png`;
+const jsonld = [labSchema(catalogo), ...(crumbs ? [breadcrumbSchema(crumbs)] : []), ...schemas];
+const GA_ID = import.meta.env.PUBLIC_GA4_ID || '';
+
+const fontCss = `
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url(${manrope400}) format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500 600;font-display:swap;src:url(${manrope600}) format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:700;font-display:swap;src:url(${manrope700}) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:400;font-display:swap;src:url(${fraunces400}) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:400;font-display:swap;src:url(${fraunces400i}) format('woff2')}`;
+---
+<!doctype html>
+<html lang="es-EC">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+    <meta name="author" content="Accu-Lab" />
+    <meta name="theme-color" content="#faf8f5" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href={manrope400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fraunces400} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={fontCss}></style>
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Accu-Lab" />
+    <meta property="og:locale" content="es_EC" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    {article && <meta property="article:published_time" content={article.published} />}
+    {article && <meta property="article:modified_time" content={article.modified} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {jsonld.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <Header path={path} />
+    <main id="contenido">
+      {crumbs && <Breadcrumbs crumbs={crumbs} />}
+      <slot />
+    </main>
+    <Footer />
+    {!hideWaFloat && (
+      <a class="wa-float" href={waLink(waMensaje)} target="_blank" rel="noopener" data-track="wa-float">
+        <Icon name="whatsapp" size={20} /> Agendar por WhatsApp
+      </a>
+    )}
+
+    <script is:inline>
+      // Header: borde al hacer scroll + menú móvil accesible
+      (function () {
+        var h = document.querySelector('.site-header');
+        var onScroll = function () { h.classList.toggle('is-scrolled', window.scrollY > 8); };
+        onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+        var btn = document.querySelector('.menu-toggle'), menu = document.getElementById('menu-movil');
+        if (btn && menu) btn.addEventListener('click', function () {
+          var open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!open)); menu.hidden = open;
+          btn.querySelector('[data-open]').style.display = open ? '' : 'none';
+          btn.querySelector('[data-close]').style.display = open ? 'none' : '';
+        });
+        // Revelado suave al entrar en viewport (respeta prefers-reduced-motion vía CSS)
+        var els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
+        }, { rootMargin: '0px 0px -8% 0px' });
+        els.forEach(function (e) { io.observe(e); });
+      })();
+    </script>
+    <script is:inline define:vars={{ GA_ID }}>
+      // Medición (GA4). Sin ID configurado, los eventos no se envían a ningún lado.
+      window.acculabTrack = function () {};
+      if (GA_ID) {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', GA_ID, { anonymize_ip: true });
+        window.acculabTrack = function (name, params) { gtag('event', name, params || {}); };
+        var loaded = false;
+        var load = function () {
+          if (loaded) return; loaded = true;
+          var s = document.createElement('script'); s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID; document.head.appendChild(s);
+        };
+        // Carga diferida: primera interacción o 4 s después de "load"
+        ['pointerdown', 'keydown', 'scroll'].forEach(function (ev) { window.addEventListener(ev, load, { once: true, passive: true }); });
+        window.addEventListener('load', function () { setTimeout(load, 4000); });
+      }
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+        var href = a.getAttribute('href'), p = { page_path: location.pathname };
+        if (a.dataset.examen) p.examen = a.dataset.examen;
+        if (a.dataset.paquete) p.paquete = a.dataset.paquete;
+        if (href.indexOf('https://wa.me/') === 0) window.acculabTrack('whatsapp_click', p);
+        else if (href.indexOf('tel:') === 0) window.acculabTrack('phone_click', p);
+        else if (href.indexOf('google.com/maps') > -1) window.acculabTrack('maps_click', p);
+      });
+    </script>
+  </body>
+</html>

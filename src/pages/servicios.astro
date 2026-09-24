@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import CtaBand from '../components/CtaBand.astro';
+import equipo from '../assets/fotos/equipo.jpeg';
+import { RUTAS } from '../data/rutas';
+import { PAQUETES } from '../lib/catalogo';
+import { waLink } from '../lib/site';
+
+const r = RUTAS.servicios;
+const HUB = [
+  { href: '/empresas', icono: 'building-2', titulo: 'Exámenes para empresas', texto: 'Exámenes preocupacionales, ocupacionales periódicos y pruebas de alcohol y drogas para trabajadores.', cta: 'Exámenes preocupacionales y ocupacionales' },
+  { href: '/medicos', icono: 'stethoscope', titulo: 'Convenios con médicos', texto: 'Atención prioritaria, comunicación directa y tarifas preferenciales para los pacientes del médico.', cta: 'Convenios médicos' },
+  { href: '/domicilio', icono: 'car', titulo: 'Toma de muestras a domicilio', texto: 'Ideal para adultos mayores, pacientes post cirugía o personas con poca disponibilidad de tiempo.', cta: 'Exámenes a domicilio' },
+  { href: '/paquetes', icono: 'package', titulo: 'Paquetes preventivos', texto: `${PAQUETES.length} paquetes de exámenes integrales, agrupados según lo que necesitas evaluar.`, cta: 'Ver los paquetes' },
+] as const;
+const DEPORTIVO: [string, string | null][] = [
+  ['Hemograma completo', '/examenes/biometria-hematica'], ['Perfil bioquímico y lipídico', '/examenes/perfil-lipidico'],
+  ['Glucosa', '/examenes/glucosa'], ['Ferritina', '/examenes/ferritina-y-hierro'], ['Creatina quinasa (CK)', '/cotizar?add=cpk'],
+  ['Electrolitos', '/cotizar?add=sodio'], ['Pruebas de inflamación', '/paquetes#panel-inflamacion'], ['Control de hidratación', null],
+];
+---
+<Layout title={r.title} description={r.description} path={r.path}
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }]}>
+  <PageHero title="Servicios de laboratorio clínico en Cuenca"
+    lead="Análisis clínicos para pacientes, empresas, deportistas y médicos, con resultados generalmente en 24 horas y atención profesional en Consultorios El Batán." />
+
+  <section class="section section--tint" aria-labelledby="portafolio">
+    <div class="container">
+      <div class="section-head"><h2 id="portafolio">Nuestros servicios</h2></div>
+      <div class="grid grid--2">
+        {HUB.map((h) => (
+          <article class="card card--link reveal">
+            <span class="card__icon"><Icon name={h.icono} /></span>
+            <h3><a class="stretched" href={h.href} style="text-decoration:none">{h.titulo}</a></h3>
+            <p class="muted">{h.texto}</p>
+            <div class="card__foot"><span class="link-arrow">{h.cta} <Icon name="arrow-right" /></span></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="deportivo" aria-labelledby="h-deportivo">
+    <div class="container grid grid--2" style="align-items:center">
+      <div class="stack reveal">
+        <h2 id="h-deportivo">Exámenes para deportistas</h2>
+        <p class="muted">Evaluación de laboratorio para deportistas amateurs y profesionales. Ideal para clubes, gimnasios y alto rendimiento.</p>
+        <ul class="icon-list mt-4">
+          {DEPORTIVO.map(([t, href]) => <li><Icon name="check" /><span>{href ? <a href={href}>{t}</a> : t}</span></li>)}
+        </ul>
+        <div class="cluster mt-6">
+          <a class="btn" href="/paquetes#perfil-deportivo">Ver el Perfil Deportivo</a>
+          <a class="btn btn--whatsapp" href={waLink('Hola, quiero información sobre exámenes deportivos.')} target="_blank" rel="noopener"><Icon name="whatsapp" /> Consultar</a>
+        </div>
+      </div>
+      <PhotoSlot src={equipo} alt="Profesionales de laboratorio analizando muestras al microscopio" ratio="4 / 3" widths={[480, 750]} sizes="(min-width: 1024px) 50vw, 100vw" id="servicios-deportivo" />
+    </div>
+  </section>
+
+  <section class="section section--tint" id="toxicologia" aria-labelledby="h-tox">
+    <div class="container grid grid--2">
+      <div class="stack reveal">
+        <h2 id="h-tox">Toxicología</h2>
+        <p class="muted">Detección de sustancias psicoactivas para control laboral, deportivo o clínico.</p>
+        <p class="muted"><strong>Aplicaciones:</strong> empresas, control ocupacional, instituciones educativas y programas de rehabilitación.</p>
+        <div class="cluster mt-6">
+          <a class="btn" href="/examenes/panel-toxicologico">Precio del panel toxicológico</a>
+          <a class="link-arrow" href="/empresas">Pruebas de drogas para empresas <Icon name="arrow-right" /></a>
+        </div>
+      </div>
+      <div class="card reveal">
+        <h3>Pruebas disponibles</h3>
+        <ul class="icon-list mt-4">
+          {['Panel de drogas en orina', 'Cocaína, marihuana (THC), anfetaminas', 'Opiáceos, benzodiacepinas', 'Barbitúricos, metanfetaminas'].map((t) => <li><Icon name="check" /><span>{t}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ocupacional-resumen">
+    <div class="container grid grid--3">
+      <article class="card reveal">
+        <span class="card__icon"><Icon name="briefcase" /></span>
+        <h2 id="ocupacional-resumen" class="h3">Servicios ocupacionales</h2>
+        <p class="muted">Exámenes de ingreso laboral y periódicos, perfil bioquímico y lipídico, hemograma, función hepática y renal, examen de orina, pruebas de alcohol y drogas, y marcadores según el riesgo laboral.</p>
+        <div class="card__foot"><a class="link-arrow" href="/empresas">Exámenes para empresas <Icon name="arrow-right" /></a></div>
+      </article>
+      <article class="card reveal">
+        <span class="card__icon"><Icon name="handshake" /></span>
+        <h2 class="h3">Convenios con médicos</h2>
+        <p class="muted">Trabajamos en alianza con médicos de medicina general, ginecología, pediatría, medicina interna, urología, endocrinología, gastroenterología, medicina deportiva y medicina ocupacional.</p>
+        <div class="card__foot"><a class="link-arrow" href="/medicos">Solicitar convenio médico <Icon name="arrow-right" /></a></div>
+      </article>
+      <article class="card reveal">
+        <span class="card__icon"><Icon name="house" /></span>
+        <h2 class="h3">Toma de muestras a domicilio</h2>
+        <p class="muted">Tomamos tus muestras en casa. Consúltanos por WhatsApp la cobertura en tu sector.</p>
+        <div class="card__foot"><a class="link-arrow" href="/domicilio">Exámenes a domicilio en Cuenca <Icon name="arrow-right" /></a></div>
+      </article>
+    </div>
+  </section>
+
+  <CtaBand titulo="Solicita información y cotización" texto="Cuéntanos qué servicio necesitas y te respondemos por WhatsApp." mensaje="Hola, deseo solicitar información y cotización sobre sus servicios." />
+</Layout>
+<style>
+  .h3 { font-size: var(--fs-md); line-height: 1.25; margin-bottom: var(--s-2); }
+  .icon-list a { color: var(--primary); }
+</style>

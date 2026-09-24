@@ -1,0 +1,1522 @@
+{
+  "moneda": "USD",
+  "nota": "Precios referenciales publicados en acculab.bio/cotizar. Fuente de verdad del sitio: no editar precios sin confirmación del laboratorio.",
+  "categorias": [
+    {
+      "slug": "hematologia",
+      "nombre": "Hematología y coagulación"
+    },
+    {
+      "slug": "quimica",
+      "nombre": "Química sanguínea"
+    },
+    {
+      "slug": "hormonas",
+      "nombre": "Hormonas"
+    },
+    {
+      "slug": "infecciosas",
+      "nombre": "Infecciosas y serología"
+    },
+    {
+      "slug": "inmunologia",
+      "nombre": "Inmunología y marcadores"
+    },
+    {
+      "slug": "orina-heces",
+      "nombre": "Orina y heces"
+    },
+    {
+      "slug": "toxicologia",
+      "nombre": "Toxicología y cultivos"
+    }
+  ],
+  "examenes": [
+    {
+      "slug": "hemograma",
+      "nombre": "Hemograma",
+      "sinonimos": [
+        "biometría hemática",
+        "BH",
+        "hemograma completo",
+        "conteo sanguíneo completo"
+      ],
+      "categoria": "hematologia",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "biometria-hematica",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "plaquetas",
+        "reticulocitos",
+        "ferritina"
+      ]
+    },
+    {
+      "slug": "grupo-sanguineo",
+      "nombre": "Grupo Sanguíneo",
+      "sinonimos": [
+        "tipo de sangre",
+        "grupo y factor",
+        "factor Rh",
+        "tipificación sanguínea"
+      ],
+      "categoria": "hematologia",
+      "precio": 5.0,
+      "tienePagina": true,
+      "pagina": "grupo-sanguineo",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "plaquetas",
+      "nombre": "Plaquetas",
+      "sinonimos": [],
+      "categoria": "hematologia",
+      "precio": 2.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Avísanos si tomas anticoagulantes u otros medicamentos.",
+      "relacionados": [
+        "hemograma",
+        "tp",
+        "tpt"
+      ]
+    },
+    {
+      "slug": "t-sangria",
+      "nombre": "T. Sangría",
+      "sinonimos": [
+        "tiempo de sangría"
+      ],
+      "categoria": "hematologia",
+      "precio": 1.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Avísanos si tomas anticoagulantes u otros medicamentos.",
+      "relacionados": [
+        "t-coagulacion",
+        "tp",
+        "tpt"
+      ]
+    },
+    {
+      "slug": "t-coagulacion",
+      "nombre": "T. Coagulación",
+      "sinonimos": [
+        "tiempo de coagulación"
+      ],
+      "categoria": "hematologia",
+      "precio": 1.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Avísanos si tomas anticoagulantes u otros medicamentos.",
+      "relacionados": [
+        "t-sangria",
+        "tp",
+        "tpt"
+      ]
+    },
+    {
+      "slug": "tp",
+      "nombre": "TP",
+      "sinonimos": [
+        "tiempo de protrombina"
+      ],
+      "categoria": "hematologia",
+      "precio": 4.0,
+      "tienePagina": true,
+      "pagina": "tiempos-de-coagulacion",
+      "preparacion": "Por lo general no requiere ayuno. Avísanos si tomas anticoagulantes u otros medicamentos.",
+      "relacionados": [
+        "tpt"
+      ]
+    },
+    {
+      "slug": "tpt",
+      "nombre": "TPT",
+      "sinonimos": [
+        "tiempo parcial de tromboplastina",
+        "TTP",
+        "TTPa"
+      ],
+      "categoria": "hematologia",
+      "precio": 4.0,
+      "tienePagina": true,
+      "pagina": "tiempos-de-coagulacion",
+      "preparacion": "Por lo general no requiere ayuno. Avísanos si tomas anticoagulantes u otros medicamentos.",
+      "relacionados": [
+        "tp"
+      ]
+    },
+    {
+      "slug": "fibrinogeno",
+      "nombre": "Fibrinógeno",
+      "sinonimos": [],
+      "categoria": "hematologia",
+      "precio": 4.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Avísanos si tomas anticoagulantes u otros medicamentos.",
+      "relacionados": [
+        "tp",
+        "tpt"
+      ]
+    },
+    {
+      "slug": "reticulocitos",
+      "nombre": "Reticulocitos",
+      "sinonimos": [],
+      "categoria": "hematologia",
+      "precio": 5.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "colesterol",
+      "nombre": "Colesterol",
+      "sinonimos": [
+        "colesterol total"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": true,
+      "pagina": "perfil-lipidico",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "hdl",
+        "ldl",
+        "trigliceridos"
+      ]
+    },
+    {
+      "slug": "hdl",
+      "nombre": "HDL",
+      "sinonimos": [
+        "colesterol HDL",
+        "colesterol bueno"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": true,
+      "pagina": "perfil-lipidico",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "colesterol",
+        "ldl",
+        "trigliceridos"
+      ]
+    },
+    {
+      "slug": "ldl",
+      "nombre": "LDL",
+      "sinonimos": [
+        "colesterol LDL",
+        "colesterol malo"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": true,
+      "pagina": "perfil-lipidico",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "colesterol",
+        "hdl",
+        "trigliceridos"
+      ]
+    },
+    {
+      "slug": "trigliceridos",
+      "nombre": "Triglicéridos",
+      "sinonimos": [
+        "trigliceridos"
+      ],
+      "categoria": "quimica",
+      "precio": 3.0,
+      "tienePagina": true,
+      "pagina": "perfil-lipidico",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "colesterol",
+        "hdl",
+        "ldl"
+      ]
+    },
+    {
+      "slug": "glucosa",
+      "nombre": "Glucosa",
+      "sinonimos": [
+        "glucemia",
+        "glicemia",
+        "azúcar en sangre",
+        "glucosa en ayunas"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": true,
+      "pagina": "glucosa",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "hemoglobina-glicosilada",
+        "insulina"
+      ]
+    },
+    {
+      "slug": "hemoglobina-glicosilada",
+      "nombre": "Hemoglobina Glicosilada",
+      "sinonimos": [
+        "HbA1c",
+        "A1c",
+        "hemoglobina glucosilada"
+      ],
+      "categoria": "quimica",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "hemoglobina-glicosilada",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "glucosa",
+        "insulina"
+      ]
+    },
+    {
+      "slug": "urea",
+      "nombre": "Urea",
+      "sinonimos": [
+        "nitrógeno ureico",
+        "BUN"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": true,
+      "pagina": "perfil-renal",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "creatinina",
+        "acido-urico"
+      ]
+    },
+    {
+      "slug": "creatinina",
+      "nombre": "Creatinina",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": true,
+      "pagina": "perfil-renal",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "urea",
+        "acido-urico"
+      ]
+    },
+    {
+      "slug": "acido-urico",
+      "nombre": "Ácido Úrico",
+      "sinonimos": [
+        "acido urico"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": true,
+      "pagina": "perfil-renal",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "urea",
+        "creatinina"
+      ]
+    },
+    {
+      "slug": "proteinas",
+      "nombre": "Proteínas",
+      "sinonimos": [
+        "proteínas totales"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "albumina",
+        "globulina"
+      ]
+    },
+    {
+      "slug": "albumina",
+      "nombre": "Albúmina",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "proteinas",
+        "globulina"
+      ]
+    },
+    {
+      "slug": "globulina",
+      "nombre": "Globulina",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "proteinas",
+        "albumina"
+      ]
+    },
+    {
+      "slug": "bilirrubinas",
+      "nombre": "Bilirrubinas",
+      "sinonimos": [
+        "bilirrubina total"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": true,
+      "pagina": "perfil-hepatico",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "tgo",
+        "tgp",
+        "f-alcalina"
+      ]
+    },
+    {
+      "slug": "b-indirecta",
+      "nombre": "B. Indirecta",
+      "sinonimos": [
+        "bilirrubina indirecta"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "bilirrubinas",
+        "b-directa"
+      ]
+    },
+    {
+      "slug": "b-directa",
+      "nombre": "B. Directa",
+      "sinonimos": [
+        "bilirrubina directa"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "bilirrubinas",
+        "b-indirecta"
+      ]
+    },
+    {
+      "slug": "tgo",
+      "nombre": "TGO",
+      "sinonimos": [
+        "AST",
+        "transaminasa oxalacética"
+      ],
+      "categoria": "quimica",
+      "precio": 2.5,
+      "tienePagina": true,
+      "pagina": "perfil-hepatico",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "tgp",
+        "bilirrubinas",
+        "f-alcalina"
+      ]
+    },
+    {
+      "slug": "tgp",
+      "nombre": "TGP",
+      "sinonimos": [
+        "ALT",
+        "transaminasa pirúvica"
+      ],
+      "categoria": "quimica",
+      "precio": 2.5,
+      "tienePagina": true,
+      "pagina": "perfil-hepatico",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "tgo",
+        "bilirrubinas",
+        "f-alcalina"
+      ]
+    },
+    {
+      "slug": "f-alcalina",
+      "nombre": "F. Alcalina",
+      "sinonimos": [
+        "fosfatasa alcalina"
+      ],
+      "categoria": "quimica",
+      "precio": 3.0,
+      "tienePagina": true,
+      "pagina": "perfil-hepatico",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "tgo",
+        "tgp",
+        "bilirrubinas"
+      ]
+    },
+    {
+      "slug": "f-acida",
+      "nombre": "F. Ácida",
+      "sinonimos": [
+        "fosfatasa ácida"
+      ],
+      "categoria": "quimica",
+      "precio": 5.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": []
+    },
+    {
+      "slug": "f-acida-prostatica",
+      "nombre": "F. Ácida Prostática",
+      "sinonimos": [
+        "fosfatasa ácida prostática"
+      ],
+      "categoria": "quimica",
+      "precio": 9.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": []
+    },
+    {
+      "slug": "dhl",
+      "nombre": "DHL",
+      "sinonimos": [
+        "LDH",
+        "lactato deshidrogenasa"
+      ],
+      "categoria": "quimica",
+      "precio": 5.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": []
+    },
+    {
+      "slug": "ggt",
+      "nombre": "GGT",
+      "sinonimos": [
+        "gamma glutamil transferasa"
+      ],
+      "categoria": "quimica",
+      "precio": 4.0,
+      "tienePagina": true,
+      "pagina": "perfil-hepatico",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "tgo",
+        "tgp",
+        "bilirrubinas"
+      ]
+    },
+    {
+      "slug": "sodio",
+      "nombre": "Sodio",
+      "sinonimos": [
+        "electrolitos",
+        "Na"
+      ],
+      "categoria": "quimica",
+      "precio": 4.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "potasio",
+        "cloro"
+      ]
+    },
+    {
+      "slug": "potasio",
+      "nombre": "Potasio",
+      "sinonimos": [
+        "electrolitos",
+        "K"
+      ],
+      "categoria": "quimica",
+      "precio": 4.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "sodio",
+        "cloro"
+      ]
+    },
+    {
+      "slug": "cloro",
+      "nombre": "Cloro",
+      "sinonimos": [
+        "electrolitos",
+        "cloruro"
+      ],
+      "categoria": "quimica",
+      "precio": 4.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "sodio",
+        "potasio"
+      ]
+    },
+    {
+      "slug": "calcio",
+      "nombre": "Calcio",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 3.5,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "fosforo",
+        "magnesio"
+      ]
+    },
+    {
+      "slug": "fosforo",
+      "nombre": "Fósforo",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 3.5,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "calcio",
+        "magnesio"
+      ]
+    },
+    {
+      "slug": "magnesio",
+      "nombre": "Magnesio",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 3.5,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "calcio",
+        "fosforo"
+      ]
+    },
+    {
+      "slug": "hierro",
+      "nombre": "Hierro",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 5.0,
+      "tienePagina": true,
+      "pagina": "ferritina-y-hierro",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "ferritina",
+        "transferrina",
+        "saturacion"
+      ]
+    },
+    {
+      "slug": "transferrina",
+      "nombre": "Transferrina",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 5.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "hierro",
+        "saturacion",
+        "ferritina"
+      ]
+    },
+    {
+      "slug": "saturacion",
+      "nombre": "Saturación",
+      "sinonimos": [
+        "saturación de transferrina"
+      ],
+      "categoria": "quimica",
+      "precio": 2.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "hierro",
+        "transferrina",
+        "ferritina"
+      ]
+    },
+    {
+      "slug": "ferritina",
+      "nombre": "Ferritina",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "ferritina-y-hierro",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "hierro",
+        "transferrina",
+        "saturacion"
+      ]
+    },
+    {
+      "slug": "amilasa",
+      "nombre": "Amilasa",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 5.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "lipasa"
+      ]
+    },
+    {
+      "slug": "lipasa",
+      "nombre": "Lipasa",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 7.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "amilasa"
+      ]
+    },
+    {
+      "slug": "cpk",
+      "nombre": "CPK",
+      "sinonimos": [
+        "CK",
+        "creatina quinasa",
+        "creatinfosfoquinasa"
+      ],
+      "categoria": "quimica",
+      "precio": 6.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": []
+    },
+    {
+      "slug": "colinesterasa",
+      "nombre": "Colinesterasa",
+      "sinonimos": [],
+      "categoria": "quimica",
+      "precio": 10.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": []
+    },
+    {
+      "slug": "bhcg-cuantitativa",
+      "nombre": "BHCG Cuantitativa",
+      "sinonimos": [
+        "beta HCG",
+        "prueba de embarazo en sangre",
+        "HCG cuantitativa",
+        "embarazo"
+      ],
+      "categoria": "hormonas",
+      "precio": 15.0,
+      "tienePagina": true,
+      "pagina": "prueba-de-embarazo-en-sangre",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "pruebas-de-embarazo"
+      ]
+    },
+    {
+      "slug": "foliculoestimulante",
+      "nombre": "Foliculoestimulante",
+      "sinonimos": [
+        "FSH",
+        "hormona foliculoestimulante"
+      ],
+      "categoria": "hormonas",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "hormonas-femeninas",
+      "preparacion": "El momento de la toma puede depender del día del ciclo menstrual; sigue la indicación de tu médico.",
+      "relacionados": [
+        "luteinizante",
+        "estradiol",
+        "progesterona"
+      ]
+    },
+    {
+      "slug": "luteinizante",
+      "nombre": "Luteinizante",
+      "sinonimos": [
+        "LH",
+        "hormona luteinizante"
+      ],
+      "categoria": "hormonas",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "hormonas-femeninas",
+      "preparacion": "El momento de la toma puede depender del día del ciclo menstrual; sigue la indicación de tu médico.",
+      "relacionados": [
+        "foliculoestimulante",
+        "estradiol",
+        "progesterona"
+      ]
+    },
+    {
+      "slug": "progesterona",
+      "nombre": "Progesterona",
+      "sinonimos": [],
+      "categoria": "hormonas",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "hormonas-femeninas",
+      "preparacion": "El momento de la toma puede depender del día del ciclo menstrual; sigue la indicación de tu médico.",
+      "relacionados": [
+        "foliculoestimulante",
+        "luteinizante",
+        "estradiol"
+      ]
+    },
+    {
+      "slug": "prolactina",
+      "nombre": "Prolactina",
+      "sinonimos": [],
+      "categoria": "hormonas",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "hormonas-femeninas",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "foliculoestimulante",
+        "luteinizante",
+        "estradiol"
+      ]
+    },
+    {
+      "slug": "estradiol",
+      "nombre": "Estradiol",
+      "sinonimos": [
+        "E2",
+        "estrógeno"
+      ],
+      "categoria": "hormonas",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "hormonas-femeninas",
+      "preparacion": "El momento de la toma puede depender del día del ciclo menstrual; sigue la indicación de tu médico.",
+      "relacionados": [
+        "foliculoestimulante",
+        "luteinizante",
+        "progesterona"
+      ]
+    },
+    {
+      "slug": "testosterona",
+      "nombre": "Testosterona",
+      "sinonimos": [],
+      "categoria": "hormonas",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "testosterona",
+      "preparacion": "Suele tomarse en la mañana; confirma con tu médico o con nosotros la hora indicada.",
+      "relacionados": []
+    },
+    {
+      "slug": "tsh",
+      "nombre": "TSH",
+      "sinonimos": [
+        "tirotropina",
+        "tiroides"
+      ],
+      "categoria": "hormonas",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "perfil-tiroideo",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "t3-libre",
+        "t4-libre"
+      ]
+    },
+    {
+      "slug": "t3-libre",
+      "nombre": "T3 Libre",
+      "sinonimos": [
+        "FT3",
+        "tiroides"
+      ],
+      "categoria": "hormonas",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "perfil-tiroideo",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "tsh",
+        "t4-libre"
+      ]
+    },
+    {
+      "slug": "t4-libre",
+      "nombre": "T4 Libre",
+      "sinonimos": [
+        "FT4",
+        "tiroides"
+      ],
+      "categoria": "hormonas",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "perfil-tiroideo",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "tsh",
+        "t3-libre"
+      ]
+    },
+    {
+      "slug": "insulina",
+      "nombre": "Insulina",
+      "sinonimos": [],
+      "categoria": "hormonas",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "insulina",
+      "preparacion": "Generalmente se indica ayuno de 8 a 12 horas (puedes tomar agua). Confirma la preparación con nosotros.",
+      "relacionados": [
+        "glucosa",
+        "hemoglobina-glicosilada"
+      ]
+    },
+    {
+      "slug": "cortisol",
+      "nombre": "Cortisol",
+      "sinonimos": [],
+      "categoria": "hormonas",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "cortisol",
+      "preparacion": "Suele tomarse en la mañana; confirma con tu médico o con nosotros la hora indicada.",
+      "relacionados": []
+    },
+    {
+      "slug": "acth",
+      "nombre": "ACTH",
+      "sinonimos": [
+        "corticotropina"
+      ],
+      "categoria": "hormonas",
+      "precio": 18.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Suele tomarse en la mañana; confirma con tu médico o con nosotros la hora indicada.",
+      "relacionados": []
+    },
+    {
+      "slug": "citomegalovirus-igg-igm",
+      "nombre": "Citomegalovirus IgG IgM",
+      "sinonimos": [
+        "CMV",
+        "TORCH"
+      ],
+      "categoria": "infecciosas",
+      "precio": 20.0,
+      "tienePagina": true,
+      "pagina": "torch",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "toxoplasma-igg-igm",
+        "rubeola-igg-igm",
+        "herpes-virus-1-igg-igm"
+      ]
+    },
+    {
+      "slug": "rubeola-igg-igm",
+      "nombre": "Rubeola IgG IgM",
+      "sinonimos": [
+        "rubéola",
+        "TORCH"
+      ],
+      "categoria": "infecciosas",
+      "precio": 20.0,
+      "tienePagina": true,
+      "pagina": "torch",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "toxoplasma-igg-igm",
+        "citomegalovirus-igg-igm",
+        "herpes-virus-1-igg-igm"
+      ]
+    },
+    {
+      "slug": "toxoplasma-igg-igm",
+      "nombre": "Toxoplasma IgG IgM",
+      "sinonimos": [
+        "toxoplasmosis",
+        "TORCH"
+      ],
+      "categoria": "infecciosas",
+      "precio": 20.0,
+      "tienePagina": true,
+      "pagina": "torch",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "rubeola-igg-igm",
+        "citomegalovirus-igg-igm",
+        "herpes-virus-1-igg-igm"
+      ]
+    },
+    {
+      "slug": "dengue-igm",
+      "nombre": "Dengue IgM",
+      "sinonimos": [
+        "dengue"
+      ],
+      "categoria": "infecciosas",
+      "precio": 12.0,
+      "tienePagina": true,
+      "pagina": "dengue",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "herpes-virus-1-igg-igm",
+      "nombre": "Herpes Virus 1 IgG IgM",
+      "sinonimos": [
+        "herpes simple 1",
+        "HSV-1",
+        "TORCH"
+      ],
+      "categoria": "infecciosas",
+      "precio": 20.0,
+      "tienePagina": true,
+      "pagina": "torch",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "toxoplasma-igg-igm",
+        "rubeola-igg-igm",
+        "citomegalovirus-igg-igm"
+      ]
+    },
+    {
+      "slug": "herpes-virus-2-igg-igm",
+      "nombre": "Herpes Virus 2 IgG IgM",
+      "sinonimos": [
+        "herpes simple 2",
+        "HSV-2",
+        "TORCH"
+      ],
+      "categoria": "infecciosas",
+      "precio": 20.0,
+      "tienePagina": true,
+      "pagina": "torch",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "toxoplasma-igg-igm",
+        "rubeola-igg-igm",
+        "citomegalovirus-igg-igm"
+      ]
+    },
+    {
+      "slug": "helicobacter-pylori",
+      "nombre": "Helicobacter Pylori",
+      "sinonimos": [
+        "H. pylori en sangre",
+        "helicobacter"
+      ],
+      "categoria": "infecciosas",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "helicobacter-pylori",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "helicobacter-pylori-heces"
+      ]
+    },
+    {
+      "slug": "clamidia-igg-igm",
+      "nombre": "Clamidia IgG IgM",
+      "sinonimos": [
+        "chlamydia",
+        "clamidia"
+      ],
+      "categoria": "infecciosas",
+      "precio": 30.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "mononucleosis-infecciosa",
+      "nombre": "Mononucleosis Infecciosa",
+      "sinonimos": [
+        "mononucleosis"
+      ],
+      "categoria": "infecciosas",
+      "precio": 12.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "hiv",
+      "nombre": "HIV",
+      "sinonimos": [
+        "VIH",
+        "prueba de VIH"
+      ],
+      "categoria": "infecciosas",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "prueba-vih",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "hepatitis-a-igg-igm",
+      "nombre": "Hepatitis A IgG IgM",
+      "sinonimos": [
+        "hepatitis A"
+      ],
+      "categoria": "infecciosas",
+      "precio": 15.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "hepatitis-b-ag",
+      "nombre": "Hepatitis B Ag",
+      "sinonimos": [
+        "hepatitis B",
+        "antígeno de hepatitis B"
+      ],
+      "categoria": "infecciosas",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "hepatitis-b-y-c",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "hepatitis-c"
+      ]
+    },
+    {
+      "slug": "hepatitis-c",
+      "nombre": "Hepatitis C",
+      "sinonimos": [
+        "hepatitis C"
+      ],
+      "categoria": "infecciosas",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "hepatitis-b-y-c",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "hepatitis-b-ag"
+      ]
+    },
+    {
+      "slug": "psa-total",
+      "nombre": "PSA Total",
+      "sinonimos": [
+        "antígeno prostático",
+        "próstata"
+      ],
+      "categoria": "inmunologia",
+      "precio": 15.0,
+      "tienePagina": true,
+      "pagina": "psa",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "psa-libre"
+      ]
+    },
+    {
+      "slug": "psa-libre",
+      "nombre": "PSA Libre",
+      "sinonimos": [
+        "antígeno prostático libre",
+        "próstata"
+      ],
+      "categoria": "inmunologia",
+      "precio": 15.0,
+      "tienePagina": true,
+      "pagina": "psa",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "psa-total"
+      ]
+    },
+    {
+      "slug": "fr-semicuantitativo",
+      "nombre": "FR Semicuantitativo",
+      "sinonimos": [
+        "factor reumatoideo"
+      ],
+      "categoria": "inmunologia",
+      "precio": 4.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "asto-semicuantitativo",
+      "nombre": "ASTO Semicuantitativo",
+      "sinonimos": [
+        "antiestreptolisina O"
+      ],
+      "categoria": "inmunologia",
+      "precio": 4.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "pcr-semicuantitativo",
+      "nombre": "PCR Semicuantitativo",
+      "sinonimos": [
+        "proteína C reactiva",
+        "inflamación"
+      ],
+      "categoria": "inmunologia",
+      "precio": 4.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "vdrl",
+      "nombre": "VDRL",
+      "sinonimos": [
+        "sífilis"
+      ],
+      "categoria": "infecciosas",
+      "precio": 6.0,
+      "tienePagina": true,
+      "pagina": "vdrl-sifilis",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "pruebas-de-embarazo",
+      "nombre": "Pruebas de Embarazo",
+      "sinonimos": [
+        "prueba de embarazo",
+        "embarazo",
+        "HCG"
+      ],
+      "categoria": "hormonas",
+      "precio": 7.0,
+      "tienePagina": true,
+      "pagina": "prueba-de-embarazo-en-sangre",
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": [
+        "bhcg-cuantitativa"
+      ]
+    },
+    {
+      "slug": "reaccion-de-widal",
+      "nombre": "Reacción de Widal",
+      "sinonimos": [
+        "tifoidea",
+        "fiebre tifoidea"
+      ],
+      "categoria": "infecciosas",
+      "precio": 7.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "inmunoglobulina-a",
+      "nombre": "Inmunoglobulina A",
+      "sinonimos": [
+        "IgA"
+      ],
+      "categoria": "inmunologia",
+      "precio": 15.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "inmunoglobulina-m",
+      "nombre": "Inmunoglobulina M",
+      "sinonimos": [
+        "IgM"
+      ],
+      "categoria": "inmunologia",
+      "precio": 15.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "inmunoglobulina-e",
+      "nombre": "Inmunoglobulina E",
+      "sinonimos": [
+        "IgE",
+        "alergia"
+      ],
+      "categoria": "inmunologia",
+      "precio": 15.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "inmunoglobulina-g",
+      "nombre": "Inmunoglobulina G",
+      "sinonimos": [
+        "IgG"
+      ],
+      "categoria": "inmunologia",
+      "precio": 15.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Por lo general no requiere ayuno. Si lo harás junto con otros exámenes de sangre, confirma con nosotros la preparación.",
+      "relacionados": []
+    },
+    {
+      "slug": "emo",
+      "nombre": "EMO",
+      "sinonimos": [
+        "elemental y microscópico de orina",
+        "examen de orina",
+        "uroanálisis",
+        "orina"
+      ],
+      "categoria": "orina-heces",
+      "precio": 4.0,
+      "tienePagina": true,
+      "pagina": "examen-de-orina-emo",
+      "preparacion": "Primera orina de la mañana, tomando el chorro medio en un frasco estéril.",
+      "relacionados": [
+        "microalbuminuria",
+        "creatinina"
+      ]
+    },
+    {
+      "slug": "microalbuminuria",
+      "nombre": "Microalbuminuria",
+      "sinonimos": [
+        "microalbúmina en orina"
+      ],
+      "categoria": "orina-heces",
+      "precio": 10.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Primera orina de la mañana, tomando el chorro medio en un frasco estéril.",
+      "relacionados": [
+        "emo",
+        "creatinina"
+      ]
+    },
+    {
+      "slug": "parasitario-heces",
+      "nombre": "Parasitario (Heces)",
+      "sinonimos": [
+        "coproparasitario",
+        "examen de heces",
+        "parásitos",
+        "copro"
+      ],
+      "categoria": "orina-heces",
+      "precio": 3.0,
+      "tienePagina": true,
+      "pagina": "coproparasitario",
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": [
+        "sangre-oculta",
+        "polimorfonucleares",
+        "ph-en-heces"
+      ]
+    },
+    {
+      "slug": "azucares-reductores",
+      "nombre": "Azúcares Reductores",
+      "sinonimos": [],
+      "categoria": "orina-heces",
+      "precio": 5.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": []
+    },
+    {
+      "slug": "azucares-no-reductores",
+      "nombre": "Azúcares No Reductores",
+      "sinonimos": [],
+      "categoria": "orina-heces",
+      "precio": 5.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": []
+    },
+    {
+      "slug": "actividad-triptica",
+      "nombre": "Actividad Tríptica",
+      "sinonimos": [],
+      "categoria": "orina-heces",
+      "precio": 5.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": []
+    },
+    {
+      "slug": "ph-en-heces",
+      "nombre": "PH en Heces",
+      "sinonimos": [
+        "pH fecal"
+      ],
+      "categoria": "orina-heces",
+      "precio": 3.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": []
+    },
+    {
+      "slug": "rotavirus",
+      "nombre": "Rotavirus",
+      "sinonimos": [],
+      "categoria": "orina-heces",
+      "precio": 10.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": [
+        "adenovirus",
+        "parasitario-heces"
+      ]
+    },
+    {
+      "slug": "adenovirus",
+      "nombre": "Adenovirus",
+      "sinonimos": [],
+      "categoria": "orina-heces",
+      "precio": 10.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": [
+        "rotavirus",
+        "parasitario-heces"
+      ]
+    },
+    {
+      "slug": "sangre-oculta",
+      "nombre": "Sangre Oculta",
+      "sinonimos": [
+        "sangre oculta en heces"
+      ],
+      "categoria": "orina-heces",
+      "precio": 10.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": [
+        "parasitario-heces",
+        "helicobacter-pylori-heces"
+      ]
+    },
+    {
+      "slug": "helicobacter-pylori-heces",
+      "nombre": "Helicobacter Pylori (Heces)",
+      "sinonimos": [
+        "H. pylori en heces",
+        "antígeno de helicobacter"
+      ],
+      "categoria": "orina-heces",
+      "precio": 10.0,
+      "tienePagina": true,
+      "pagina": "helicobacter-pylori",
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": [
+        "helicobacter-pylori"
+      ]
+    },
+    {
+      "slug": "polimorfonucleares",
+      "nombre": "Polimorfonucleares",
+      "sinonimos": [],
+      "categoria": "orina-heces",
+      "precio": 3.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "Muestra de heces reciente en un frasco limpio, sin mezclar con orina.",
+      "relacionados": []
+    },
+    {
+      "slug": "panel-toxicologico-6-determinaciones",
+      "nombre": "Panel Toxicológico 6 Determinaciones",
+      "sinonimos": [
+        "prueba de drogas",
+        "toxicológico",
+        "antidoping",
+        "drogas en orina"
+      ],
+      "categoria": "toxicologia",
+      "precio": 30.0,
+      "tienePagina": true,
+      "pagina": "panel-toxicologico",
+      "preparacion": "Muestra de orina. Avísanos si tomas algún medicamento.",
+      "relacionados": []
+    },
+    {
+      "slug": "cultivos-varios",
+      "nombre": "Cultivos Varios",
+      "sinonimos": [
+        "cultivo",
+        "urocultivo",
+        "coprocultivo"
+      ],
+      "categoria": "toxicologia",
+      "precio": 13.0,
+      "tienePagina": false,
+      "pagina": null,
+      "preparacion": "La preparación depende del tipo de muestra; consúltala con nosotros antes de venir.",
+      "relacionados": []
+    }
+  ]
+}

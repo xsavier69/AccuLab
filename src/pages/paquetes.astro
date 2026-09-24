@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import PackageCard from '../components/PackageCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { RUTAS } from '../data/rutas';
+import { PAQUETES } from '../lib/catalogo';
+
+const r = RUTAS.paquetes;
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Paquetes de exámenes de Accu-Lab',
+  itemListElement: PAQUETES.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.nombre, url: `https://acculab.bio/paquetes#${p.slug}` })),
+};
+---
+<Layout title={r.title} description={r.description} path={r.path} schemas={[itemList]}
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Paquetes', path: '/paquetes' }]}>
+  <PageHero title="Paquetes de exámenes preventivos en Cuenca"
+    lead="Exámenes agrupados según lo que necesitas evaluar. Para cada paquete te mostramos qué incluye y cómo prepararte; el precio del paquete te lo confirmamos por WhatsApp." />
+
+  <section class="section section--tint" style="padding-top:var(--s-12)">
+    <div class="container">
+      <div class="note mb-note" role="note">
+        <Icon name="info" size={18} />
+        <p>El precio de cada paquete te lo confirmamos por WhatsApp. Si prefieres pedir los exámenes por separado, consulta sus precios en nuestro <a href="/cotizar">cotizador de exámenes</a>.</p>
+      </div>
+      <div class="grid grid--2 mt-8">
+        {PAQUETES.map((pq) => <PackageCard paquete={pq} detallado headingLevel="h2" />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand titulo="¿No sabes qué paquete elegir?" texto="Cuéntanos qué necesitas evaluar o envíanos tu orden médica por WhatsApp y te orientamos." mensaje="Hola, quiero información sobre sus paquetes de exámenes." />
+</Layout>
+
+<style>
+  .mb-note { max-width: 820px; }
+  .mb-note a { color: var(--primary); }
+  :global(.pkg-card h2) { font-size: var(--fs-lg); }
+</style>
