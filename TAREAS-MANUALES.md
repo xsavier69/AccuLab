@@ -14,8 +14,8 @@ Tareas fuera del código, en orden. Cada una indica cómo comprobar que quedó b
 **Comprobación después del despliegue** (desde cualquier terminal):
 ```bash
 curl -sI https://acculab.vercel.app/cotizar | grep -iE "^(HTTP|location)"   # 301 → https://acculab.bio/cotizar
-curl -sI https://acculab.bio/index.html      | grep -iE "^(HTTP|location)"   # 301 → /
-curl -sI https://acculab.bio/servicios.html  | grep -iE "^(HTTP|location)"   # 301 → /servicios
+curl -sI https://acculab.bio/index.html      | grep -iE "^(HTTP|location)"   # 308 → / (permanente, equivale a 301)
+curl -sI https://acculab.bio/servicios.html  | grep -iE "^(HTTP|location)"   # 308 → /servicios
 curl -sI https://www.acculab.bio/            | grep -iE "^(HTTP|location)"   # debe ser 301/308 (ver paso 2)
 curl -s  https://acculab.bio/robots.txt
 curl -s  https://acculab.bio/sitemap.xml | grep -c "<loc>"                    # 36

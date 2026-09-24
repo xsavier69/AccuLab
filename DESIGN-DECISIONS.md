@@ -175,3 +175,7 @@ Si existe `PUBLIC_GA4_ID` (variable de entorno de Vercel), gtag se carga tras la
 **Qué:** se eliminaron todas las etiquetas en versalitas que iban sobre los títulos ("97 exámenes con precio", "Precios publicados", "Proceso simple", la categoría en las tarjetas de examen y la línea dorada de las imágenes OG). También se retiraron sus estilos (`.eyebrow`, `.exam-card__cat`).
 **Por qué:** pedido del cliente: ese recurso se percibe como un sello de sitios generados con IA. La jerarquía la sostienen el título en serif y el espaciado.
 **Descartado:** conservarlas solo en algunas secciones (se pidió quitarlas de todas las páginas).
+
+## D-029 · Ajustes de redirección tras el despliegue (verificado en producción)
+- La regla `/:path*` con `has: host` no cubría la raíz: `https://acculab.vercel.app/` seguía respondiendo 200. Se agregó una regla explícita para `/` → `https://acculab.bio/` (301).
+- `*.html` responde **308** y no 301: `cleanUrls` de Vercel se aplica antes que las reglas `redirects` propias. El 308 es permanente y Google lo trata igual que un 301, así que se deja así.
