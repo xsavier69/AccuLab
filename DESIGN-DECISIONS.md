@@ -179,3 +179,7 @@ Si existe `PUBLIC_GA4_ID` (variable de entorno de Vercel), gtag se carga tras la
 ## D-029 · Ajustes de redirección tras el despliegue (verificado en producción)
 - La regla `/:path*` con `has: host` no cubría la raíz: `https://acculab.vercel.app/` seguía respondiendo 200. Se agregó una regla explícita para `/` → `https://acculab.bio/` (301).
 - `*.html` responde **308** y no 301: `cleanUrls` de Vercel se aplica antes que las reglas `redirects` propias. El 308 es permanente y Google lo trata igual que un 301, así que se deja así.
+
+## D-030 · "2010" en un solo lugar y texto del hero más corto
+**Qué:** el texto bajo el H1 del home ahora es "Consulta el precio de tu examen y agéndalo por WhatsApp." El año de fundación aparece **solo** en el párrafo de historia de /nosotros ("Accu-Lab atiende en Cuenca desde 2010"). Se quitó de la cifra del home (que pasa de 4 a 3 datos), del pie de página, del title, la description y la imagen OG de /nosotros, de la meta description del home y del subtítulo "Más de una década…". El `foundingDate` del JSON-LD se mantiene porque no es visible y Google lo usa para la ficha del negocio.
+**Por qué:** pedido del cliente: repetir el año en todas las páginas resultaba redundante.

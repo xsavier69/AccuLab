@@ -13,7 +13,7 @@ export const RUTAS: Record<string, Ruta> = {
   home: {
     path: '/',
     title: 'Laboratorio Clínico en Cuenca – Resultados en 24 h | Accu-Lab',
-    description: 'Laboratorio clínico en Cuenca desde 2010: 97 exámenes con precio publicado, resultados en 24 h y toma a domicilio. En El Batán. Agenda por WhatsApp.',
+    description: 'Laboratorio clínico en Cuenca: consulta el precio de tu examen, recibe resultados en 24 h y pide toma a domicilio. En El Batán. Agenda por WhatsApp.',
     og: 'Laboratorio clínico en Cuenca con resultados en 24 horas',
     lastmod: '2026-09-24',
   },
@@ -82,9 +82,9 @@ export const RUTAS: Record<string, Ruta> = {
   },
   nosotros: {
     path: '/nosotros',
-    title: 'Sobre Accu-Lab – Laboratorio Clínico en El Batán desde 2010',
-    description: 'Accu-Lab es un laboratorio clínico en El Batán, Cuenca, desde 2010. Conoce nuestra misión, visión y áreas de trabajo. Escríbenos por WhatsApp.',
-    og: 'Laboratorio clínico en El Batán desde 2010',
+    title: 'Sobre Accu-Lab – Laboratorio Clínico en El Batán, Cuenca',
+    description: 'Accu-Lab es un laboratorio clínico en El Batán, Cuenca. Conoce nuestra historia, misión, visión y áreas de trabajo. Escríbenos por WhatsApp.',
+    og: 'Laboratorio clínico en El Batán, Cuenca',
     lastmod: '2026-09-24',
   },
   styleguide: {

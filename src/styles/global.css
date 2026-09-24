@@ -290,6 +290,7 @@ button.chip[aria-pressed='true'] { background: var(--ink); color: #fff; border-c
 
 /* Stat */
 .stat { display: flex; flex-direction: column; gap: 6px; }
+@media (min-width: 900px) { .stats--3 { grid-template-columns: repeat(3, 1fr); } }
 .stat__num { font-family: var(--font-serif); font-size: clamp(var(--fs-2xl), 5vw, var(--fs-3xl)); line-height: 1; letter-spacing: -0.03em; color: var(--ink); font-variant-numeric: lining-nums; }
 .stat__num span { font-size: 0.5em; margin-left: 2px; }
 .stat__label { font-size: var(--fs-sm); color: var(--ink-2); max-width: 22ch; }
