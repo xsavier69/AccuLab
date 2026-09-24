@@ -76,7 +76,7 @@ export const RUTAS: Record<string, Ruta> = {
   cotizar: {
     path: '/cotizar',
     title: 'Precios de Exámenes de Laboratorio en Cuenca | Accu-Lab',
-    description: 'Precios de 97 exámenes de laboratorio en Cuenca: sangre, orina, heces y hormonas. Arma tu cotización y envíala por WhatsApp a Accu-Lab, en El Batán.',
+    description: 'Precios de exámenes de laboratorio en Cuenca: sangre, orina, heces y hormonas. Arma tu cotización y envíala por WhatsApp a Accu-Lab, en El Batán.',
     og: 'Precios de exámenes de laboratorio en Cuenca',
     lastmod: '2026-09-24',
   },

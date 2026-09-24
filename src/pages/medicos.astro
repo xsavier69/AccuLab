@@ -4,7 +4,6 @@ import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { RUTAS } from '../data/rutas';
-import { EXAMENES } from '../lib/catalogo';
 import { waLink } from '../lib/site';
 
 const r = RUTAS.medicos;
@@ -13,7 +12,7 @@ const BENEFICIOS = [
   ['clock', 'Atención prioritaria', 'Para los pacientes que usted refiere al laboratorio.'],
   ['check-circle', 'Resultados rápidos y confiables', 'La mayoría de exámenes, en 24 horas, por WhatsApp o correo.'],
   ['microscope', 'Apoyo en la interpretación', 'Acompañamiento en la lectura de pruebas de laboratorio.'],
-  ['list-checks', 'Amplio menú de exámenes', `${EXAMENES.length} exámenes con precio publicado, además de paquetes preventivos.`],
+  ['list-checks', 'Amplio menú de exámenes', 'Exámenes de rutina y especializados, además de paquetes preventivos.'],
   ['message-circle', 'Comunicación directa', 'Contacto directo con el laboratorio para coordinar a sus pacientes.'],
   ['receipt', 'Tarifas preferenciales', 'Para los pacientes del médico en convenio.'],
 ] as const;
