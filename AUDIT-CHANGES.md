@@ -95,14 +95,22 @@ Agregado a todas las rutas, conservando X-Content-Type-Options, Referrer-Policy 
 - Si Vercel clona con historial (por eso el sitemap no depende de git en el build).
 - validator.schema.org respondió solo en parte (ver tarea 6).
 
-## Decisiones que requieren tu confirmación antes del merge
-1. **Nombres del catálogo** (tarea 1): minúscula de oración, `IgG/IgM`, "Saturación de transferrina". Y que ya no se vea el sinónimo bajo cada nombre en /cotizar (era lo pedido, pero cambia el aspecto).
-2. **HSTS con `includeSubDomains`**: obliga a HTTPS en *todos* los subdominios de acculab.bio (p. ej. un futuro `correo.acculab.bio` solo HTTP dejaría de abrir). Sin `preload`, como pediste.
-3. **CSP con hashes**: obliga al flujo `npm run csp` al editar CSS/scripts (el build avisa fallando).
-4. **Sitemap con `data/lastmod.json`**: obliga a `npm run lastmod` tras editar contenido (si no, esa URL sale sin fecha).
-5. **Páginas de examen**: desglose de precio plegado y sin la tarjeta "Antes de venir"; 12 FAQ eliminadas; mínimo de palabras de `qa-crawl` 450 → 350.
-6. **`sameAs` con el enlace de Google Maps** (`cid`) y el nodo `Offer` por examen (puede ignorarse sin riesgo; si prefieres solo BreadcrumbList + MedicalTest, se quita `ofertaExamenSchema`).
-7. **Hero**: calidad 60 y recorte 4:5 propio; la mejora real necesita la foto original vertical.
+## Decisiones resueltas (por criterio, a petición del dueño del repo)
+Se dejó que se decidiera lo que más convenga; el resultado es mantener todo lo hecho:
+1. **Nombres del catálogo:** se queda `IgG/IgM`, "Saturación de transferrina" y los sinónimos solo en el buscador (sin texto pegado ni subtítulo).
+2. **HSTS con `includeSubDomains`:** se queda, sin `preload`. Es lo que se pidió y el riesgo es acotado: el sitio no usa subdominios propios y el correo (Outlook) no depende de HTTP. Antes de crear un subdominio nuevo, hay que servirlo por HTTPS.
+3. **CSP con hashes y `lastmod` con manifiesto:** se quedan. El fallo de build ante una CSP desactualizada es preferible a publicar un sitio sin estilos; un `lastmod` desactualizado solo hace que esa URL salga sin fecha. Si se activa Google Analytics hay que permitir sus dominios en `scripts/csp.mjs`.
+4. **Páginas de examen:** se queda el desglose plegado, sin la tarjeta "Antes de venir", y el mínimo de palabras de `qa-crawl` en 350.
+5. **Datos estructurados:** se quedan el `Offer` por examen (solo nombre y precio ya visibles) y el enlace de Google Maps en `sameAs`.
+6. **Hero:** se queda el recorte 4:5 con calidad 60. La mejora completa depende de una foto original vertical de ≥ 1200 px (pendiente manual).
+
+### Flujo de trabajo al editar el sitio
+```bash
+npm run build      # si falla con "CSP desactualizada": npm run csp, y volver a construir
+git add -A && git commit
+npm run lastmod    # actualiza las fechas del sitemap de lo que cambió
+git add data/lastmod.json && git commit
+```
 
 ## Pendientes manuales (fuera de alcance, no se tocaron)
 - Permiso de funcionamiento ACESS, responsable técnico y fotos reales en /nosotros.
