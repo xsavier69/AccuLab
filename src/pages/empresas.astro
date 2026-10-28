@@ -8,9 +8,9 @@ import CtaBand from '../components/CtaBand.astro';
 import { RUTAS } from '../data/rutas';
 import { PAGINAS } from '../lib/catalogo';
 import { waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 
 const r = RUTAS.empresas;
-const WA_B2B = 'Hola, represento a una empresa y quiero cotizar exámenes preocupacionales/ocupacionales. Número de trabajadores: ';
 const EXAMENES = ['biometria-hematica', 'glucosa', 'perfil-lipidico', 'perfil-hepatico', 'perfil-renal', 'examen-de-orina-emo', 'panel-toxicologico', 'coproparasitario', 'grupo-sanguineo']
   .map((s) => PAGINAS.find((p) => p.slug === s)!);
 const FAQS = [
@@ -20,11 +20,11 @@ const FAQS = [
 ];
 ---
 <Layout title={r.title} description={r.description} path={r.path}
-  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }, { name: 'Empresas', path: '/empresas' }]} waMensaje={WA_B2B}>
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }, { name: 'Empresas', path: '/empresas' }]} waMensaje={WA.empresas}>
   <PageHero title="Exámenes preocupacionales y ocupacionales en Cuenca"
     lead="Evaluaciones de laboratorio para empresas y trabajadores, orientadas a la prevención y al control de la salud laboral: exámenes de ingreso, controles periódicos y pruebas de drogas.">
     <div class="cluster mt-8">
-      <a class="btn btn--whatsapp" href={waLink(WA_B2B)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Cotizar para mi empresa</a>
+      <a class="btn btn--whatsapp" href={waLink(WA.empresas)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Cotizar para mi empresa</a>
       <a class="btn btn--secondary" href="/cotizar">Ver precios individuales</a>
     </div>
   </PageHero>
@@ -101,5 +101,5 @@ const FAQS = [
     </div>
   </section>
 
-  <CtaBand titulo="Solicita la cotización para tu empresa" texto="Indícanos el número de trabajadores y los exámenes que necesitas. Te respondemos por WhatsApp." mensaje={WA_B2B} secundario={{ href: '/servicios', label: 'Ver todos los servicios' }} />
+  <CtaBand titulo="Solicita la cotización para tu empresa" texto="Indícanos el número de trabajadores y los exámenes que necesitas. Te respondemos por WhatsApp." mensaje={WA.empresas} secundario={{ href: '/servicios', label: 'Ver todos los servicios' }} />
 </Layout>

@@ -4,7 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Icon from '../components/Icon.astro';
-import { SITE, waLink, WA_GENERAL } from '../lib/site';
+import { SITE, waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 import { labSchema, breadcrumbSchema, type Crumb } from '../lib/schema';
 import { ogSlug } from '../data/rutas';
 import manrope400 from '@fontsource/manrope/files/manrope-latin-400-normal.woff2?url';
@@ -26,7 +27,7 @@ interface Props {
   hideWaFloat?: boolean;
   waMensaje?: string;
 }
-const { title, description, path, crumbs, schemas = [], catalogo = false, noindex = false, ogType = 'website', article, hideWaFloat = false, waMensaje = WA_GENERAL } = Astro.props;
+const { title, description, path, crumbs, schemas = [], catalogo = false, noindex = false, ogType = 'website', article, hideWaFloat = false, waMensaje = WA.agendar } = Astro.props;
 const canonical = path === '/' ? `${SITE.url}/` : `${SITE.url}${path}`;
 const ogImage = `${SITE.url}/assets/og/${ogSlug(path)}.png`;
 const jsonld = [labSchema(catalogo), ...(crumbs ? [breadcrumbSchema(crumbs)] : []), ...schemas];

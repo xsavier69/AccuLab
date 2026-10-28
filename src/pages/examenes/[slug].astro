@@ -9,6 +9,7 @@ import { PAGINAS, type PaginaExamen } from '../../data/paginas';
 import { componentes, precioPagina, paquetesDePagina, examen, nombreCategoria, paginaBySlug } from '../../lib/catalogo';
 import { medicalWebPageSchema } from '../../lib/schema';
 import { precio, waLink, mesAnio } from '../../lib/site';
+import { WA } from '../../lib/mensajes';
 
 export function getStaticPaths() {
   return PAGINAS.map((p) => ({ params: { slug: p.slug }, props: { p } }));
@@ -24,7 +25,7 @@ const total = cs.reduce((a, c) => a + c.precio, 0);
 const complementos = (p.complementos ?? []).map(examen);
 const relacionados = p.relacionados.map((s) => paginaBySlug(s)!);
 const paquetes = paquetesDePagina(p);
-const waMsg = `Hola, quiero agendar: ${p.h1}`;
+const waMsg = WA.agendarExamen(p.h1);
 const etiquetaPrecio = p.modoPrecio === 'suma' ? 'Precio del perfil' : pr.desde ? 'Desde' : 'Precio';
 
 const schema = medicalWebPageSchema({

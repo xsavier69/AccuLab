@@ -5,6 +5,7 @@ import PageHero from '../components/PageHero.astro';
 import { RUTAS } from '../data/rutas';
 import { CATEGORIAS, EXAMENES, PAGINAS, PAQUETES, valorPaquete } from '../lib/catalogo';
 import { SITE, precio, waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 
 const r = RUTAS.cotizar;
 const cats = CATEGORIAS.map((c) => ({ ...c, items: EXAMENES.filter((e) => e.categoria === c.slug) }));
@@ -71,7 +72,7 @@ const datos = {
           <p class="cot-pq-precio small" hidden><strong>Precio del paquete:</strong> te lo confirmamos por WhatsApp.</p>
           <button type="button" class="btn btn--secondary btn--sm btn--block cot-clear" hidden>Vaciar selección</button>
         </div>
-        <a class="btn btn--whatsapp btn--block cot-send" href={waLink('Hola, quiero cotizar exámenes en Accu-Lab.')} data-wa={SITE.whatsapp} target="_blank" rel="noopener">
+        <a class="btn btn--whatsapp btn--block cot-send" href={waLink(WA.cotizar)} data-wa={SITE.whatsapp} target="_blank" rel="noopener">
           <Icon name="whatsapp" /> Enviar por WhatsApp
         </a>
         <p class="small muted cot-disclaimer">Precios referenciales; te confirmamos el valor final y la disponibilidad.</p>
@@ -130,6 +131,7 @@ const datos = {
 </style>
 
 <script>
+  import { WA } from '../lib/mensajes';
   type Datos = { paginas: Record<string, { nombre: string; items: string[] }>; paquetes: Record<string, { nombre: string; items: string[]; consultar: string[] }> };
   const datos: Datos = JSON.parse(document.getElementById('cot-data')!.textContent!);
   const $ = <T extends Element>(s: string) => document.querySelector(s) as T;
@@ -176,7 +178,7 @@ const datos = {
   // Se limita el texto ya codificado; si la lista no cabe, se quitan precios y luego se acorta la lista.
   const WA_MAX = 1800;
   const cabe = (m: string) => encodeURIComponent(m).length <= WA_MAX;
-  const GENERICO = 'Hola, quiero cotizar exámenes en Accu-Lab.';
+  const GENERICO = WA.cotizar;
 
   function armar(encabezado: string, lineas: string[], sinPrecio: string[], pie: string) {
     let m = encabezado + lineas.join('\n') + pie;
@@ -195,13 +197,13 @@ const datos = {
     // Paquete: sin precios ni total (el precio del paquete aún no está publicado; evita confundir la suma con el precio).
     if (paquete) {
       const nombres = [...lista.map((e) => e.nombre), ...paquete.consultar].map((n) => `- ${n}`);
-      return armar(`Hola, quiero cotizar el paquete ${paquete.nombre} en Accu-Lab.\nExámenes:\n`, nombres, nombres, '\n\n¿Me confirman el precio del paquete y la disponibilidad?');
+      return armar(WA.cotizarPaquete.encabezado(paquete.nombre), nombres, nombres, WA.cotizarPaquete.pie);
     }
     return armar(
-      'Hola, quiero cotizar estos exámenes en Accu-Lab:\n',
+      WA.cotizarLista.encabezado,
       lista.map((e) => `- ${e.nombre} (${money(e.precio)})`),
       lista.map((e) => `- ${e.nombre}`),
-      `\n\nTotal: ${money(total)}\n(Precios referenciales, sujetos a confirmación.)\n¿Me confirman el valor y la disponibilidad?`,
+      WA.cotizarLista.pie(money(total)),
     );
   }
 

@@ -1,7 +1,8 @@
 ---
 import Icon from './Icon.astro';
 import MapFacade from './MapFacade.astro';
-import { SITE, waLink, WA_GENERAL } from '../lib/site';
+import { SITE, waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 interface Props { titulo?: string }
 const { titulo = 'Visítanos en El Batán' } = Astro.props;
 ---
@@ -16,7 +17,7 @@ const { titulo = 'Visítanos en El Batán' } = Astro.props;
       </ul>
       <div class="cluster mt-8">
         <a class="btn" href={SITE.mapsUrl} target="_blank" rel="noopener"><Icon name="navigation" /> Cómo llegar</a>
-        <a class="btn btn--whatsapp" href={waLink(WA_GENERAL)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
+        <a class="btn btn--whatsapp" href={waLink(WA.agendar)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp</a>
       </div>
     </div>
     <div class="reveal"><MapFacade /></div>

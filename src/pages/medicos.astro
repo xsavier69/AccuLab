@@ -5,9 +5,9 @@ import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { RUTAS } from '../data/rutas';
 import { waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 
 const r = RUTAS.medicos;
-const WA_MED = 'Hola, soy médico/a y deseo solicitar información sobre el convenio con Accu-Lab.';
 const BENEFICIOS = [
   ['clock', 'Atención prioritaria', 'Para los pacientes que usted refiere al laboratorio.'],
   ['check-circle', 'Resultados rápidos y confiables', 'La mayoría de exámenes, en 24 horas, por WhatsApp o correo.'],
@@ -18,12 +18,12 @@ const BENEFICIOS = [
 ] as const;
 const ESPECIALIDADES = ['Medicina general', 'Ginecología', 'Pediatría', 'Medicina interna', 'Urología', 'Endocrinología', 'Gastroenterología', 'Medicina deportiva', 'Medicina ocupacional'];
 ---
-<Layout title={r.title} description={r.description} path={r.path} waMensaje={WA_MED}
+<Layout title={r.title} description={r.description} path={r.path} waMensaje={WA.medicos}
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }, { name: 'Médicos', path: '/medicos' }]}>
   <PageHero title="Convenios con médicos en Cuenca"
     lead="En Accu-Lab trabajamos en alianza con médicos especialistas para ofrecer a sus pacientes resultados confiables, oportunos y con altos estándares de calidad.">
     <div class="cluster mt-8">
-      <a class="btn btn--whatsapp" href={waLink(WA_MED)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Solicitar convenio</a>
+      <a class="btn btn--whatsapp" href={waLink(WA.medicos)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Solicitar convenio</a>
       <a class="btn btn--secondary" href="/examenes">Ver menú de exámenes</a>
     </div>
   </PageHero>
@@ -62,7 +62,7 @@ const ESPECIALIDADES = ['Medicina general', 'Ginecología', 'Pediatría', 'Medic
     </div>
   </section>
 
-  <CtaBand titulo="Solicitar convenio médico" texto="Si usted es médico y desea trabajar con nuestro laboratorio, contáctenos para establecer un convenio de colaboración." mensaje={WA_MED} secundario={{ href: '/cotizar', label: 'Ver lista de precios' }} />
+  <CtaBand titulo="Solicitar convenio médico" texto="Si usted es médico y desea trabajar con nuestro laboratorio, contáctenos para establecer un convenio de colaboración." mensaje={WA.medicos} secundario={{ href: '/cotizar', label: 'Ver lista de precios' }} />
 </Layout>
 <style>
   .chips--lg .chip { min-height: 44px; padding: 10px 16px; font-size: var(--fs-base); }

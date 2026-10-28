@@ -9,21 +9,21 @@ import CtaBand from '../components/CtaBand.astro';
 import { RUTAS } from '../data/rutas';
 import { PAGINAS } from '../lib/catalogo';
 import { waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 
 const r = RUTAS.domicilio;
-const WA_DOM = 'Hola, necesito agendar una toma de muestras a domicilio. Mi sector es: ';
 const COMUNES = ['biometria-hematica', 'glucosa', 'perfil-renal'].map((s) => PAGINAS.find((p) => p.slug === s)!);
 const FAQS = [
   { p: '¿En qué sectores de Cuenca atienden a domicilio?', r: 'Consúltanos por WhatsApp la cobertura en tu sector; te confirmamos disponibilidad y horario.' },
   { p: '¿Cómo recibo los resultados?', r: 'Igual que en el laboratorio: por WhatsApp o por correo electrónico. La mayoría de exámenes está lista en 24 horas.' },
 ];
 ---
-<Layout title={r.title} description={r.description} path={r.path} waMensaje={WA_DOM}
+<Layout title={r.title} description={r.description} path={r.path} waMensaje={WA.domicilioSector}
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }, { name: 'Domicilio', path: '/domicilio' }]}>
   <PageHero title="Exámenes de laboratorio a domicilio en Cuenca"
     lead="Tomamos tus muestras en casa para que no tengas que trasladarte. Agenda por WhatsApp y te confirmamos la cobertura en tu sector.">
     <div class="cluster mt-8">
-      <a class="btn btn--whatsapp" href={waLink(WA_DOM)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar a domicilio</a>
+      <a class="btn btn--whatsapp" href={waLink(WA.domicilioSector)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar a domicilio</a>
       <a class="btn btn--secondary" href="/cotizar">Ver precios</a>
     </div>
   </PageHero>
@@ -79,5 +79,5 @@ const FAQS = [
     </div>
   </section>
 
-  <CtaBand titulo="Agenda tu toma a domicilio" texto="Escríbenos tu sector y los exámenes que necesitas. Te confirmamos cobertura, horario y preparación." mensaje={WA_DOM} />
+  <CtaBand titulo="Agenda tu toma a domicilio" texto="Escríbenos tu sector y los exámenes que necesitas. Te confirmamos cobertura, horario y preparación." mensaje={WA.domicilioSector} />
 </Layout>

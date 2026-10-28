@@ -2,7 +2,8 @@
 import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import logo from '../assets/fotos/logo.png';
-import { waLink, WA_GENERAL } from '../lib/site';
+import { waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 
 interface Props { path: string }
 const { path } = Astro.props;
@@ -33,7 +34,7 @@ const current = (href: string) => (path === href || path.startsWith(href + '/') 
     </nav>
     <div class="site-header__cta">
       <a class="btn btn--secondary btn--sm" href="/cotizar" aria-current={current('/cotizar')}>Precios</a>
-      <a class="btn btn--whatsapp btn--sm" href={waLink(WA_GENERAL)} target="_blank" rel="noopener">
+      <a class="btn btn--whatsapp btn--sm" href={waLink(WA.agendar)} target="_blank" rel="noopener">
         <Icon name="whatsapp" /> Agendar por WhatsApp
       </a>
     </div>
@@ -50,7 +51,7 @@ const current = (href: string) => (path === href || path.startsWith(href + '/') 
         ))}
       </ul>
       <div class="cluster">
-        <a class="btn btn--whatsapp" href={waLink(WA_GENERAL)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar por WhatsApp</a>
+        <a class="btn btn--whatsapp" href={waLink(WA.agendar)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar por WhatsApp</a>
         <a class="btn btn--secondary" href="tel:+593996405647"><Icon name="phone" /> 099-640-5647</a>
       </div>
     </nav>

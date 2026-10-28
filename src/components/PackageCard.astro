@@ -5,6 +5,7 @@
 import Icon from './Icon.astro';
 import type { Paquete } from '../data/paquetes';
 import { waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 interface Props { paquete: Paquete; detallado?: boolean; headingLevel?: 'h2' | 'h3' }
 const { paquete: pq, detallado = false, headingLevel = 'h3' } = Astro.props;
 const H = headingLevel;
@@ -27,6 +28,6 @@ const H = headingLevel;
   {detallado && <p class="small muted"><strong>Preparación:</strong> {pq.preparacion}</p>}
   <div class="cluster card__foot">
     <a class="btn btn--sm" href={`/cotizar?paquete=${pq.slug}`} data-paquete={pq.slug}>Cotizar este paquete</a>
-    <a class="btn btn--whatsapp btn--sm" href={waLink(`Hola, quiero consultar el precio del paquete: ${pq.nombre}`)} target="_blank" rel="noopener" data-paquete={pq.slug}><Icon name="whatsapp" /> Consultar precio</a>
+    <a class="btn btn--whatsapp btn--sm" href={waLink(WA.consultarPaquete(pq.nombre))} target="_blank" rel="noopener" data-paquete={pq.slug}><Icon name="whatsapp" /> Consultar precio</a>
   </div>
 </article>

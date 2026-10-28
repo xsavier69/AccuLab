@@ -2,7 +2,8 @@
 import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import logo from '../assets/fotos/logo.png';
-import { SITE, waLink, WA_GENERAL } from '../lib/site';
+import { SITE, waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 import { PAGINAS } from '../data/paginas';
 
 // Los 10 exámenes más buscados (orden según el análisis SEO de palabras clave)
@@ -17,7 +18,7 @@ const year = new Date().getFullYear();
       <div class="footer-brand">
         <Image src={logo} alt="Accu-Lab Laboratorio Clínico" width={150} widths={[150, 300]} sizes="150px" format="webp" quality={85} />
         <p>Laboratorio clínico en El Batán, Cuenca. Resultados generalmente en 24 horas, entregados por WhatsApp o correo.</p>
-        <a class="btn btn--whatsapp btn--sm" href={waLink(WA_GENERAL)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Escríbenos por WhatsApp</a>
+        <a class="btn btn--whatsapp btn--sm" href={waLink(WA.agendar)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Escríbenos por WhatsApp</a>
       </div>
       <div>
         <p class="footer-title">Exámenes más buscados</p>

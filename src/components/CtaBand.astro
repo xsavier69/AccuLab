@@ -1,12 +1,13 @@
 ---
 import Icon from './Icon.astro';
 import Pattern from './Pattern.astro';
-import { waLink, WA_GENERAL } from '../lib/site';
+import { waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 interface Props { titulo?: string; texto?: string; mensaje?: string; secundario?: { href: string; label: string } }
 const {
   titulo = 'Agenda tu examen hoy',
   texto = 'Escríbenos por WhatsApp o visítanos sin cita en Consultorios El Batán. Te confirmamos precio y preparación antes de venir.',
-  mensaje = WA_GENERAL,
+  mensaje = WA.agendar,
   secundario = { href: '/cotizar', label: 'Ver precios' },
 } = Astro.props;
 ---

@@ -12,7 +12,8 @@ import Resenas from '../components/Resenas.astro';
 import portada from '../assets/fotos/portada.webp';
 import { RUTAS } from '../data/rutas';
 import { PAGINAS, PAQUETES } from '../lib/catalogo';
-import { SITE, waLink, WA_GENERAL } from '../lib/site';
+import { SITE, waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 import { FAQ_CORTA } from '../data/faq';
 
 const r = RUTAS.home;
@@ -29,7 +30,7 @@ const DESTACADOS = ['chequeo-preventivo-anual', 'hormonal-femenino', 'perfil-met
         <p class="hero__sub serif">Tu salud merece atención precisa y oportuna.</p>
         <p class="lead">Consulta el precio de tu examen y agéndalo por WhatsApp.</p>
         <div class="cluster hero__cta">
-          <a class="btn btn--whatsapp" href={waLink(WA_GENERAL)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar por WhatsApp</a>
+          <a class="btn btn--whatsapp" href={waLink(WA.agendar)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar por WhatsApp</a>
           <a class="btn btn--secondary" href="/cotizar">Ver precios de exámenes <Icon name="arrow-right" /></a>
         </div>
         <ul class="hero__trust" role="list">
@@ -144,7 +145,7 @@ const DESTACADOS = ['chequeo-preventivo-anual', 'hormonal-femenino', 'perfil-met
         <h2 class="feature__title">Tomamos tu muestra en casa</h2>
         <p class="muted">Ideal para adultos mayores, pacientes post cirugía o personas con poca disponibilidad de tiempo.</p>
         <div class="cluster card__foot">
-          <a class="btn btn--whatsapp btn--sm" href={waLink('Hola, necesito agendar una toma de muestras a domicilio.')} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar a domicilio</a>
+          <a class="btn btn--whatsapp btn--sm" href={waLink(WA.domicilio)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar a domicilio</a>
           <a class="link-arrow" href="/domicilio">Exámenes a domicilio en Cuenca <Icon name="arrow-right" /></a>
         </div>
       </article>

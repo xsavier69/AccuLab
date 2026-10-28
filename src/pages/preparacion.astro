@@ -6,6 +6,7 @@ import CtaBand from '../components/CtaBand.astro';
 import { RUTAS } from '../data/rutas';
 import { medicalWebPageSchema } from '../lib/schema';
 import { waLink, mesAnio } from '../lib/site';
+import { WA } from '../lib/mensajes';
 
 const r = RUTAS.preparacion;
 const PUBLICADO = '2026-09-24';
@@ -103,7 +104,7 @@ const GUIAS = [
       </div>
       <p class="small muted mt-8">Actualizado: <time datetime={r.lastmod}>{mesAnio(r.lastmod)}</time>.</p>
       <div class="cluster mt-6">
-        <a class="btn btn--whatsapp" href={waLink('Hola, quiero confirmar la preparación para mi examen.')} target="_blank" rel="noopener"><Icon name="whatsapp" /> Confirmar mi preparación</a>
+        <a class="btn btn--whatsapp" href={waLink(WA.preparacion)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Confirmar mi preparación</a>
         <a class="btn btn--secondary" href="/preguntas-frecuentes">Preguntas frecuentes</a>
       </div>
     </div>

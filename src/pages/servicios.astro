@@ -8,6 +8,7 @@ import equipo from '../assets/fotos/equipo.jpeg';
 import { RUTAS } from '../data/rutas';
 import { PAQUETES } from '../lib/catalogo';
 import { waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 
 const r = RUTAS.servicios;
 const HUB = [
@@ -53,7 +54,7 @@ const DEPORTIVO: [string, string | null][] = [
         </ul>
         <div class="cluster mt-6">
           <a class="btn" href="/paquetes#perfil-deportivo">Ver el Perfil Deportivo</a>
-          <a class="btn btn--whatsapp" href={waLink('Hola, quiero información sobre exámenes deportivos.')} target="_blank" rel="noopener"><Icon name="whatsapp" /> Consultar</a>
+          <a class="btn btn--whatsapp" href={waLink(WA.deportivo)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Consultar</a>
         </div>
       </div>
       <PhotoSlot src={equipo} alt="Profesionales de laboratorio analizando muestras al microscopio" ratio="4 / 3" widths={[480, 750]} sizes="(min-width: 1024px) 50vw, 100vw" id="servicios-deportivo" />
@@ -103,7 +104,7 @@ const DEPORTIVO: [string, string | null][] = [
     </div>
   </section>
 
-  <CtaBand titulo="Solicita información y cotización" texto="Cuéntanos qué servicio necesitas y te respondemos por WhatsApp." mensaje="Hola, deseo solicitar información y cotización sobre sus servicios." />
+  <CtaBand titulo="Solicita información y cotización" texto="Cuéntanos qué servicio necesitas y te respondemos por WhatsApp." mensaje={WA.servicios} />
 </Layout>
 <style>
   .h3 { font-size: var(--fs-md); line-height: 1.25; margin-bottom: var(--s-2); }
