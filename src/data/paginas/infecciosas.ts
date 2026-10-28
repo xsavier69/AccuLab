@@ -38,7 +38,7 @@ export const INFECCIOSAS: PaginaExamen[] = [
     notaPrecio: 'PSA total y PSA libre son dos exámenes del cotizador de $15.00 cada uno. Si tu orden pide ambos, el total es $30.00.',
     faqs: [
       { p: '¿Necesito el PSA total y el libre?', r: 'Depende de lo que indique tu médico. Con frecuencia se empieza por el total y se agrega el libre según el resultado.' },
-      { p: '¿Duele o requiere preparación especial?', r: 'Es una toma de sangre común del brazo. Solo se recomiendan algunas precauciones los dos días previos, como las descritas en la preparación.' },
+      { p: '¿Cómo se toma la muestra?', r: 'Es una toma de sangre común del brazo.' },
       { p: '¿Un PSA alto significa cáncer?', r: 'No necesariamente. Hay varias causas benignas que lo elevan. El médico decide si hacen falta más estudios.' },
     ],
     relacionados: ['testosterona', 'examen-de-orina-emo', 'perfil-renal'],
@@ -127,7 +127,6 @@ export const INFECCIOSAS: PaginaExamen[] = [
     notaPrecio: 'El valor mostrado es la suma de hepatitis B ($10.00) y hepatitis C ($10.00). Cada una puede hacerse por separado, y la hepatitis A tiene su precio propio.',
     faqs: [
       { p: '¿Puedo hacerme solo una de las dos?', r: 'Sí. Cada prueba tiene su precio individual en el cotizador.' },
-      { p: '¿Necesito estar en ayunas?', r: 'No para estas pruebas. Si en la misma toma harás el perfil hepático, sí conviene el ayuno.' },
       { p: '¿Detectan si estoy vacunado contra la hepatitis B?', r: 'No. La vacunación se evalúa con otros exámenes. Consulta con tu médico cuál necesitas.' },
     ],
     relacionados: ['perfil-hepatico', 'prueba-vih', 'vdrl-sifilis'],
@@ -215,8 +214,6 @@ export const INFECCIOSAS: PaginaExamen[] = [
     notaPrecio: 'Son dos pruebas distintas de $10.00 cada una; normalmente se realiza la que indique tu médico. En el Panel Digestivo se incluye una de ellas.',
     faqs: [
       { p: '¿Qué prueba es mejor, sangre o heces?', r: 'Depende de para qué la necesites. Para comprobar si un tratamiento funcionó, se suele usar la de heces. Sigue la indicación de tu médico.' },
-      { p: '¿Tengo que dejar el omeprazol?', r: 'Puede influir en la prueba en heces. No lo suspendas sin consultar: tu médico te dirá si debes hacerlo y cuántos días antes.' },
-      { p: '¿Puedo traer la muestra de heces desde casa?', r: 'Sí. Recógela en un frasco limpio y tráela lo antes posible. Si tienes dudas, escríbenos.' },
     ],
     relacionados: ['coproparasitario', 'biometria-hematica', 'perfil-hepatico'],
     medline: { url: 'https://medlineplus.gov/spanish/pruebas-de-laboratorio/pruebas-de-helicobacter-pylori-h-pylori/', titulo: 'Pruebas de Helicobacter pylori (H. pylori)' },

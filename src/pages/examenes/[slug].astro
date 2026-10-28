@@ -21,7 +21,6 @@ const full = `${p.tituloSeo} en Cuenca: Precio y Preparación | Accu-Lab`;
 const title = full.length > 65 ? `${p.tituloSeo} en Cuenca: Precio y Preparación` : full;
 const cs = componentes(p);
 const pr = precioPagina(p);
-const total = cs.reduce((a, c) => a + c.precio, 0);
 const complementos = (p.complementos ?? []).map(examen);
 const relacionados = p.relacionados.map((s) => paginaBySlug(s)!);
 const paquetes = paquetesDePagina(p);
@@ -51,6 +50,17 @@ const oferta = ofertaExamenSchema({ path, nombre: p.h1, precio: pr.valor, desde:
     <aside class="exam-summary" aria-label="Resumen del examen">
       <div class="card">
         <p class="price"><small>{etiquetaPrecio}</small>{precio(pr.valor)}</p>
+        {cs.length > 1 && (
+          <details class="price-detail">
+            <summary>Ver precio de cada examen</summary>
+            <div class="price-table" role="table" aria-label={`Precio de ${p.h1}`}>
+              {cs.map((c) => (
+                <div class="price-row" role="row"><span role="cell">{c.nombre}</span><span role="cell">{precio(c.precio)}</span></div>
+              ))}
+            </div>
+          </details>
+        )}
+        {p.notaPrecio && <p class="small muted">{p.notaPrecio}</p>}
         <dl class="exam-facts">
           <div><dt><Icon name="clock" size={18} /> Entrega</dt><dd>{p.entrega}</dd></div>
           <div><dt><Icon name="clipboard-list" size={18} /> Preparación</dt><dd>{p.resumenPrep}</dd></div>
@@ -75,25 +85,15 @@ const oferta = ofertaExamenSchema({ path, nombre: p.h1, precio: pr.valor, desde:
       <ul>{p.preparacion.map((i) => <li>{i}</li>)}</ul>
       <p>Consulta también nuestra <a href="/preparacion">guía de preparación para exámenes de laboratorio</a>.</p>
 
-      <h2>Precio en <span class="nowrap">Accu-Lab</span></h2>
-      <div class="price-table" role="table" aria-label={`Precio de ${p.h1}`}>
-        {cs.map((c) => (
-          <div class="price-row" role="row"><span role="cell">{c.nombre}</span><span role="cell">{precio(c.precio)}</span></div>
-        ))}
-        {p.modoPrecio === 'suma' && cs.length > 1 && (
-          <div class="price-row price-row--total" role="row"><span role="cell">Total del perfil</span><span role="cell">{precio(total)}</span></div>
-        )}
-      </div>
-      {p.notaPrecio && <p>{p.notaPrecio}</p>}
       {complementos.length > 0 && (
         <>
-          <p>Exámenes que tu médico puede pedir junto a este (se cobran aparte):</p>
+          <h2>Exámenes que suelen pedirse junto a este</h2>
+          <p>Tu médico puede solicitarlos en la misma toma; se cobran aparte.</p>
           <ul class="chips" role="list">
             {complementos.map((c) => <li><a class="chip" href={`/cotizar?add=${c.slug}`}>{c.nombre} · {precio(c.precio)}</a></li>)}
           </ul>
         </>
       )}
-      <p>Revisa el <a href={`/cotizar?add=${p.slug}`} data-examen={p.slug}>precio de {p.h1.toLowerCase().startsWith('examen') ? p.h1.toLowerCase() : `${p.h1.charAt(0).toLowerCase()}${p.h1.slice(1)}`} en nuestro cotizador</a> junto con otros exámenes.</p>
 
       <h2>Preguntas frecuentes</h2>
       <Faq items={p.faqs} />
@@ -117,26 +117,18 @@ const oferta = ofertaExamenSchema({ path, nombre: p.h1, precio: pr.valor, desde:
       </div>
       <div class="grid grid--3">{relacionados.map((r) => <ExamCard pagina={r} />)}</div>
 
-      <div class="grid grid--2 mt-12">
-        <div class="card">
-          <span class="card__icon"><Icon name="package" /></span>
-          <h3>{paquetes.length > 0 ? 'Paquetes que lo incluyen' : 'Paquetes preventivos'}</h3>
-          {paquetes.length > 0 ? (
-            <ul class="link-list">
-              {paquetes.map((pq) => (
-                <li><a href={`/paquetes#${pq.slug}`}>Paquete {pq.nombre}</a> <span class="small muted">· {pq.paraQuien}</span></li>
-              ))}
-            </ul>
-          ) : (
-            <p class="muted">Este examen no forma parte de nuestros paquetes publicados. <a href="/paquetes">Conoce los paquetes de exámenes preventivos</a>.</p>
-          )}
-        </div>
-        <div class="card">
-          <span class="card__icon"><Icon name="clipboard-list" /></span>
-          <h3>Antes de venir</h3>
-          <p class="muted">Revisa la <a href="/preparacion">guía de ayuno y recolección de muestras</a> o escríbenos para confirmar tu preparación.</p>
-          <div class="card__foot"><a class="btn btn--whatsapp btn--sm" href={waLink(waMsg)} target="_blank" rel="noopener" data-examen={p.slug}><Icon name="whatsapp" /> Consultar por WhatsApp</a></div>
-        </div>
+      <div class="card mt-12">
+        <span class="card__icon"><Icon name="package" /></span>
+        <h3>{paquetes.length > 0 ? 'Paquetes que lo incluyen' : 'Paquetes preventivos'}</h3>
+        {paquetes.length > 0 ? (
+          <ul class="link-list">
+            {paquetes.map((pq) => (
+              <li><a href={`/paquetes#${pq.slug}`}>Paquete {pq.nombre}</a> <span class="small muted">· {pq.paraQuien}</span></li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">Este examen no forma parte de nuestros paquetes publicados. <a href="/paquetes">Conoce los paquetes de exámenes preventivos</a>.</p>
+        )}
       </div>
     </div>
   </section>
@@ -163,10 +155,10 @@ const oferta = ofertaExamenSchema({ path, nombre: p.h1, precio: pr.valor, desde:
     .exam-summary .card { position: sticky; top: calc(var(--header-h) + 24px); }
     .exam-body { max-width: 720px; }
   }
-  .price-table { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--card); }
+  .price-detail summary { cursor: pointer; font-size: var(--fs-sm); font-weight: 600; color: var(--primary); min-height: 44px; display: flex; align-items: center; }
+  .price-table { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--card); font-size: var(--fs-sm); }
   .price-row { display: flex; justify-content: space-between; gap: var(--s-4); padding: 12px 16px; border-top: 1px solid var(--line); font-variant-numeric: tabular-nums; }
   .price-row:first-child { border-top: 0; }
-  .price-row--total { background: var(--surface-2); font-weight: 700; }
   .link-list { list-style: none; padding: 0; display: grid; gap: 10px; margin-top: var(--s-3); }
   .link-list a { color: var(--primary); font-weight: 600; }
 </style>

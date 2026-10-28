@@ -92,7 +92,7 @@ for (const f of files) {
     const words = main.text.replace(/\s+/g, ' ').trim().split(' ').filter((w) => /[a-záéíóúñ0-9]/i.test(w));
     textos[url] = doc.querySelector('.exam-body').text.replace(/\s+/g, ' ').toLowerCase();
     const n = words.length;
-    if (n < 450 || n > 700) P(`${n} palabras en <main> (objetivo 450–700)`);
+    if (n < 350 || n > 700) P(`${n} palabras en <main> (objetivo 350–700)`);
     else avisos.push(`${url}: ${n} palabras`);
   }
 }

@@ -81,7 +81,6 @@ export const ORGANOS: PaginaExamen[] = [
     ],
     faqs: [
       { p: '¿Qué significa EMO?', r: 'Significa elemental y microscópico de orina. Es el nombre que se usa en Ecuador para el examen general de orina.' },
-      { p: '¿Puedo recoger la orina en casa?', r: 'Sí. Recógela en casa siguiendo las indicaciones y tráela pronto al laboratorio. Si tienes dudas sobre el frasco, escríbenos.' },
       { p: '¿El EMO es lo mismo que un urocultivo?', r: 'No. El EMO es un análisis general; el cultivo busca identificar bacterias y requiere más tiempo. Si tu orden pide cultivo, consúltanos la preparación.' },
     ],
     relacionados: ['perfil-renal', 'coproparasitario', 'glucosa'],
@@ -125,7 +124,7 @@ export const ORGANOS: PaginaExamen[] = [
     ],
     faqs: [
       { p: '¿Coproparasitario y examen de heces son lo mismo?', r: 'Sí. En nuestro cotizador aparece como "Parasitario (heces)". Hay otros exámenes de heces con fines distintos, como la sangre oculta.' },
-      { p: '¿Cuánta muestra necesito?', r: 'Una porción pequeña es suficiente: más o menos del tamaño de una nuez, o unos mililitros si las heces son líquidas.' },
+      { p: '¿Y si las heces son líquidas?', r: 'Bastan unos mililitros.' },
       { p: '¿Sirve para niños pequeños?', r: 'Sí. En bebés con pañal, recoge la muestra de la superficie del pañal con una paleta limpia, sin que se mezcle con orina.' },
     ],
     relacionados: ['helicobacter-pylori', 'examen-de-orina-emo', 'biometria-hematica'],
@@ -216,7 +215,6 @@ export const ORGANOS: PaginaExamen[] = [
     faqs: [
       { p: '¿TGO y AST son lo mismo?', r: 'Sí, son dos nombres de la misma enzima. Lo mismo ocurre con TGP y ALT.' },
       { p: '¿Puedo pedir solo las transaminasas?', r: 'Sí. TGO y TGP tienen precio individual en el cotizador, igual que el resto de componentes.' },
-      { p: '¿El alcohol afecta el resultado?', r: 'Puede hacerlo. Por eso recomendamos no beber alcohol en las 24 horas previas. Tu médico te dará indicaciones adicionales si hace falta.' },
     ],
     relacionados: ['perfil-renal', 'perfil-lipidico', 'hepatitis-b-y-c'],
     medline: { url: 'https://medlineplus.gov/spanish/pruebas-de-laboratorio/pruebas-funcionales-hepaticas/', titulo: 'Pruebas funcionales hepáticas' },

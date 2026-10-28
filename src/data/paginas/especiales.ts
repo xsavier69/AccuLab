@@ -82,7 +82,6 @@ export const ESPECIALES: PaginaExamen[] = [
     notaPrecio: 'El valor mostrado suma ferritina ($10.00) y hierro ($5.00). La transferrina y la saturación se cobran aparte si tu médico las solicita.',
     faqs: [
       { p: '¿Cuál es la diferencia entre ferritina y hierro?', r: 'La ferritina refleja las reservas de hierro; el hierro sérico, el que circula en ese momento. Juntos dan una visión más completa.' },
-      { p: '¿Necesito ayuno?', r: 'Para el hierro sérico se recomienda ayuno y toma en la mañana. Te confirmamos la preparación al agendar.' },
       { p: '¿Están incluidas en algún paquete?', r: 'La ferritina forma parte de los perfiles Deportivo, de Fatiga y de Inflamación. Consulta el detalle en la página de paquetes.' },
     ],
     relacionados: ['biometria-hematica', 'perfil-tiroideo', 'hemoglobina-glicosilada'],
@@ -126,7 +125,6 @@ export const ESPECIALES: PaginaExamen[] = [
     faqs: [
       { p: '¿Qué sustancias detecta?', r: 'El panel incluye 6 determinaciones. Te confirmamos por WhatsApp cuáles son antes de tu examen, para que verifiques que cumplen lo que te solicitan.' },
       { p: '¿Hacen paneles para empresas?', r: 'Sí. Atendemos exámenes preocupacionales y controles laborales. Escríbenos para coordinar grupos de trabajadores.' },
-      { p: '¿Los medicamentos alteran el resultado?', r: 'Algunos pueden hacerlo. Por eso te pedimos informar lo que tomas antes de la muestra.' },
     ],
     relacionados: ['examen-de-orina-emo', 'biometria-hematica', 'glucosa'],
     medline: { url: 'https://medlineplus.gov/spanish/pruebas-de-laboratorio/pruebas-de-drogas/', titulo: 'Pruebas de drogas' },
@@ -258,7 +256,6 @@ export const ESPECIALES: PaginaExamen[] = [
     faqs: [
       { p: '¿TP y TPT son lo mismo que el tiempo de coagulación?', r: 'No exactamente. En el cotizador hay un "T. Coagulación" y un "T. Sangría", distintos del TP y el TPT. Sigue lo que pide tu orden.' },
       { p: '¿Los necesito antes de una cirugía?', r: 'Muchos cirujanos los solicitan. Confirma con tu médico qué exámenes prequirúrgicos necesitas.' },
-      { p: '¿Debo dejar la aspirina antes del examen?', r: 'No la suspendas por tu cuenta. Consulta a tu médico y cuéntanos qué tomas al llegar.' },
     ],
     relacionados: ['biometria-hematica', 'grupo-sanguineo', 'perfil-hepatico'],
     medline: { url: 'https://medlineplus.gov/spanish/pruebas-de-laboratorio/prueba-de-tiempo-de-protrombina-e-inr-tpinr/', titulo: 'Prueba de tiempo de protrombina e INR (TP/INR)' },
