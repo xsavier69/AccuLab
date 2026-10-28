@@ -11,7 +11,7 @@ import { WA } from '../lib/mensajes';
 const r = RUTAS.preparacion;
 const PUBLICADO = '2026-09-24';
 const schema = medicalWebPageSchema({
-  path: r.path, name: r.title, description: r.description, lastReviewed: r.lastmod,
+  path: r.path, name: r.title, description: r.description, lastReviewed: r.actualizado!,
   about: { '@type': 'MedicalEntity', name: 'Preparación para exámenes de laboratorio clínico' },
 });
 const GUIAS = [
@@ -71,7 +71,7 @@ const GUIAS = [
 ] as const;
 ---
 <Layout title={r.title} description={r.description} path={r.path} schemas={[schema]} ogType="article"
-  article={{ published: PUBLICADO, modified: r.lastmod }}
+  article={{ published: PUBLICADO, modified: r.actualizado! }}
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Preparación', path: '/preparacion' }]}>
   <PageHero title="Preparación para exámenes de laboratorio"
     lead="Una buena preparación ayuda a que tus resultados sean comparables con los valores de referencia. Estas son indicaciones generales; la preparación exacta depende de tu examen y de la indicación de tu médico." />
@@ -102,7 +102,7 @@ const GUIAS = [
           </details>
         ))}
       </div>
-      <p class="small muted mt-8">Actualizado: <time datetime={r.lastmod}>{mesAnio(r.lastmod)}</time>.</p>
+      <p class="small muted mt-8">Actualizado: <time datetime={r.actualizado!}>{mesAnio(r.actualizado!)}</time>.</p>
       <div class="cluster mt-6">
         <a class="btn btn--whatsapp" href={waLink(WA.preparacion)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Confirmar mi preparación</a>
         <a class="btn btn--secondary" href="/preguntas-frecuentes">Preguntas frecuentes</a>

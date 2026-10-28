@@ -91,6 +91,17 @@ for (let i = 0; i < keys.length; i++) for (let j = i + 1; j < keys.length; j++) 
   const jac = inter / (a.size + b.size - inter); if (jac > max[0]) max = [jac, keys[i], keys[j]];
   if (jac > 0.2) problemas.push(`contenido muy similar (${(jac * 100).toFixed(0)} %) entre ${keys[i]} y ${keys[j]}`);
 }
+// Sitemap: URLs únicas, sin /_styleguide y con lastmod (si falta, data/lastmod.json está desactualizado: `npm run lastmod`)
+if (fs.existsSync(`${DIST}/sitemap.xml`)) {
+  const xml = fs.readFileSync(`${DIST}/sitemap.xml`, 'utf8');
+  const entradas = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
+  entradas.forEach((e) => {
+    const loc = e.match(/<loc>([^<]+)<\/loc>/)[1];
+    if (/_styleguide|404/.test(loc)) problemas.push(`sitemap incluye ${loc}`);
+    if (!/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/.test(e)) problemas.push(`sitemap sin lastmod: ${loc} (ejecuta \`npm run lastmod\` tras confirmar los cambios)`);
+  });
+  console.log(`Sitemap: ${entradas.length} URLs`);
+}
 console.log(`Páginas: ${files.length}`);
 if (process.argv.includes('-v')) avisos.forEach((a) => console.log('  · ' + a));
 console.log(`Máxima similitud entre páginas de examen: ${(max[0] * 100).toFixed(1)} % (${max[1]} / ${max[2]})`);
