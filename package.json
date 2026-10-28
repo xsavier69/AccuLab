@@ -8,6 +8,7 @@
     "build": "astro build && node scripts/postbuild.mjs",
     "preview": "astro preview",
     "lastmod": "node scripts/actualizar-lastmod.mjs",
+    "csp": "node scripts/csp.mjs",
     "verify:precios": "node scripts/verificar-precios.mjs",
     "qa": "node scripts/qa-crawl.mjs",
     "validar:schema": "bash scripts/validar-schema.sh"
