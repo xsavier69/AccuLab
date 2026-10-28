@@ -6,9 +6,9 @@ import type { ImageMetadata } from 'astro';
 import Pattern from './Pattern.astro';
 interface Props {
   src?: ImageMetadata; alt?: string; ratio?: string; widths?: number[]; sizes?: string;
-  priority?: boolean; class?: string; id?: string;
+  priority?: boolean; class?: string; id?: string; quality?: number;
 }
-const { src, alt = '', ratio = '4 / 3', widths = [480, 768, 1024, 1400], sizes = '(min-width: 1024px) 50vw, 100vw', priority = false, class: cls = '', id } = Astro.props;
+const { src, alt = '', ratio = '4 / 3', widths = [480, 768, 1024, 1400], sizes = '(min-width: 1024px) 50vw, 100vw', priority = false, class: cls = '', id, quality = 72 } = Astro.props;
 // La imagen se recorta al aspecto del contenedor al generar las variantes. Si se sirviera el cuadro completo (p. ej. 16:9)
 // dentro de un contenedor 4:5 con object-fit: cover, el navegador elegiría la variante por el ancho del contenedor
 // y la ampliaría por la altura (~2×), y la foto saldría borrosa.
@@ -20,7 +20,7 @@ const anchos = widths.filter((w) => w <= ancho);
 {src ? (
   <div class={`photo ${cls}`} style={`aspect-ratio:${ratio}`} data-photo-slot={id}>
     <Picture src={src} alt={alt} width={ancho} height={alto} fit="cover" widths={anchos.includes(ancho) ? anchos : [...anchos, ancho]} sizes={sizes} formats={['avif']} fallbackFormat="webp"
-      loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding={priority ? 'sync' : 'async'} quality={72} />
+      loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding={priority ? 'sync' : 'async'} quality={quality} />
   </div>
 ) : (
   <div class={`photo photo--placeholder ${cls}`} style={`aspect-ratio:${ratio}`} data-photo-slot={id} role="presentation">

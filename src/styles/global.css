@@ -271,6 +271,11 @@ a.chip:hover { border-color: var(--primary); color: var(--primary); }
 .chip--tint { background: var(--primary-50); border-color: transparent; color: var(--primary-700); }
 button.chip { cursor: pointer; min-height: 40px; padding-inline: 16px; }
 button.chip[aria-pressed='true'] { background: var(--ink); color: #fff; border-color: var(--ink); }
+/* Móvil y tablet: objetivos táctiles de al menos 44 px (botones pequeños y chips que son enlaces o botones) */
+@media (max-width: 1023px) {
+  .btn--sm { min-height: 44px; }
+  a.chip, button.chip { min-height: 44px; min-width: 44px; justify-content: center; }
+}
 
 /* Acordeón */
 .accordion { border-top: 1px solid var(--line); }
