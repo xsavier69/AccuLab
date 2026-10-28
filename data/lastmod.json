@@ -1,0 +1,146 @@
+{
+  "/": {
+    "fecha": "2026-10-28",
+    "huella": "65746273a067cfba45ab0b0bf67b1ea0036856d1"
+  },
+  "/examenes": {
+    "fecha": "2026-10-28",
+    "huella": "7d37dd713d7183cb15bf19155920e77db719aadf"
+  },
+  "/paquetes": {
+    "fecha": "2026-10-28",
+    "huella": "f9295d809f08fb7960f70f521d97892e4f686409"
+  },
+  "/empresas": {
+    "fecha": "2026-10-28",
+    "huella": "fb9669fae192739361c4255be0c5c4e209c1263a"
+  },
+  "/medicos": {
+    "fecha": "2026-10-28",
+    "huella": "24f09eb0f2136a671521dd0280900bde2b286b33"
+  },
+  "/domicilio": {
+    "fecha": "2026-10-28",
+    "huella": "ac894111fcd83e15053320a6e06535247b5c4524"
+  },
+  "/preparacion": {
+    "fecha": "2026-10-28",
+    "huella": "6b745a30f6f2083a5408fc8aa117187103c41cb1"
+  },
+  "/preguntas-frecuentes": {
+    "fecha": "2026-10-28",
+    "huella": "c732c2e183a99a557c2b6319587c38a12f2f0467"
+  },
+  "/servicios": {
+    "fecha": "2026-10-28",
+    "huella": "f8a6fa1e29a085ea226e9080a77f90af8e99db44"
+  },
+  "/cotizar": {
+    "fecha": "2026-10-28",
+    "huella": "8e73f9560236187730ef87a2d1ef0b124ac914b1"
+  },
+  "/nosotros": {
+    "fecha": "2026-09-24",
+    "huella": "23b1ed77cc5b772c24c81f5e1bac12d2796058c0"
+  },
+  "/examenes/dengue": {
+    "fecha": "2026-10-28",
+    "huella": "52a334da93af4d1d6e7970cb0639f0c2576c27fb"
+  },
+  "/examenes/ferritina-y-hierro": {
+    "fecha": "2026-10-28",
+    "huella": "52a334da93af4d1d6e7970cb0639f0c2576c27fb"
+  },
+  "/examenes/panel-toxicologico": {
+    "fecha": "2026-10-28",
+    "huella": "52a334da93af4d1d6e7970cb0639f0c2576c27fb"
+  },
+  "/examenes/torch": {
+    "fecha": "2026-10-28",
+    "huella": "52a334da93af4d1d6e7970cb0639f0c2576c27fb"
+  },
+  "/examenes/grupo-sanguineo": {
+    "fecha": "2026-10-28",
+    "huella": "52a334da93af4d1d6e7970cb0639f0c2576c27fb"
+  },
+  "/examenes/tiempos-de-coagulacion": {
+    "fecha": "2026-10-28",
+    "huella": "52a334da93af4d1d6e7970cb0639f0c2576c27fb"
+  },
+  "/examenes/hormonas-femeninas": {
+    "fecha": "2026-10-28",
+    "huella": "c48cd70cca9dd62b733df8fb7f46ef4599917810"
+  },
+  "/examenes/testosterona": {
+    "fecha": "2026-10-28",
+    "huella": "c48cd70cca9dd62b733df8fb7f46ef4599917810"
+  },
+  "/examenes/insulina": {
+    "fecha": "2026-10-28",
+    "huella": "c48cd70cca9dd62b733df8fb7f46ef4599917810"
+  },
+  "/examenes/cortisol": {
+    "fecha": "2026-10-28",
+    "huella": "c48cd70cca9dd62b733df8fb7f46ef4599917810"
+  },
+  "/examenes/psa": {
+    "fecha": "2026-10-28",
+    "huella": "7c88c029f7cb7d2900a9ccbcff10a9166a60fa24"
+  },
+  "/examenes/prueba-vih": {
+    "fecha": "2026-10-28",
+    "huella": "7c88c029f7cb7d2900a9ccbcff10a9166a60fa24"
+  },
+  "/examenes/hepatitis-b-y-c": {
+    "fecha": "2026-10-28",
+    "huella": "7c88c029f7cb7d2900a9ccbcff10a9166a60fa24"
+  },
+  "/examenes/vdrl-sifilis": {
+    "fecha": "2026-10-28",
+    "huella": "7c88c029f7cb7d2900a9ccbcff10a9166a60fa24"
+  },
+  "/examenes/helicobacter-pylori": {
+    "fecha": "2026-10-28",
+    "huella": "7c88c029f7cb7d2900a9ccbcff10a9166a60fa24"
+  },
+  "/examenes/prueba-de-embarazo-en-sangre": {
+    "fecha": "2026-10-28",
+    "huella": "c87ca98bc458848ad464736a1ad19b42d2b4b66d"
+  },
+  "/examenes/examen-de-orina-emo": {
+    "fecha": "2026-10-28",
+    "huella": "c87ca98bc458848ad464736a1ad19b42d2b4b66d"
+  },
+  "/examenes/coproparasitario": {
+    "fecha": "2026-10-28",
+    "huella": "c87ca98bc458848ad464736a1ad19b42d2b4b66d"
+  },
+  "/examenes/perfil-renal": {
+    "fecha": "2026-10-28",
+    "huella": "c87ca98bc458848ad464736a1ad19b42d2b4b66d"
+  },
+  "/examenes/perfil-hepatico": {
+    "fecha": "2026-10-28",
+    "huella": "c87ca98bc458848ad464736a1ad19b42d2b4b66d"
+  },
+  "/examenes/biometria-hematica": {
+    "fecha": "2026-10-28",
+    "huella": "a722f031ef299d6767b1a41baa0c50b8a3c0a254"
+  },
+  "/examenes/glucosa": {
+    "fecha": "2026-10-28",
+    "huella": "a722f031ef299d6767b1a41baa0c50b8a3c0a254"
+  },
+  "/examenes/perfil-lipidico": {
+    "fecha": "2026-10-28",
+    "huella": "a722f031ef299d6767b1a41baa0c50b8a3c0a254"
+  },
+  "/examenes/hemoglobina-glicosilada": {
+    "fecha": "2026-10-28",
+    "huella": "a722f031ef299d6767b1a41baa0c50b8a3c0a254"
+  },
+  "/examenes/perfil-tiroideo": {
+    "fecha": "2026-10-28",
+    "huella": "a722f031ef299d6767b1a41baa0c50b8a3c0a254"
+  }
+}
