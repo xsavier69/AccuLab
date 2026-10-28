@@ -124,7 +124,7 @@ export const ORGANOS: PaginaExamen[] = [
       'Tráela lo antes posible. Si tomas antiparasitarios o antibióticos, avísanos antes de recoger la muestra.',
     ],
     faqs: [
-      { p: '¿Coproparasitario y examen de heces son lo mismo?', r: 'Sí. En nuestro cotizador aparece como "Parasitario (Heces)". Hay otros exámenes de heces con fines distintos, como la sangre oculta.' },
+      { p: '¿Coproparasitario y examen de heces son lo mismo?', r: 'Sí. En nuestro cotizador aparece como "Parasitario (heces)". Hay otros exámenes de heces con fines distintos, como la sangre oculta.' },
       { p: '¿Cuánta muestra necesito?', r: 'Una porción pequeña es suficiente: más o menos del tamaño de una nuez, o unos mililitros si las heces son líquidas.' },
       { p: '¿Sirve para niños pequeños?', r: 'Sí. En bebés con pañal, recoge la muestra de la superficie del pañal con una paleta limpia, sin que se mezcle con orina.' },
     ],
