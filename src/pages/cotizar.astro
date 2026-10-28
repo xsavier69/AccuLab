@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
 import { RUTAS } from '../data/rutas';
 import { CATEGORIAS, EXAMENES, PAGINAS, PAQUETES, valorPaquete } from '../lib/catalogo';
-import { precio, waLink } from '../lib/site';
+import { SITE, precio, waLink } from '../lib/site';
 
 const r = RUTAS.cotizar;
 const cats = CATEGORIAS.map((c) => ({ ...c, items: EXAMENES.filter((e) => e.categoria === c.slug) }));
@@ -71,7 +71,7 @@ const datos = {
           <p class="cot-pq-precio small" hidden><strong>Precio del paquete:</strong> te lo confirmamos por WhatsApp.</p>
           <button type="button" class="btn btn--secondary btn--sm btn--block cot-clear" hidden>Vaciar selección</button>
         </div>
-        <a class="btn btn--whatsapp btn--block cot-send" href={waLink('Hola, quiero cotizar exámenes en Accu-Lab.')} target="_blank" rel="noopener" aria-disabled="true">
+        <a class="btn btn--whatsapp btn--block cot-send" href={waLink('Hola, quiero cotizar exámenes en Accu-Lab.')} data-wa={SITE.whatsapp} target="_blank" rel="noopener">
           <Icon name="whatsapp" /> Enviar por WhatsApp
         </a>
         <p class="small muted cot-disclaimer">Precios referenciales; te confirmamos el valor final y la disponibilidad.</p>
@@ -172,16 +172,37 @@ const datos = {
 
   function seleccion() { return boxes.filter((b) => b.checked).map((b) => ({ slug: b.value, nombre: b.dataset.nombre!, precio: Number(b.dataset.precio) })); }
 
+  // wa.me acepta enlaces largos, pero los navegadores y WhatsApp Web recortan hacia los ~2000 caracteres.
+  // Se limita el texto ya codificado; si la lista no cabe, se quitan precios y luego se acorta la lista.
+  const WA_MAX = 1800;
+  const cabe = (m: string) => encodeURIComponent(m).length <= WA_MAX;
+  const GENERICO = 'Hola, quiero cotizar exámenes en Accu-Lab.';
+
+  function armar(encabezado: string, lineas: string[], sinPrecio: string[], pie: string) {
+    let m = encabezado + lineas.join('\n') + pie;
+    if (cabe(m)) return m;
+    m = encabezado + sinPrecio.join('\n') + pie;
+    if (cabe(m)) return m;
+    for (let n = sinPrecio.length - 1; n >= 1; n--) {
+      m = encabezado + [...sinPrecio.slice(0, n), `- …y ${sinPrecio.length - n} más`].join('\n') + pie;
+      if (cabe(m)) return m;
+    }
+    return GENERICO;
+  }
+
   function mensaje(lista: ReturnType<typeof seleccion>, total: number) {
+    if (lista.length === 0) return GENERICO;
     // Paquete: sin precios ni total (el precio del paquete aún no está publicado; evita confundir la suma con el precio).
     if (paquete) {
-      const nombres = [...lista.map((e) => e.nombre), ...paquete.consultar];
-      return `Hola, quiero cotizar el paquete ${paquete.nombre} en Accu-Lab.\nExámenes:\n${nombres.map((n) => `- ${n}`).join('\n')}\n\n¿Me confirman el precio del paquete y la disponibilidad?`;
+      const nombres = [...lista.map((e) => e.nombre), ...paquete.consultar].map((n) => `- ${n}`);
+      return armar(`Hola, quiero cotizar el paquete ${paquete.nombre} en Accu-Lab.\nExámenes:\n`, nombres, nombres, '\n\n¿Me confirman el precio del paquete y la disponibilidad?');
     }
-    let m = 'Hola, quiero cotizar estos exámenes en Accu-Lab:\n';
-    m += lista.map((e) => `- ${e.nombre} (${money(e.precio)})`).join('\n');
-    m += `\n\nTotal: ${money(total)}\n(Precios referenciales, sujetos a confirmación.)\n¿Me confirman el valor y la disponibilidad?`;
-    return m;
+    return armar(
+      'Hola, quiero cotizar estos exámenes en Accu-Lab:\n',
+      lista.map((e) => `- ${e.nombre} (${money(e.precio)})`),
+      lista.map((e) => `- ${e.nombre}`),
+      `\n\nTotal: ${money(total)}\n(Precios referenciales, sujetos a confirmación.)\n¿Me confirman el valor y la disponibilidad?`,
+    );
   }
 
   function actualizar() {
@@ -206,14 +227,13 @@ const datos = {
     $<HTMLElement>('.cot-clear').hidden = n === 0;
     paqueteEl.hidden = !paquete;
     if (paquete) paqueteEl.textContent = `Paquete: ${paquete.nombre}. Selección sugerida de exámenes` + (paquete.consultar.length ? ` (también incluye: ${paquete.consultar.join(', ')})` : '') + '; te confirmamos los exámenes y el precio del paquete por WhatsApp.';
-    send.setAttribute('aria-disabled', String(n === 0));
-    send.href = `https://wa.me/593996405647?text=${encodeURIComponent(mensaje(lista, total))}`;
+    send.href = `https://wa.me/${send.dataset.wa}?text=${encodeURIComponent(mensaje(lista, total))}`;
     send.dataset.n = String(n); send.dataset.total = total.toFixed(2);
   }
   boxes.forEach((b) => b.addEventListener('change', actualizar));
   $<HTMLButtonElement>('.cot-clear').addEventListener('click', () => { boxes.forEach((b) => (b.checked = false)); paquete = null; actualizar(); });
-  send.addEventListener('click', (ev) => {
-    if (send.getAttribute('aria-disabled') === 'true') { ev.preventDefault(); return; }
+  send.addEventListener('click', () => {
+    if (send.dataset.n === '0') return;
     (window as any).acculabTrack?.('cotizador_enviar', { page_path: location.pathname, num_examenes: Number(send.dataset.n), ...(paquete ? { paquete: paquete.nombre } : { total: Number(send.dataset.total) }) });
   });
   if (matchMedia('(max-width: 1023px)').matches) toggle.hidden = false;
