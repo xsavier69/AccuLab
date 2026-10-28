@@ -64,6 +64,8 @@ for (const f of files) {
     const hash = h.split('#')[1]; const base = h.split('#')[0].split('?')[0];
     if (hash && existe(base)) { const target = parse(fs.readFileSync(base === '/' ? `${DIST}/index.html` : `${DIST}${base}.html`, 'utf8')); if (!target.querySelector(`[id="${hash}"]`)) P(`ancla rota ${h}`); }
   });
+  // Dominio canónico: ningún recurso, enlace ni JSON-LD debe apuntar a www.acculab.bio ni a http://acculab.bio
+  if (/(?:https?:)?\/\/www\.acculab\.bio|http:\/\/acculab\.bio/i.test(html)) P('referencia a www.acculab.bio o http://acculab.bio (usar https://acculab.bio o ruta relativa)');
   // JSON-LD
   doc.querySelectorAll('script[type="application/ld+json"]').forEach((s) => { try { JSON.parse(s.text); } catch { P('JSON-LD inválido'); } });
   // Cadenas prohibidas (texto visible + atributos, sin URLs de la marca)
