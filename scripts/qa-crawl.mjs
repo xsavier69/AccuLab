@@ -67,7 +67,20 @@ for (const f of files) {
   // Dominio canónico: ningún recurso, enlace ni JSON-LD debe apuntar a www.acculab.bio ni a http://acculab.bio
   if (/(?:https?:)?\/\/www\.acculab\.bio|http:\/\/acculab\.bio/i.test(html)) P('referencia a www.acculab.bio o http://acculab.bio (usar https://acculab.bio o ruta relativa)');
   // JSON-LD
-  doc.querySelectorAll('script[type="application/ld+json"]').forEach((s) => { try { JSON.parse(s.text); } catch { P('JSON-LD inválido'); } });
+  const ids = new Set(), refs = [];
+  doc.querySelectorAll('script[type="application/ld+json"]').forEach((s) => {
+    let j; try { j = JSON.parse(s.text); } catch { P('JSON-LD inválido'); return; }
+    // @id, url e item deben estar en el dominio canónico; las referencias {"@id"} deben existir en la misma página
+    (function rec(n, clave) {
+      if (Array.isArray(n)) return n.forEach((x) => rec(x, clave));
+      if (n && typeof n === 'object') {
+        if (n['@id'] && Object.keys(n).length === 1) refs.push(n['@id']); else if (n['@id']) ids.add(n['@id']);
+        return Object.entries(n).forEach(([k, v]) => rec(v, k));
+      }
+      if (['@id', 'url', 'item'].includes(clave) && typeof n === 'string' && !n.startsWith('https://acculab.bio/')) P(`JSON-LD ${clave} fuera del dominio canónico: ${n}`);
+    })(j);
+  });
+  refs.filter((r) => !ids.has(r)).forEach((r) => P(`JSON-LD referencia sin definir en la página: ${r}`));
   // Cadenas prohibidas (texto visible + atributos, sin URLs de la marca)
   const visible = doc.querySelector('body').text + ' ' + (doc.querySelector('title')?.text || '') + ' ' + desc;
   for (const re of PROHIBIDO) if (re.test(visible) || (re.source.includes('vercel') && re.test(html)) || (re.source.includes('index') && re.test(html))) P(`contiene ${re}`);

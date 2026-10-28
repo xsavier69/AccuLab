@@ -32,7 +32,8 @@ export function labSchema(conCatalogo = false) {
       { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '08:00', closes: '13:00' },
     ],
     areaServed: { '@type': 'City', name: 'Cuenca' },
-    sameAs: [SITE.facebook],
+    // Solo perfiles que ya figuran en el sitio: Facebook y la ficha de Google Maps. Instagram/TikTok: ver PENDIENTES.md.
+    sameAs: [SITE.facebook, SITE.mapsUrl],
   };
   if (conCatalogo) {
     lab.hasOfferCatalog = {
@@ -55,6 +56,35 @@ export function labSchema(conCatalogo = false) {
     };
   }
   return lab;
+}
+
+/** Sitio web: el `@id` que ya referencian las páginas de examen en `isPartOf`. Solo en la home. */
+export function webSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${U}/#website`,
+    url: `${U}/`,
+    name: 'Accu-Lab',
+    inLanguage: 'es-EC',
+    publisher: { '@id': LAB_ID },
+  };
+}
+
+/** Precio de un examen tal como se muestra en su página (nombre y precio del catálogo; nada más). */
+export function ofertaExamenSchema(o: { path: string; nombre: string; precio: number; desde: boolean }) {
+  const precio = o.precio.toFixed(2);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Offer',
+    '@id': `${U}${o.path}#oferta`,
+    url: `${U}${o.path}`,
+    itemOffered: { '@type': 'Service', name: o.nombre },
+    // "Desde": la página muestra el precio más bajo de varias opciones.
+    ...(o.desde ? { priceSpecification: { '@type': 'PriceSpecification', minPrice: precio, priceCurrency: 'USD' } } : { price: precio }),
+    priceCurrency: 'USD',
+    seller: { '@id': LAB_ID },
+  };
 }
 
 export interface Crumb { name: string; path: string }

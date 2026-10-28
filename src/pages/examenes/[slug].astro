@@ -7,7 +7,7 @@ import Faq from '../../components/Faq.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { PAGINAS, type PaginaExamen } from '../../data/paginas';
 import { componentes, precioPagina, paquetesDePagina, examen, nombreCategoria, paginaBySlug } from '../../lib/catalogo';
-import { medicalWebPageSchema } from '../../lib/schema';
+import { medicalWebPageSchema, ofertaExamenSchema } from '../../lib/schema';
 import { precio, waLink, mesAnio } from '../../lib/site';
 import { WA } from '../../lib/mensajes';
 
@@ -34,8 +34,9 @@ const schema = medicalWebPageSchema({
     ? { '@type': 'MedicalTestPanel', name: p.nombre, alternateName: p.sinonimos, subTest: cs.map((c) => ({ '@type': 'MedicalTest', name: c.nombre })) }
     : { '@type': 'MedicalTest', name: p.nombre, alternateName: p.sinonimos },
 });
+const oferta = ofertaExamenSchema({ path, nombre: p.h1, precio: pr.valor, desde: pr.desde });
 ---
-<Layout title={title} description={p.descripcion} path={path} schemas={[schema]} waMensaje={waMsg}
+<Layout title={title} description={p.descripcion} path={path} schemas={[schema, oferta]} waMensaje={waMsg}
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Exámenes', path: '/examenes' }, { name: p.h1, path }]}>
   <section class="exam-hero">
     <Pattern variant="petri" />
