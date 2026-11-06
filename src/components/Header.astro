@@ -33,7 +33,7 @@ const current = (href: string) => (path === href || path.startsWith(href + '/') 
       </ul>
     </nav>
     <div class="site-header__cta">
-      <a class="btn btn--secondary btn--sm" href="/cotizar" aria-current={current('/cotizar')}>Precios</a>
+      <a class="site-header__link" href="/cotizar" aria-current={current('/cotizar')}>Precios</a>
       <a class="btn btn--whatsapp btn--sm" href={waLink(WA.agendar)} target="_blank" rel="noopener">
         <Icon name="whatsapp" /> Agendar por WhatsApp
       </a>

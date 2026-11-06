@@ -67,7 +67,7 @@ const oferta = ofertaExamenSchema({ path, nombre: p.h1, precio: pr.valor, desde:
           <div><dt><Icon name="test-tube" size={18} /> Muestra</dt><dd>{p.muestra}</dd></div>
         </dl>
         <a class="btn btn--whatsapp btn--block" href={waLink(waMsg)} target="_blank" rel="noopener" data-examen={p.slug}><Icon name="whatsapp" /> Agendar por WhatsApp</a>
-        <a class="btn btn--secondary btn--block mt-2" href={`/cotizar?add=${p.slug}`} data-examen={p.slug}><Icon name="plus" /> Agregar al cotizador</a>
+        <a class="link-arrow link-arrow--lg link-arrow--center" href={`/cotizar?add=${p.slug}`} data-examen={p.slug}><Icon name="plus" /> Agregar al cotizador</a>
         <p class="small muted mt-4">Precio referencial. Sin cita, en Consultorios El Batán.</p>
       </div>
     </aside>

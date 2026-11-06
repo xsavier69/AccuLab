@@ -53,8 +53,8 @@ const DEPORTIVO: [string, string | null][] = [
           {DEPORTIVO.map(([t, href]) => <li><Icon name="check" /><span>{href ? <a href={href}>{t}</a> : t}</span></li>)}
         </ul>
         <div class="cluster mt-6">
-          <a class="btn" href="/paquetes#perfil-deportivo">Ver el Perfil Deportivo</a>
           <a class="btn btn--whatsapp" href={waLink(WA.deportivo)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Consultar</a>
+          <a class="link-arrow link-arrow--lg" href="/paquetes#perfil-deportivo">Ver el Perfil Deportivo <Icon name="arrow-right" /></a>
         </div>
       </div>
       <PhotoSlot src={equipo} alt="Profesionales de laboratorio analizando muestras al microscopio" ratio="4 / 3" widths={[480, 750]} sizes="(min-width: 1024px) 50vw, 100vw" id="servicios-deportivo" />
@@ -68,7 +68,7 @@ const DEPORTIVO: [string, string | null][] = [
         <p class="muted">Detección de sustancias psicoactivas para control laboral, deportivo o clínico.</p>
         <p class="muted"><strong>Aplicaciones:</strong> empresas, control ocupacional, instituciones educativas y programas de rehabilitación.</p>
         <div class="cluster mt-6">
-          <a class="btn" href="/examenes/panel-toxicologico">Precio del panel toxicológico</a>
+          <a class="link-arrow link-arrow--lg" href="/examenes/panel-toxicologico">Precio del panel toxicológico <Icon name="arrow-right" /></a>
           <a class="link-arrow" href="/empresas">Pruebas de drogas para empresas <Icon name="arrow-right" /></a>
         </div>
       </div>
