@@ -15,7 +15,7 @@ const existe = (u) => {
   return fs.existsSync(path.join(DIST, p + '.html')) || (fs.existsSync(path.join(DIST, p)) && fs.statSync(path.join(DIST, p)).isFile());
 };
 const problemas = [], avisos = [];
-const titles = new Map(), descs = new Map();
+const titles = new Map(), descs = new Map(), h1s = new Map();
 const textos = {};
 const PROHIBIDO = [/100\s?%/, /Accu_lab/i, /\bAcculab\b/, /index\.html/, /vercel\.app/, /\[\[PENDIENTE/, /16 años/i, /garantizad/i, /Accu-Lab Clínico/];
 const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2705}\u{2714}\u{2728}]/u;
@@ -51,6 +51,13 @@ for (const f of files) {
   if (doc.querySelector('meta[name="twitter:creator"]')) P('twitter:creator presente');
   // Imágenes
   doc.querySelectorAll('img').forEach((img) => { if (img.getAttribute('alt') == null) P(`img sin alt: ${img.getAttribute('src')}`); if (!img.getAttribute('width') || !img.getAttribute('height')) avisos.push(`${url}: img sin width/height ${img.getAttribute('src')}`); });
+  // Rendimiento de imágenes: la del hero, eager con fetchpriority alta; el resto (salvo el logo de la cabecera), lazy; todas con width/height
+  doc.querySelectorAll('img').forEach((img) => {
+    const hero = !!img.closest('[data-photo-slot="home-hero"]'), cab = !!img.closest('header');
+    if (hero && (img.getAttribute('loading') === 'lazy' || img.getAttribute('fetchpriority') !== 'high')) P('imagen del hero sin fetchpriority="high" o con lazy');
+    if (!hero && !cab && img.getAttribute('loading') !== 'lazy') P(`imagen bajo el pliegue sin loading="lazy": ${img.getAttribute('src')}`);
+    if (!img.getAttribute('width') || !img.getAttribute('height')) P(`img sin width/height: ${img.getAttribute('src')}`);
+  });
   // Enlaces internos
   doc.querySelectorAll('a[href]').forEach((a) => {
     const h = a.getAttribute('href');
@@ -92,6 +99,8 @@ for (const f of files) {
     const words = main.text.replace(/\s+/g, ' ').trim().split(' ').filter((w) => /[a-záéíóúñ0-9]/i.test(w));
     textos[url] = doc.querySelector('.exam-body').text.replace(/\s+/g, ' ').toLowerCase();
     const n = words.length;
+    if (!/Cuenca/.test(title)) P('title de examen sin "Cuenca"');
+    const h1t = doc.querySelector('h1')?.text.trim(); if (h1s.has(h1t)) P(`H1 duplicado con ${h1s.get(h1t)}`); h1s.set(h1t, url);
     if (n < 350 || n > 700) P(`${n} palabras en <main> (objetivo 350–700)`);
     else avisos.push(`${url}: ${n} palabras`);
   }
@@ -110,7 +119,7 @@ if (fs.existsSync(`${DIST}/sitemap.xml`)) {
   const entradas = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
   entradas.forEach((e) => {
     const loc = e.match(/<loc>([^<]+)<\/loc>/)[1];
-    if (/_styleguide|404/.test(loc)) problemas.push(`sitemap incluye ${loc}`);
+    if (/_styleguide|404|politica-de-/.test(loc)) problemas.push(`sitemap incluye ${loc}`);
     if (!/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/.test(e)) problemas.push(`sitemap sin lastmod: ${loc} (ejecuta \`npm run lastmod\` tras confirmar los cambios)`);
   });
   console.log(`Sitemap: ${entradas.length} URLs`);
