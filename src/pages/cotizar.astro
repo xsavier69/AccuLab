@@ -46,7 +46,7 @@ const datos = {
                   <span class="cot-item__name">{e.nombre}</span>
                   <span class="cot-item__price">{precio(e.precio)}</span>
                 </label>
-                {e.pagina && <a class="cot-item__link" href={`/examenes/${e.pagina}`} aria-label={`Ver información y preparación de ${e.nombre}`}>Ver examen</a>}
+                {e.pagina && <a class="cot-item__link" href={`/examenes/${e.pagina}`} aria-label={`Ver examen ${e.nombre}: información y preparación`}>Ver examen</a>}
               </li>
             ))}
           </ul>

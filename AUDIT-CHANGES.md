@@ -112,6 +112,49 @@ npm run lastmod    # actualiza las fechas del sitemap de lo que cambió
 git add data/lastmod.json && git commit
 ```
 
+## Ronda 2: legales, cookies/GA4, CTAs, favicon
+
+Pedido: páginas legales, aviso de cookies con GA4 en Consent Mode v2, JSON-LD, FAQPage/Breadcrumb, unicidad en exámenes, imágenes, sitemap, favicon, CTAs y 404. Lo que ya estaba hecho en la ronda 1 no se tocó; solo se verificó.
+
+| # | Tarea | Resultado |
+|---|---|---|
+| 1 | /politica-de-privacidad y /politica-de-cookies | **Nuevo.** Cortas, en español, solo con nombre, dirección, teléfonos y correo del sitio. Explican GA4, WhatsApp y Google Maps y cómo rechazar. Enlazadas en el pie. |
+| 2 | Aviso de cookies + Consent Mode v2 | **Nuevo.** Rechazar/Aceptar con el mismo peso, denegado por defecto; `gtag.js` solo se descarga al aceptar. |
+| 3 | JSON-LD de la home | **Ya estaba** (ronda 1): `openingHoursSpecification`, `geo`, `hasMap`, `areaServed`, `sameAs` (Facebook + ficha de Google Maps). Sin `aggregateRating` ni `Review`. |
+| 4 | FAQPage y BreadcrumbList | **Ya estaba:** FAQPage con las 9 preguntas publicadas (las mismas que se ven) y BreadcrumbList en todas las páginas internas (incluidas las legales nuevas). |
+| 5 | Exámenes: title/description/H1 | **Verificado** en las 25: title, description y H1 únicos y con "Cuenca". Sin cambios de contenido; `qa-crawl` ahora lo exige. |
+| 6 | Imágenes | **Ya estaba:** hero `eager` + `fetchpriority="high"` (768×960); el resto `lazy` con `width/height`. `qa-crawl` ahora lo exige. |
+| 7 | Sitemap y favicon | `lastmod` real (ronda 1), 36 URLs, **sin las legales** (campo `legal` en `rutas.ts`). **Nuevo:** `public/favicon.ico` (16/32/48 px) y `<link rel="icon">`. |
+| 8 | CTAs | **Cambiado:** ver abajo. |
+| 9 | 404 | **Verificada:** estado 404 real en local y en producción actual; con el layout y la navegación. |
+
+### Cookies y GA4
+- **Estado:** el ID de GA4 está **vacío** (`PUBLIC_GA4_ID`), así que hoy el aviso aparece pero aceptar no envía nada. Para activar la medición hay que definir esa variable en Vercel (Settings → Environment Variables, `G-XXXXXXXXXX`) y volver a desplegar. No inventé ningún ID.
+- **Consent Mode v2:** `ad_storage`, `ad_user_data`, `ad_personalization` y `analytics_storage` parten en `denied`; Aceptar solo concede `analytics_storage` (la publicidad queda siempre denegada). Sin elección equivale a rechazar. La elección se guarda en `localStorage`. Retirar el consentimiento borra `_ga`/`_ga_*` y recarga la página. `acculabTrack` no envía eventos sin consentimiento.
+- El ID se lee de `<meta name="ga4-id">` y no del script, así que definir el ID **no cambia los hashes de la CSP**. La CSP ahora permite `googletagmanager.com` y los hosts de medición de Google (scripts, conexiones e imágenes).
+- Probado con Playwright con y sin ID de GA4 (16 comprobaciones: aviso, valores por defecto, rechazo, aceptación, recarga, reapertura desde el pie, borrado de cookies, 0 violaciones de CSP).
+- **Las políticas son un texto base, no asesoría legal:** solo afirman lo que el sitio hace. Conviene que las revise quien corresponda antes de darlas por definitivas (p. ej. si se quiere citar la ley de protección de datos, plazos de conservación o un responsable de datos).
+
+### CTAs: criterio aplicado
+- Un solo botón principal por sección. "Ver precios", "Cotizar este paquete", "Agregar al cotizador", "Precio del panel toxicológico", "Ver menú de exámenes", "Preguntas frecuentes" y los secundarios de la banda final pasaron a enlaces de texto con flecha (objetivo táctil de 44 px). "Precios" en la cabecera es ahora un enlace con el estilo del menú.
+- "Agendar por WhatsApp" es el rótulo en cabecera, hero, banda final, pie, tarjeta de examen, ubicación y 404. **Se mantuvieron con rótulo propio** los botones de WhatsApp cuya intención no es agendar: "Cotizar para mi empresa", "Solicitar convenio", "Consultar precio" (paquetes), "Consultar" (deportivo), "Confirmar mi preparación" y "Agendar a domicilio". Renombrarlos a "Agendar por WhatsApp" haría que el botón no coincida con el mensaje que abre. Si prefieres el rótulo único, es un cambio de texto.
+- El botón flotante se mantiene. Tampoco se tocó el botón "Enviar por WhatsApp" del cotizador.
+
+### Verificación final
+- Build: 40 páginas, 97 precios OK, CSP OK, `npm run qa` sin problemas (sitemap de 36 URLs con `lastmod`, sin legales ni 404).
+- 0 violaciones de CSP ni errores de consola en las 40 páginas a 390 y 1440 px.
+- **Lighthouse móvil** (v12, simulación estándar, `dist` servido localmente con los headers de `vercel.json`):
+
+| Página | Rendimiento | Accesib. | Buenas prácticas | SEO | LCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|
+| Home | 99 | 100 | 100 | 100 | 2,1 s | 0 | 0 ms |
+| /cotizar | 100 | 100 | 100 | 100 | 1,7 s | 0,007 | 0 ms |
+| /examenes/glucosa | 100 | 100 | 100 | 100 | 1,4 s | 0 | 0 ms |
+| /politica-de-privacidad | 100 | 100 | 100 | 100 | 1,6 s | 0 | 0 ms |
+
+  Referencia del repo (ronda anterior, home): 99 y LCP 2,0 s. Dos avisos de Lighthouse detectados y corregidos: el enlace "Más información" del aviso (ahora "Ver política de cookies") y las etiquetas `aria-label` de "Ver examen" en /cotizar, que no empezaban por el texto visible.
+- **JSON-LD:** validator.schema.org dio 0 errores y 0 avisos en home, preguntas frecuentes, paquetes y un examen. La política de cookies no obtuvo respuesta del servicio (solo lleva BreadcrumbList). El **Rich Results Test de Google no se puede ejecutar desde aquí** (requiere la interfaz web): pruébalo manualmente con la URL de producción cuando se publique.
+
 ## Pendientes manuales (fuera de alcance, no se tocaron)
 - Permiso de funcionamiento ACESS, responsable técnico y fotos reales en /nosotros.
 - Cambiar el correo de Outlook por uno con dominio propio.
