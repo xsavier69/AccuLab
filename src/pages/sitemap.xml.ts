@@ -1,4 +1,4 @@
-// sitemap.xml autogenerado: solo URLs canónicas de acculab.bio (sin /_styleguide ni la 404).
+// sitemap.xml autogenerado: solo URLs canónicas de acculab.bio (sin /_styleguide, la 404 ni las páginas legales).
 // lastmod = fecha real del último cambio de los archivos de cada página (ver src/lib/lastmod.mjs); si no se puede
 // afirmar con certeza (el contenido cambió y data/lastmod.json no se actualizó), la URL sale sin lastmod.
 // Sin priority ni changefreq (Google los ignora).
@@ -11,7 +11,7 @@ import { lastmodDe, leerManifest } from '../lib/lastmod.mjs';
 export const GET: APIRoute = () => {
   const manifest = leerManifest();
   const rutas = [
-    ...Object.values(RUTAS).filter((r) => !r.noindex).map((r) => r.path),
+    ...Object.values(RUTAS).filter((r) => !r.noindex && !r.legal).map((r) => r.path),
     ...PAGINAS.map((p) => `/examenes/${p.slug}`),
   ];
   const urls = rutas.map((path) => ({ loc: path === '/' ? `${SITE.url}/` : `${SITE.url}${path}`, lastmod: lastmodDe(path, manifest) }));

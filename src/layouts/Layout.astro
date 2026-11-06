@@ -50,7 +50,9 @@ const fontCss = `
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
     <meta name="author" content="Accu-Lab" />
+    {GA_ID && <meta name="ga4-id" content={GA_ID} />}
     <meta name="theme-color" content="#faf8f5" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -93,6 +95,16 @@ const fontCss = `
       </a>
     )}
 
+    <section id="cookie-banner" class="cookie-banner" aria-label="Aviso de cookies" hidden>
+      <div class="container cookie-banner__inner">
+        <p>Usamos Google Analytics 4 para medir las visitas al sitio, <strong>solo si lo aceptas</strong>. Por defecto está desactivado. <a href="/politica-de-cookies">Más información</a></p>
+        <div class="cookie-banner__actions">
+          <button type="button" class="btn btn--secondary btn--sm" data-consent="denied">Rechazar</button>
+          <button type="button" class="btn btn--secondary btn--sm" data-consent="granted">Aceptar</button>
+        </div>
+      </div>
+    </section>
+
     <script is:inline>
       // Header: borde al hacer scroll + menú móvil accesible
       (function () {
@@ -115,25 +127,49 @@ const fontCss = `
         els.forEach(function (e) { io.observe(e); });
       })();
     </script>
-    <script is:inline define:vars={{ GA_ID }}>
-      // Medición (GA4). Sin ID configurado, los eventos no se envían a ningún lado.
-      window.acculabTrack = function () {};
-      if (GA_ID) {
+    <script is:inline>
+      // Medición (GA4) con Consent Mode v2. Todo el consentimiento parte denegado y gtag.js solo se descarga si la
+      // persona acepta (la elección se guarda en localStorage). Sin ID configurado, no se envía nada a ningún lado.
+      (function () {
+        var KEY = 'acculab-consent';
+        var meta = document.querySelector('meta[name="ga4-id"]'), GA_ID = meta ? meta.getAttribute('content') : '';
         window.dataLayer = window.dataLayer || [];
-        window.gtag = function () { window.dataLayer.push(arguments); };
-        gtag('js', new Date());
-        gtag('config', GA_ID, { anonymize_ip: true });
-        window.acculabTrack = function (name, params) { gtag('event', name, params || {}); };
-        var loaded = false;
-        var load = function () {
-          if (loaded) return; loaded = true;
+        function gtag() { window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' });
+        var leer = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+        var guardar = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
+        var aceptado = false, cargado = false;
+        window.acculabTrack = function (name, params) { if (aceptado && GA_ID) gtag('event', name, params || {}); };
+        function cargarGa() {
+          if (cargado || !GA_ID) return; cargado = true;
+          gtag('js', new Date()); gtag('config', GA_ID, { anonymize_ip: true });
           var s = document.createElement('script'); s.async = true;
-          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID; document.head.appendChild(s);
-        };
-        // Carga diferida: primera interacción o 4 s después de "load"
-        ['pointerdown', 'keydown', 'scroll'].forEach(function (ev) { window.addEventListener(ev, load, { once: true, passive: true }); });
-        window.addEventListener('load', function () { setTimeout(load, 4000); });
-      }
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID); document.head.appendChild(s);
+        }
+        function aceptar() { aceptado = true; gtag('consent', 'update', { analytics_storage: 'granted' }); cargarGa(); }
+        function borrarCookies() {
+          var host = location.hostname, doms = ['', host, '.' + host.replace(/^www\./, '')];
+          document.cookie.split(';').forEach(function (c) {
+            var n = c.split('=')[0].trim(); if (n !== '_ga' && n.indexOf('_ga_') !== 0) return;
+            doms.forEach(function (d) { document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + (d ? '; domain=' + d : ''); });
+          });
+        }
+        var banner = document.getElementById('cookie-banner');
+        var mostrar = function () { if (banner) banner.hidden = false; };
+        document.querySelectorAll('[data-consent]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            var v = b.getAttribute('data-consent'); guardar(v);
+            if (v === 'granted') aceptar();
+            else if (aceptado) { aceptado = false; borrarCookies(); if (cargado) { location.reload(); return; } }
+            if (banner) banner.hidden = true;
+          });
+        });
+        document.querySelectorAll('[data-cookie-settings]').forEach(function (b) { b.addEventListener('click', mostrar); });
+        var previo = leer();
+        if (previo === 'granted') aceptar();
+        else if (previo !== 'denied') window.addEventListener('load', function () { setTimeout(mostrar, 500); });
+      })();
       document.addEventListener('click', function (e) {
         var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
         var href = a.getAttribute('href'), p = { page_path: location.pathname };

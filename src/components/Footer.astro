@@ -18,7 +18,7 @@ const year = new Date().getFullYear();
       <div class="footer-brand">
         <Image src={logo} alt="Accu-Lab Laboratorio Clínico" width={150} widths={[150, 300]} sizes="150px" format="webp" quality={85} />
         <p>Laboratorio clínico en El Batán, Cuenca. Resultados generalmente en 24 horas, entregados por WhatsApp o correo.</p>
-        <a class="btn btn--whatsapp btn--sm" href={waLink(WA.agendar)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Escríbenos por WhatsApp</a>
+        <a class="btn btn--whatsapp btn--sm" href={waLink(WA.agendar)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Agendar por WhatsApp</a>
       </div>
       <div>
         <p class="footer-title">Exámenes más buscados</p>
@@ -56,6 +56,11 @@ const year = new Date().getFullYear();
     <div class="footer-bottom">
       <p>© {year} Accu-Lab. Todos los derechos reservados.</p>
       <p>Los precios publicados son referenciales; confírmalos con nosotros.</p>
+      <p class="footer-legal">
+        <a href="/politica-de-privacidad">Política de privacidad</a>
+        <a href="/politica-de-cookies">Política de cookies</a>
+        <button type="button" data-cookie-settings>Preferencias de cookies</button>
+      </p>
     </div>
   </div>
 </footer>

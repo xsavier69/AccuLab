@@ -8,6 +8,8 @@ export interface Ruta {
   /** Fecha visible "Actualizado" (solo /preparacion). */
   actualizado?: string;
   noindex?: boolean;
+  /** Página legal: se publica pero no se lista en el sitemap. */
+  legal?: boolean;
 }
 
 export const RUTAS: Record<string, Ruta> = {
@@ -77,6 +79,20 @@ export const RUTAS: Record<string, Ruta> = {
     title: 'Sobre Accu-Lab – Laboratorio Clínico en El Batán, Cuenca',
     description: 'Accu-Lab es un laboratorio clínico en El Batán, Cuenca. Conoce nuestra historia, misión, visión y áreas de trabajo. Escríbenos por WhatsApp.',
     og: 'Laboratorio clínico en El Batán, Cuenca',
+  },
+  privacidad: {
+    path: '/politica-de-privacidad',
+    title: 'Política de Privacidad | Accu-Lab Laboratorio Clínico',
+    description: 'Cómo trata Accu-Lab los datos que recibe por WhatsApp, teléfono, correo y este sitio web, y qué mide con Google Analytics 4 solo si aceptas cookies.',
+    og: 'Política de privacidad',
+    legal: true,
+  },
+  cookies: {
+    path: '/politica-de-cookies',
+    title: 'Política de Cookies | Accu-Lab Laboratorio Clínico',
+    description: 'Qué cookies usa el sitio de Accu-Lab (solo las de Google Analytics 4 y únicamente si las aceptas), para qué sirven y cómo rechazarlas o cambiarlas.',
+    og: 'Política de cookies',
+    legal: true,
   },
   styleguide: {
     path: '/_styleguide',
