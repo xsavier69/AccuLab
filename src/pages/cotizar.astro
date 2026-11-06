@@ -234,10 +234,6 @@ const datos = {
   }
   boxes.forEach((b) => b.addEventListener('change', actualizar));
   $<HTMLButtonElement>('.cot-clear').addEventListener('click', () => { boxes.forEach((b) => (b.checked = false)); paquete = null; actualizar(); });
-  send.addEventListener('click', () => {
-    if (send.dataset.n === '0') return;
-    (window as any).acculabTrack?.('cotizador_enviar', { page_path: location.pathname, num_examenes: Number(send.dataset.n), ...(paquete ? { paquete: paquete.nombre } : { total: Number(send.dataset.total) }) });
-  });
   if (matchMedia('(max-width: 1023px)').matches) toggle.hidden = false;
   toggle.addEventListener('click', () => {
     const open = !panel.classList.contains('is-open');

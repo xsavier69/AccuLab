@@ -118,8 +118,8 @@ Pedido: páginas legales, aviso de cookies con GA4 en Consent Mode v2, JSON-LD, 
 
 | # | Tarea | Resultado |
 |---|---|---|
-| 1 | /politica-de-privacidad y /politica-de-cookies | **Nuevo.** Cortas, en español, solo con nombre, dirección, teléfonos y correo del sitio. Explican GA4, WhatsApp y Google Maps y cómo rechazar. Enlazadas en el pie. |
-| 2 | Aviso de cookies + Consent Mode v2 | **Nuevo.** Rechazar/Aceptar con el mismo peso, denegado por defecto; `gtag.js` solo se descarga al aceptar. |
+| 1 | /politica-de-privacidad y /politica-de-cookies | **Nuevo.** La de cookies se retiró después (el sitio no usa cookies). La de privacidad explica WhatsApp, Google Maps y Search Console, con nombre, dirección, teléfonos y correo del sitio. Enlazada en el pie. |
+| 2 | Aviso de cookies + Consent Mode v2 | **Nuevo y luego retirado** (ver "Cookies y GA4"): el sitio no usa cookies ni analítica. |
 | 3 | JSON-LD de la home | **Ya estaba** (ronda 1): `openingHoursSpecification`, `geo`, `hasMap`, `areaServed`, `sameAs` (Facebook + ficha de Google Maps). Sin `aggregateRating` ni `Review`. |
 | 4 | FAQPage y BreadcrumbList | **Ya estaba:** FAQPage con las 9 preguntas publicadas (las mismas que se ven) y BreadcrumbList en todas las páginas internas (incluidas las legales nuevas). |
 | 5 | Exámenes: title/description/H1 | **Verificado** en las 25: title, description y H1 únicos y con "Cuenca". Sin cambios de contenido; `qa-crawl` ahora lo exige. |
@@ -128,12 +128,15 @@ Pedido: páginas legales, aviso de cookies con GA4 en Consent Mode v2, JSON-LD, 
 | 8 | CTAs | **Cambiado:** ver abajo. |
 | 9 | 404 | **Verificada:** estado 404 real en local y en producción actual; con el layout y la navegación. |
 
-### Cookies y GA4
-- **Estado:** el ID de GA4 está **vacío** (`PUBLIC_GA4_ID`), así que hoy el aviso aparece pero aceptar no envía nada. Para activar la medición hay que definir esa variable en Vercel (Settings → Environment Variables, `G-XXXXXXXXXX`) y volver a desplegar. No inventé ningún ID.
-- **Consent Mode v2:** `ad_storage`, `ad_user_data`, `ad_personalization` y `analytics_storage` parten en `denied`; Aceptar solo concede `analytics_storage` (la publicidad queda siempre denegada). Sin elección equivale a rechazar. La elección se guarda en `localStorage`. Retirar el consentimiento borra `_ga`/`_ga_*` y recarga la página. `acculabTrack` no envía eventos sin consentimiento.
-- El ID se lee de `<meta name="ga4-id">` y no del script, así que definir el ID **no cambia los hashes de la CSP**. La CSP ahora permite `googletagmanager.com` y los hosts de medición de Google (scripts, conexiones e imágenes).
-- Probado con Playwright con y sin ID de GA4 (16 comprobaciones: aviso, valores por defecto, rechazo, aceptación, recarga, reapertura desde el pie, borrado de cookies, 0 violaciones de CSP).
-- **Las políticas son un texto base, no asesoría legal:** solo afirman lo que el sitio hace. Conviene que las revise quien corresponda antes de darlas por definitivas (p. ej. si se quiere citar la ley de protección de datos, plazos de conservación o un responsable de datos).
+### Cookies y GA4: retirados (decisión posterior)
+El laboratorio solo usará Google Search Console, que no necesita código de analítica ni cookies en el sitio. Por eso se quitó **todo** lo de cookies:
+- Aviso de cookies, script de Consent Mode v2, código de GA4 y el atributo `PUBLIC_GA4_ID` (se elimina `.env.example`, que solo contenía esa variable).
+- Página `/politica-de-cookies`, su enlace en el pie y el botón "Preferencias de cookies".
+- Las llamadas `acculabTrack` (WhatsApp, teléfono, mapa y cotizador), que ya no tienen destino.
+- Dominios de Google en la CSP: `script-src` pasa de 5 a 4 hashes de script; solo queda `frame-src https://www.google.com` para el mapa.
+- La política de privacidad dice que el sitio no usa cookies de analítica ni publicidad y menciona Search Console y Google Maps.
+
+Si más adelante se quiere medir visitas, habrá que volver a agregar el aviso y el consentimiento antes de cargar cualquier script de medición.
 
 ### CTAs: criterio aplicado
 - Un solo botón principal por sección. "Ver precios", "Cotizar este paquete", "Agregar al cotizador", "Precio del panel toxicológico", "Ver menú de exámenes", "Preguntas frecuentes" y los secundarios de la banda final pasaron a enlaces de texto con flecha (objetivo táctil de 44 px). "Precios" en la cabecera es ahora un enlace con el estilo del menú.

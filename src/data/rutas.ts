@@ -87,13 +87,6 @@ export const RUTAS: Record<string, Ruta> = {
     og: 'Política de privacidad',
     legal: true,
   },
-  cookies: {
-    path: '/politica-de-cookies',
-    title: 'Política de Cookies | Accu-Lab Laboratorio Clínico',
-    description: 'Qué cookies usa el sitio de Accu-Lab (solo las de Google Analytics 4 y únicamente si las aceptas), para qué sirven y cómo rechazarlas o cambiarlas.',
-    og: 'Política de cookies',
-    legal: true,
-  },
   styleguide: {
     path: '/_styleguide',
     title: 'Guía de estilo | Accu-Lab',

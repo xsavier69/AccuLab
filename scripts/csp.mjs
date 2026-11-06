@@ -35,16 +35,15 @@ export function hashesDeDist(dir = 'dist') {
 export function construirCsp({ scripts, estilos }) {
   return [
     "default-src 'self'",
-    // Google Analytics 4: gtag.js solo se descarga si la persona acepta las cookies (ver Layout.astro).
-    `script-src 'self' ${scripts.join(' ')} https://www.googletagmanager.com`,
+    `script-src 'self' ${scripts.join(' ')}`,
     // Navegadores antiguos sin style-src-elem/-attr usan esta línea (permisiva); los modernos usan las dos siguientes.
     "style-src 'self' 'unsafe-inline'",
     `style-src-elem 'self' ${estilos.join(' ')}`,
     // Atributos style="..." en el HTML (swatches y márgenes sueltos): no pueden ejecutar código y no tienen alternativa con hashes sencilla.
     "style-src-attr 'unsafe-inline'",
-    "img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com",
+    "img-src 'self'",
     "font-src 'self'",
-    "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
+    "connect-src 'self'",
     // Solo el mapa que se carga al pulsar "Ver mapa" (MapFacade). wa.me y google.com/maps son enlaces, no se incrustan.
     'frame-src https://www.google.com',
     "object-src 'none'",
