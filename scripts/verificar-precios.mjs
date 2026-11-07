@@ -9,8 +9,18 @@ const data = JSON.parse(fs.readFileSync('data/examenes.json', 'utf8')).examenes;
 let errores = 0;
 const err = (m) => { errores++; console.error('  ✗ ' + m); };
 
+// Los nombres se comparan sin mayúsculas, acentos ni puntuación: la línea base conserva la grafía original
+// del cotizador antiguo y el catálogo puede corregir ortografía ("PH en Heces" -> "pH en heces").
+// Renombres de claridad (el nombre antiguo ya era el mismo examen y precio).
+const ALIAS = { 'saturacion de transferrina': 'saturacion' };
+const clave = (s) => {
+  const k = s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  return ALIAS[k] ?? k;
+};
 function comparar(nombre, esperado, obtenido) {
   console.log(`\n${nombre}`);
+  esperado = esperado.map((e) => ({ ...e, nombre: clave(e.nombre) }));
+  obtenido = obtenido.map((e) => ({ ...e, nombre: clave(e.nombre) }));
   const mapa = new Map(obtenido.map((e) => [e.nombre, e.precio]));
   if (obtenido.length !== esperado.length) err(`cantidad: ${obtenido.length} (esperado ${esperado.length})`);
   for (const e of esperado) {

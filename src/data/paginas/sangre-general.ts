@@ -82,7 +82,7 @@ export const SANGRE_GENERAL: PaginaExamen[] = [
       'No suspendas medicamentos por tu cuenta; si usas insulina u otro tratamiento para la diabetes, consulta con tu médico cómo proceder.',
     ],
     faqs: [
-      { p: '¿Cuánto tiempo de ayuno necesito para la glucosa?', r: 'Lo usual son de 8 a 12 horas. Más de 12 horas no suele ser necesario. Si tu médico te dio otra indicación, síguela.' },
+      { p: '¿Debo ayunar más de 12 horas?', r: 'Más de 12 horas no suele ser necesario. Si tu médico te dio otra indicación, síguela.' },
       { p: '¿Es lo mismo glucosa que hemoglobina glicosilada?', r: 'No. La glucosa mide el nivel en el momento de la toma; la hemoglobina glicosilada refleja el promedio aproximado de los últimos dos a tres meses. A menudo se piden juntas.' },
       { p: '¿Puedo desayunar después de la toma?', r: 'Sí. Después de la muestra puedes comer normalmente. Te recomendamos traer algo ligero si vienes de lejos.' },
     ],
@@ -171,7 +171,6 @@ export const SANGRE_GENERAL: PaginaExamen[] = [
     ],
     faqs: [
       { p: '¿Cada cuánto se repite la HbA1c?', r: 'En el control de la diabetes suele repetirse cada tres a seis meses, pero la frecuencia la define tu médico según tu caso.' },
-      { p: '¿Necesito ayuno para la hemoglobina glicosilada?', r: 'Normalmente no. Solo conviene el ayuno si en la misma toma te harás otros exámenes que sí lo requieren.' },
       { p: '¿Reemplaza al examen de glucosa?', r: 'No necesariamente. Son complementarios: la glucosa muestra el momento actual y la HbA1c el promedio de los últimos meses.' },
     ],
     relacionados: ['glucosa', 'insulina', 'perfil-renal'],
@@ -215,7 +214,6 @@ export const SANGRE_GENERAL: PaginaExamen[] = [
     notaPrecio: 'El valor del perfil es la suma de TSH, T3 libre y T4 libre según nuestro cotizador. Si tu orden pide solo TSH, pagas únicamente ese examen.',
     faqs: [
       { p: '¿Puedo hacerme solo la TSH?', r: 'Sí. Muchas veces el médico empieza con la TSH y pide las otras según el resultado. Cada examen tiene su precio individual.' },
-      { p: '¿El perfil tiroideo requiere ayuno?', r: 'En general no. Si lo haces junto con glucosa o lípidos, ven en ayunas para aprovechar una sola toma de muestra.' },
       { p: '¿Sirve para controlar mi tratamiento de tiroides?', r: 'Sí, es habitual repetirlo en el seguimiento. La frecuencia y los exámenes exactos los define tu médico.' },
     ],
     relacionados: ['hormonas-femeninas', 'cortisol', 'biometria-hematica'],

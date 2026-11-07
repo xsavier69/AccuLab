@@ -6,6 +6,7 @@ import PackageCard from '../components/PackageCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { RUTAS } from '../data/rutas';
 import { PAQUETES } from '../lib/catalogo';
+import { WA } from '../lib/mensajes';
 
 const r = RUTAS.paquetes;
 const itemList = {
@@ -32,7 +33,7 @@ const itemList = {
     </div>
   </section>
 
-  <CtaBand titulo="¿No sabes qué paquete elegir?" texto="Cuéntanos qué necesitas evaluar o envíanos tu orden médica por WhatsApp y te orientamos." mensaje="Hola, quiero información sobre sus paquetes de exámenes." />
+  <CtaBand titulo="¿No sabes qué paquete elegir?" texto="Cuéntanos qué necesitas evaluar o envíanos tu orden médica por WhatsApp y te orientamos." mensaje={WA.paquetesInfo} />
 </Layout>
 
 <style>

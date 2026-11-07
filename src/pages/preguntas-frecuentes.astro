@@ -8,6 +8,7 @@ import { RUTAS } from '../data/rutas';
 import { FAQ_PUBLICADA as FAQ } from '../data/faq';
 import { faqSchema } from '../lib/schema';
 import { waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 
 const r = RUTAS.faq;
 const grupos = [...new Set(FAQ.map((f) => f.grupo))];
@@ -26,7 +27,7 @@ const grupos = [...new Set(FAQ.map((f) => f.grupo))];
       ))}
       <div class="note mt-12" role="note">
         <Icon name="circle-help" size={18} />
-        <p>¿Tienes otra pregunta? <a href={waLink('Hola, tengo una pregunta.')} target="_blank" rel="noopener">Escríbenos por WhatsApp</a> o llámanos al <a href="tel:+593996405647">099-640-5647</a>.</p>
+        <p>¿Tienes otra pregunta? <a href={waLink(WA.pregunta)} target="_blank" rel="noopener">Escríbenos por WhatsApp</a> o llámanos al <a href="tel:+593996405647">099-640-5647</a>.</p>
       </div>
     </div>
   </section>

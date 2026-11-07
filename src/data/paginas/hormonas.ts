@@ -38,7 +38,7 @@ export const HORMONAS: PaginaExamen[] = [
     notaPrecio: 'El valor mostrado suma las 5 hormonas ($12.00 cada una). Lo habitual es realizar solo las que indica la orden médica, y cada una se cobra por separado.',
     faqs: [
       { p: '¿Qué día del ciclo debo hacerme el examen?', r: 'Depende de la hormona y del objetivo del estudio. Sigue la indicación de tu médico; si no la tienes clara, escríbenos con tu orden.' },
-      { p: '¿Necesito ayuno?', r: 'En general no, salvo que lo combines con exámenes de química. Para la prolactina conviene venir en la mañana y en calma.' },
+      { p: '¿Necesito ayuno?', r: 'En general no, salvo que lo combines con exámenes de química.' },
       { p: '¿Existe un paquete hormonal?', r: 'Sí, el paquete Hormonal Femenino incluye estas 5 hormonas y la TSH. Consulta el detalle en la página de paquetes.' },
     ],
     relacionados: ['perfil-tiroideo', 'prueba-de-embarazo-en-sangre', 'testosterona'],
@@ -126,7 +126,6 @@ export const HORMONAS: PaginaExamen[] = [
     faqs: [
       { p: '¿Se hace junto con la glucosa?', r: 'Casi siempre. La glucosa cuesta $2.00 en nuestro cotizador y se toma en la misma muestra.' },
       { p: '¿Qué es el HOMA?', r: 'Es un índice que se calcula con la glucosa y la insulina en ayunas. Si tu orden lo menciona, consúltanos por WhatsApp.' },
-      { p: '¿Hay que venir en ayunas?', r: 'Sí, se recomienda ayuno de 8 a 12 horas para que el resultado sea comparable.' },
     ],
     relacionados: ['glucosa', 'hemoglobina-glicosilada', 'perfil-lipidico'],
     medline: { url: 'https://medlineplus.gov/spanish/pruebas-de-laboratorio/insulina-en-la-sangre/', titulo: 'Insulina en la sangre' },
@@ -167,7 +166,6 @@ export const HORMONAS: PaginaExamen[] = [
       'Informa si usas corticoides en pastillas, cremas, inhaladores o inyecciones, y también anticonceptivos. No los suspendas por tu cuenta.',
     ],
     faqs: [
-      { p: '¿A qué hora debo hacerme el cortisol?', r: 'Normalmente en la mañana, pero depende de lo que busque tu médico. Sigue su indicación y cuéntanos al agendar.' },
       { p: '¿El estrés afecta el resultado?', r: 'Puede influir. Por eso se recomienda llegar con tiempo y en calma.' },
       { p: '¿Hacen también la ACTH?', r: 'Sí, la ACTH está en nuestro cotizador. Consulta su preparación antes de venir.' },
     ],

@@ -15,7 +15,7 @@ const existe = (u) => {
   return fs.existsSync(path.join(DIST, p + '.html')) || (fs.existsSync(path.join(DIST, p)) && fs.statSync(path.join(DIST, p)).isFile());
 };
 const problemas = [], avisos = [];
-const titles = new Map(), descs = new Map();
+const titles = new Map(), descs = new Map(), h1s = new Map();
 const textos = {};
 const PROHIBIDO = [/100\s?%/, /Accu_lab/i, /\bAcculab\b/, /index\.html/, /vercel\.app/, /\[\[PENDIENTE/, /16 años/i, /garantizad/i, /Accu-Lab Clínico/];
 const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2705}\u{2714}\u{2728}]/u;
@@ -51,6 +51,13 @@ for (const f of files) {
   if (doc.querySelector('meta[name="twitter:creator"]')) P('twitter:creator presente');
   // Imágenes
   doc.querySelectorAll('img').forEach((img) => { if (img.getAttribute('alt') == null) P(`img sin alt: ${img.getAttribute('src')}`); if (!img.getAttribute('width') || !img.getAttribute('height')) avisos.push(`${url}: img sin width/height ${img.getAttribute('src')}`); });
+  // Rendimiento de imágenes: la del hero, eager con fetchpriority alta; el resto (salvo el logo de la cabecera), lazy; todas con width/height
+  doc.querySelectorAll('img').forEach((img) => {
+    const hero = !!img.closest('[data-photo-slot="home-hero"]'), cab = !!img.closest('header');
+    if (hero && (img.getAttribute('loading') === 'lazy' || img.getAttribute('fetchpriority') !== 'high')) P('imagen del hero sin fetchpriority="high" o con lazy');
+    if (!hero && !cab && img.getAttribute('loading') !== 'lazy') P(`imagen bajo el pliegue sin loading="lazy": ${img.getAttribute('src')}`);
+    if (!img.getAttribute('width') || !img.getAttribute('height')) P(`img sin width/height: ${img.getAttribute('src')}`);
+  });
   // Enlaces internos
   doc.querySelectorAll('a[href]').forEach((a) => {
     const h = a.getAttribute('href');
@@ -64,8 +71,23 @@ for (const f of files) {
     const hash = h.split('#')[1]; const base = h.split('#')[0].split('?')[0];
     if (hash && existe(base)) { const target = parse(fs.readFileSync(base === '/' ? `${DIST}/index.html` : `${DIST}${base}.html`, 'utf8')); if (!target.querySelector(`[id="${hash}"]`)) P(`ancla rota ${h}`); }
   });
+  // Dominio canónico: ningún recurso, enlace ni JSON-LD debe apuntar a www.acculab.bio ni a http://acculab.bio
+  if (/(?:https?:)?\/\/www\.acculab\.bio|http:\/\/acculab\.bio/i.test(html)) P('referencia a www.acculab.bio o http://acculab.bio (usar https://acculab.bio o ruta relativa)');
   // JSON-LD
-  doc.querySelectorAll('script[type="application/ld+json"]').forEach((s) => { try { JSON.parse(s.text); } catch { P('JSON-LD inválido'); } });
+  const ids = new Set(), refs = [];
+  doc.querySelectorAll('script[type="application/ld+json"]').forEach((s) => {
+    let j; try { j = JSON.parse(s.text); } catch { P('JSON-LD inválido'); return; }
+    // @id, url e item deben estar en el dominio canónico; las referencias {"@id"} deben existir en la misma página
+    (function rec(n, clave) {
+      if (Array.isArray(n)) return n.forEach((x) => rec(x, clave));
+      if (n && typeof n === 'object') {
+        if (n['@id'] && Object.keys(n).length === 1) refs.push(n['@id']); else if (n['@id']) ids.add(n['@id']);
+        return Object.entries(n).forEach(([k, v]) => rec(v, k));
+      }
+      if (['@id', 'url', 'item'].includes(clave) && typeof n === 'string' && !n.startsWith('https://acculab.bio/')) P(`JSON-LD ${clave} fuera del dominio canónico: ${n}`);
+    })(j);
+  });
+  refs.filter((r) => !ids.has(r)).forEach((r) => P(`JSON-LD referencia sin definir en la página: ${r}`));
   // Cadenas prohibidas (texto visible + atributos, sin URLs de la marca)
   const visible = doc.querySelector('body').text + ' ' + (doc.querySelector('title')?.text || '') + ' ' + desc;
   for (const re of PROHIBIDO) if (re.test(visible) || (re.source.includes('vercel') && re.test(html)) || (re.source.includes('index') && re.test(html))) P(`contiene ${re}`);
@@ -77,7 +99,9 @@ for (const f of files) {
     const words = main.text.replace(/\s+/g, ' ').trim().split(' ').filter((w) => /[a-záéíóúñ0-9]/i.test(w));
     textos[url] = doc.querySelector('.exam-body').text.replace(/\s+/g, ' ').toLowerCase();
     const n = words.length;
-    if (n < 450 || n > 700) P(`${n} palabras en <main> (objetivo 450–700)`);
+    if (!/Cuenca/.test(title)) P('title de examen sin "Cuenca"');
+    const h1t = doc.querySelector('h1')?.text.trim(); if (h1s.has(h1t)) P(`H1 duplicado con ${h1s.get(h1t)}`); h1s.set(h1t, url);
+    if (n < 350 || n > 700) P(`${n} palabras en <main> (objetivo 350–700)`);
     else avisos.push(`${url}: ${n} palabras`);
   }
 }
@@ -88,6 +112,17 @@ for (let i = 0; i < keys.length; i++) for (let j = i + 1; j < keys.length; j++) 
   const a = sh(textos[keys[i]]), b = sh(textos[keys[j]]); let inter = 0; a.forEach((x) => b.has(x) && inter++);
   const jac = inter / (a.size + b.size - inter); if (jac > max[0]) max = [jac, keys[i], keys[j]];
   if (jac > 0.2) problemas.push(`contenido muy similar (${(jac * 100).toFixed(0)} %) entre ${keys[i]} y ${keys[j]}`);
+}
+// Sitemap: URLs únicas, sin /_styleguide y con lastmod (si falta, data/lastmod.json está desactualizado: `npm run lastmod`)
+if (fs.existsSync(`${DIST}/sitemap.xml`)) {
+  const xml = fs.readFileSync(`${DIST}/sitemap.xml`, 'utf8');
+  const entradas = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
+  entradas.forEach((e) => {
+    const loc = e.match(/<loc>([^<]+)<\/loc>/)[1];
+    if (/_styleguide|404|politica-de-/.test(loc)) problemas.push(`sitemap incluye ${loc}`);
+    if (!/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/.test(e)) problemas.push(`sitemap sin lastmod: ${loc} (ejecuta \`npm run lastmod\` tras confirmar los cambios)`);
+  });
+  console.log(`Sitemap: ${entradas.length} URLs`);
 }
 console.log(`Páginas: ${files.length}`);
 if (process.argv.includes('-v')) avisos.forEach((a) => console.log('  · ' + a));

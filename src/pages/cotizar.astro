@@ -4,7 +4,8 @@ import Icon from '../components/Icon.astro';
 import PageHero from '../components/PageHero.astro';
 import { RUTAS } from '../data/rutas';
 import { CATEGORIAS, EXAMENES, PAGINAS, PAQUETES, valorPaquete } from '../lib/catalogo';
-import { precio, waLink } from '../lib/site';
+import { SITE, precio, waLink } from '../lib/site';
+import { WA } from '../lib/mensajes';
 
 const r = RUTAS.cotizar;
 const cats = CATEGORIAS.map((c) => ({ ...c, items: EXAMENES.filter((e) => e.categoria === c.slug) }));
@@ -39,13 +40,13 @@ const datos = {
           <h2 id={`c-${c.slug}`}>{c.nombre}</h2>
           <ul class="cot-items" role="list">
             {c.items.map((e) => (
-              <li class="cot-item" data-search={[e.nombre, ...e.sinonimos, c.nombre].join(' ')}>
+              <li class="cot-item" data-search={[e.nombre, ...e.sinonimos, c.nombre].join(' | ')}>
                 <label>
                   <input type="checkbox" name="examen" value={e.slug} data-nombre={e.nombre} data-precio={e.precio} />
-                  <span class="cot-item__name">{e.nombre}{e.sinonimos.length > 0 && <span class="cot-item__syn">{e.sinonimos.slice(0, 2).join(' · ')}</span>}</span>
+                  <span class="cot-item__name">{e.nombre}</span>
                   <span class="cot-item__price">{precio(e.precio)}</span>
                 </label>
-                {e.pagina && <a class="cot-item__link" href={`/examenes/${e.pagina}`} aria-label={`Ver información y preparación de ${e.nombre}`}>Ver examen</a>}
+                {e.pagina && <a class="cot-item__link" href={`/examenes/${e.pagina}`} aria-label={`Ver examen ${e.nombre}: información y preparación`}>Ver examen</a>}
               </li>
             ))}
           </ul>
@@ -71,7 +72,7 @@ const datos = {
           <p class="cot-pq-precio small" hidden><strong>Precio del paquete:</strong> te lo confirmamos por WhatsApp.</p>
           <button type="button" class="btn btn--secondary btn--sm btn--block cot-clear" hidden>Vaciar selección</button>
         </div>
-        <a class="btn btn--whatsapp btn--block cot-send" href={waLink('Hola, quiero cotizar exámenes en Accu-Lab.')} target="_blank" rel="noopener" aria-disabled="true">
+        <a class="btn btn--whatsapp btn--block cot-send" href={waLink(WA.cotizar)} data-wa={SITE.whatsapp} target="_blank" rel="noopener">
           <Icon name="whatsapp" /> Enviar por WhatsApp
         </a>
         <p class="small muted cot-disclaimer">Precios referenciales; te confirmamos el valor final y la disponibilidad.</p>
@@ -104,7 +105,6 @@ const datos = {
   .cot-item input { width: 20px; height: 20px; accent-color: var(--primary); }
   .cot-item:has(input:checked) { background: var(--primary-50); }
   .cot-item__name { font-weight: 600; line-height: 1.35; }
-  .cot-item__syn { display: block; font-weight: 400; font-size: var(--fs-xs); color: var(--ink-3); }
   .cot-item__price { font-variant-numeric: tabular-nums; font-weight: 600; }
   .cot-item__link { flex: none; font-size: var(--fs-xs); font-weight: 600; color: var(--primary); padding: 12px 16px 12px 0; }
   .cot-panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-6); box-shadow: var(--shadow-2); display: grid; gap: var(--s-4); }
@@ -131,6 +131,7 @@ const datos = {
 </style>
 
 <script>
+  import { WA } from '../lib/mensajes';
   type Datos = { paginas: Record<string, { nombre: string; items: string[] }>; paquetes: Record<string, { nombre: string; items: string[]; consultar: string[] }> };
   const datos: Datos = JSON.parse(document.getElementById('cot-data')!.textContent!);
   const $ = <T extends Element>(s: string) => document.querySelector(s) as T;
@@ -173,16 +174,37 @@ const datos = {
 
   function seleccion() { return boxes.filter((b) => b.checked).map((b) => ({ slug: b.value, nombre: b.dataset.nombre!, precio: Number(b.dataset.precio) })); }
 
+  // wa.me acepta enlaces largos, pero los navegadores y WhatsApp Web recortan hacia los ~2000 caracteres.
+  // Se limita el texto ya codificado; si la lista no cabe, se quitan precios y luego se acorta la lista.
+  const WA_MAX = 1800;
+  const cabe = (m: string) => encodeURIComponent(m).length <= WA_MAX;
+  const GENERICO = WA.cotizar;
+
+  function armar(encabezado: string, lineas: string[], sinPrecio: string[], pie: string) {
+    let m = encabezado + lineas.join('\n') + pie;
+    if (cabe(m)) return m;
+    m = encabezado + sinPrecio.join('\n') + pie;
+    if (cabe(m)) return m;
+    for (let n = sinPrecio.length - 1; n >= 1; n--) {
+      m = encabezado + [...sinPrecio.slice(0, n), `- …y ${sinPrecio.length - n} más`].join('\n') + pie;
+      if (cabe(m)) return m;
+    }
+    return GENERICO;
+  }
+
   function mensaje(lista: ReturnType<typeof seleccion>, total: number) {
+    if (lista.length === 0) return GENERICO;
     // Paquete: sin precios ni total (el precio del paquete aún no está publicado; evita confundir la suma con el precio).
     if (paquete) {
-      const nombres = [...lista.map((e) => e.nombre), ...paquete.consultar];
-      return `Hola, quiero cotizar el paquete ${paquete.nombre} en Accu-Lab.\nExámenes:\n${nombres.map((n) => `- ${n}`).join('\n')}\n\n¿Me confirman el precio del paquete y la disponibilidad?`;
+      const nombres = [...lista.map((e) => e.nombre), ...paquete.consultar].map((n) => `- ${n}`);
+      return armar(WA.cotizarPaquete.encabezado(paquete.nombre), nombres, nombres, WA.cotizarPaquete.pie);
     }
-    let m = 'Hola, quiero cotizar estos exámenes en Accu-Lab:\n';
-    m += lista.map((e) => `- ${e.nombre} (${money(e.precio)})`).join('\n');
-    m += `\n\nTotal: ${money(total)}\n(Precios referenciales, sujetos a confirmación.)\n¿Me confirman el valor y la disponibilidad?`;
-    return m;
+    return armar(
+      WA.cotizarLista.encabezado,
+      lista.map((e) => `- ${e.nombre} (${money(e.precio)})`),
+      lista.map((e) => `- ${e.nombre}`),
+      WA.cotizarLista.pie(money(total)),
+    );
   }
 
   function actualizar() {
@@ -207,16 +229,11 @@ const datos = {
     $<HTMLElement>('.cot-clear').hidden = n === 0;
     paqueteEl.hidden = !paquete;
     if (paquete) paqueteEl.textContent = `Paquete: ${paquete.nombre}. Selección sugerida de exámenes` + (paquete.consultar.length ? ` (también incluye: ${paquete.consultar.join(', ')})` : '') + '; te confirmamos los exámenes y el precio del paquete por WhatsApp.';
-    send.setAttribute('aria-disabled', String(n === 0));
-    send.href = `https://wa.me/593996405647?text=${encodeURIComponent(mensaje(lista, total))}`;
+    send.href = `https://wa.me/${send.dataset.wa}?text=${encodeURIComponent(mensaje(lista, total))}`;
     send.dataset.n = String(n); send.dataset.total = total.toFixed(2);
   }
   boxes.forEach((b) => b.addEventListener('change', actualizar));
   $<HTMLButtonElement>('.cot-clear').addEventListener('click', () => { boxes.forEach((b) => (b.checked = false)); paquete = null; actualizar(); });
-  send.addEventListener('click', (ev) => {
-    if (send.getAttribute('aria-disabled') === 'true') { ev.preventDefault(); return; }
-    (window as any).acculabTrack?.('cotizador_enviar', { page_path: location.pathname, num_examenes: Number(send.dataset.n), ...(paquete ? { paquete: paquete.nombre } : { total: Number(send.dataset.total) }) });
-  });
   if (matchMedia('(max-width: 1023px)').matches) toggle.hidden = false;
   toggle.addEventListener('click', () => {
     const open = !panel.classList.contains('is-open');

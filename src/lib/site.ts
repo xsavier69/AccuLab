@@ -34,8 +34,6 @@ export function waLink(mensaje?: string): string {
   return mensaje ? `${base}?text=${encodeURIComponent(mensaje)}` : base;
 }
 
-export const WA_GENERAL = 'Hola, quiero agendar un examen en Accu-Lab.';
-
 /** Formato de precio igual al del cotizador original: $2.50 */
 export const precio = (n: number) => `$${n.toFixed(2)}`;
 

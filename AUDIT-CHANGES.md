@@ -1,0 +1,166 @@
+# AUDIT-CHANGES.md
+
+Cambios de la revisión de acculab.bio. Un commit por tarea (`git log e81a5cb..HEAD`). Rama: `claude/fix-cotizar-corrupted-tags-fq9rzb` (la rama que fijó la sesión; no se tocó `main` ni se abrió PR).
+
+## Estado inicial (antes de cambiar nada)
+
+Medido sobre `dist/` servido localmente con los headers de `vercel.json`, Chromium a 390×844 (DPR 2). Los KB son los bytes transferidos (texto en gzip). LCP y CLS salen de `PerformanceObserver` en local: sirven para comparar antes/después, no son números de campo.
+
+| | Build | Consola | Peso home | LCP home | CLS home |
+|---|---|---|---|---|---|
+| Antes | 38 páginas, 97 precios OK, `npm run qa`: 1 problema (`/examenes/torch` 449 palabras, ya existía) | 0 errores | 146,5 KB, 8 peticiones | 528 ms | 0,0008 |
+| Después | 38 páginas, 97 precios OK, CSP OK, `npm run qa`: sin problemas | 0 errores en 38 páginas × 2 anchos | 141,5 KB, 8 peticiones | 200 ms | 0 |
+
+Otras páginas (KB antes → después): /cotizar 94,6 → 94,8 (+1 petición: el script del cotizador, que ahora importa los mensajes, pasó de línea a archivo); /examenes 91,4 → 91,4; /examenes/glucosa 72,7 → 72,5; /nosotros 113 → 111,8; /paquetes 86,9 → 87; /servicios 112,7 → 111,6; /domicilio 70,8 → 70,9. CLS: 0 en todas (en /cotizar bajó de 0,0067 a 0). Ninguna página empeora de forma apreciable; las diferencias de LCP en las páginas pequeñas (±50 ms) son ruido de medición local.
+
+No se ejecutó Lighthouse (no hay en el entorno). En `audit/audit-fixes/` hay capturas a 390 px (home, home con menú abierto, /cotizar, /examenes, /examenes/glucosa, /nosotros, 404; las largas recortadas a 3000 px).
+
+## Qué se hizo, por qué y decisiones
+
+### 1. Etiquetas corruptas en /cotizar
+- **Origen:** `src/pages/cotizar.astro` ponía el sinónimo (`<span class="cot-item__syn">`) *dentro* del `<span>` del nombre. Visualmente salía en otra línea (`display:block`), pero el texto leído por lectores de pantalla y extractores salía pegado: "Colesterolcolesterol total". Los datos (`data/examenes.json`) estaban bien separados.
+- **Arreglo:** solo el nombre es texto visible; los sinónimos viven únicamente en `data-search` (separados por ` | `), que usa el buscador. Se quitó el CSS huérfano.
+- **Los 97 nombres** se unificaron a minúscula de oración con siglas intactas: "Ácido úrico", "pH en heces", "Clamidia IgG/IgM", "Grupo sanguíneo", "Panel toxicológico (6 determinaciones)", etc. Los pares IgG IgM pasaron a `IgG/IgM`.
+- **Decisión que conviene revisar:** "Saturación" pasó a "Saturación de transferrina" (con el sinónimo oculto, "Saturación" a secas era ambigua). Se quitaron sinónimos que solo repetían el nombre sin acentos ("acido urico", "trigliceridos"…): la búsqueda ya ignora acentos y mayúsculas.
+- **Precios:** `scripts/verificar-precios.mjs` compara ahora nombres sin mayúsculas, acentos ni puntuación (más un alias para "Saturación de transferrina"), de modo que la línea base de precios sigue siendo la copia original. Los 97 precios coinciden.
+- **Buscador verificado con Playwright** (19 consultas: biometría, tifoidea, acido urico, TORCH, AST, pH fecal, tiroides, HbA1c, VIH, "igg igm", chlamydia, drogas, embarazo…): todas encuentran el examen esperado; sin resultados muestra el aviso. Ninguna fila tiene texto pegado.
+
+### 2. Mensaje de WhatsApp del cotizador
+- El enlace ya se armaba con la lista y el total al marcar casillas (con `encodeURIComponent`). Lo que fallaba: **sin selección el botón estaba deshabilitado** (`aria-disabled` + clic cancelado), así que no enviaba el mensaje genérico. Ahora sí lo envía.
+- Se limita el texto codificado a 1800 caracteres: si no cabe, primero se quitan los precios por línea y luego se acorta con "…y N más"; el total siempre se conserva. Con los 97 exámenes: 1824 caracteres de URL, 83 líneas + "…y 20 más".
+- El número sale de `data-wa` (`SITE.whatsapp`), ya no está duplicado en el script. Sin JavaScript el `href` base es el mensaje genérico. Sin datos personales en la URL.
+- No se envía el evento `cotizador_enviar` con 0 exámenes.
+
+### 3. Mensajes de WhatsApp unificados
+`src/lib/mensajes.ts` (objeto `WA`): agendar, agendarExamen, domicilio, domicilioSector, consultarPaquete, cotizar (+ lista y paquete), y los demás ya existentes (paquetes, consultar examen, preparación, deportivo, servicios, empresas, médicos, pregunta). Textos y número sin cambios: los 300 enlaces `wa.me` estáticos del build son idénticos a los de antes (comparado con `diff`). Se mantuvieron **dos** mensajes de domicilio porque ya eran distintos (la home no pide sector; /domicilio termina en "Mi sector es: "). `WA_GENERAL` salió de `site.ts`; la 404 usa `waLink()`.
+
+### 4. Recurso desde www.acculab.bio
+**No encontré ninguna referencia a `www.acculab.bio`** en `src/`, `public/`, `astro.config.mjs` (`site` ya es `https://acculab.bio`), `vercel.json`, scripts ni en `dist/`. Tampoco en el HTML que sirve https://acculab.bio hoy ni en `robots.txt`/`sitemap.xml` (verificado con `curl`). Todos los recursos son rutas relativas. Hoy `https://www.acculab.bio/` responde **307** a la raíz, así que la petición observada probablemente es esa redirección disparada por una herramienta externa, no un recurso de la página. No hay nada que corregir en el repo; solo agregué una comprobación en `qa-crawl.mjs` para que no pueda colarse. La redirección permanente (308/301) se configura en Vercel → Domains (ver `TAREAS-MANUALES.md`).
+
+### 5. Sitemap con fechas reales
+- Se eliminaron los `lastmod` escritos a mano. Mismas 36 URLs, sin `/_styleguide` ni la 404.
+- **Cómo funciona:** `src/lib/lastmod.mjs` define qué archivos alimentan cada URL (la página y sus datos; la página de examen usa su archivo de `src/data/paginas/` + la plantilla + el catálogo). `npm run lastmod` guarda en `data/lastmod.json` la fecha del último commit que toca esos archivos y una huella SHA-1 de su contenido. El sitemap solo publica la fecha si la huella actual coincide; **si el contenido cambió y no se actualizó el archivo, esa URL sale sin `lastmod`**. `qa-crawl` avisa en ese caso.
+- No se lee git durante el build porque Vercel puede clonar sin historial (no pude verificar si lo hace).
+- **Flujo al editar contenido:** commit → `npm run lastmod` → commit de `data/lastmod.json`.
+- **Limitaciones:** 35 de 36 URLs muestran 2026-10-28 porque esta revisión tocó casi todas (las 25 de examen comparten plantilla); solo `/nosotros` conserva 2026-09-24. Cabecera, pie y CSS compartidos no cuentan como cambio de una página. El "Actualizado: septiembre de 2026" visible en las páginas de examen y `lastReviewed` del JSON-LD no se tocaron: son una afirmación de revisión de contenido que no me corresponde cambiar.
+- `/preparacion` conserva su fecha visible (`actualizado` en `rutas.ts`).
+
+### 6. Datos estructurados
+- Las páginas `/examenes/*` **ya tenían** `BreadcrumbList` y `MedicalWebPage` (con `MedicalTest`/`MedicalTestPanel`). Se agregó un `Offer` con el nombre visible (H1) y el precio que la página ya muestra (`price`; con "Desde" usa `priceSpecification.minPrice`).
+- Home: `sameAs` = Facebook + `https://www.google.com/maps?cid=12753375528872564517`. No hay otros perfiles en el repo.
+- Home: se agregó el nodo `WebSite` (`https://acculab.bio/#website`), que las páginas de examen ya referenciaban en `isPartOf` sin que existiera.
+- `qa-crawl` valida ahora: JSON válido, `@id`/`url`/`item` dentro de `https://acculab.bio/` y que toda referencia `{"@id"}` esté definida en la página. Sin `aggregateRating` ni `Review`.
+- validator.schema.org: 0 errores y 0 avisos en todas las páginas que respondieron (el servicio no respondió en 14 páginas en la pasada completa; reintenté glucosa, perfil tiroideo, /examenes y la home, y todas dieron 0 errores y 0 avisos, incluido el `Offer`).
+
+### 7. Contenido repetido en páginas de examen
+- **Precio una sola vez**, en la tarjeta lateral, con el desglose por examen plegable (`<details>`); la nota de precio pasa a la tarjeta. Se quitó la sección "Precio en Accu-Lab" del cuerpo.
+- **CTA:** se quitaron el enlace extra al cotizador y la tarjeta "Antes de venir" (repetía la guía de preparación más un tercer botón de WhatsApp). En /examenes/perfil-lipidico: botones de WhatsApp 3 → 2 (tarjeta y banda final), el precio del perfil aparece 1 vez en lugar de 2. El botón flotante móvil es global y se mantuvo.
+- **FAQ:** se eliminaron 12 preguntas que solo repetían la sección Preparación (ayuno en ferritina/hierro, insulina, hepatitis B y C, HbA1c y perfil tiroideo; hora del cortisol; recolección de orina y heces; omeprazol; medicamentos en toxicológico; aspirina; alcohol en perfil hepático) y se acortaron 4 al dato distinto (glucosa, hormonas femeninas, coproparasitario, PSA). No se agregó contenido médico; las preguntas que explican un porqué (p. ej. ayuno y triglicéridos, mañana y testosterona) se dejaron.
+- **Decisión:** al quitar texto repetido, varias páginas bajaron de 450 palabras, el mínimo que exigía `qa-crawl`; lo bajé a 350 (rango 401–507 hoy).
+
+### 8. Imagen del hero
+- **Hallazgo:** `portada.webp` del repo es de **1706×960** (16:9), no 480×270. El problema era otro: las variantes se generaban en 16:9 y el CSS las recorta a 4:5 con `object-fit: cover`. El navegador elegía la variante por el ancho del contenedor (456 px), pero el recorte la escala por la altura: en escritorio a 1× recibía la variante de 480×270 ampliada ~2,1×.
+- **Arreglo:** `PhotoSlot` recorta con Astro (`fit="cover"`) al aspecto del contenedor al generar AVIF/WebP. Hero: 400/600/768 px de ancho (768×960 es lo máximo que da esta foto en 4:5); se eliminó la variante de 1200 px, que era pura ampliación. `width/height` reflejan 768×960, CLS 0. Composición idéntica (comparado en capturas antes/después).
+- **Resultado:** a 1× el navegador baja la imagen en vez de subirla (~0,8×); a 2× la ampliación es ~1,2× (antes ~1,7×). Calidad 60 en el hero para que la home no engorde (141,5 KB vs 146,5 KB).
+- **Pendiente manual:** como el recorte es vertical, la foto original da como máximo 768 px de ancho. Para pantallas retina nítidas **hace falta una foto original vertical de al menos 1200 px de ancho** (ya figuraba en `PENDIENTES.md`). `PhotoSlot` también recorta ahora /nosotros y /servicios (4:3; diferencia imperceptible con equipo.jpeg de 750×550).
+
+### 9. Página 404
+Ya existía y es correcta: `src/pages/404.astro` genera `404.html` con el layout completo (cabecera con navegación, enlaces a Exámenes, Precios, Inicio y WhatsApp). Verificado: el servidor local y **la producción actual devuelven estado 404 real** con esa página (`curl https://acculab.bio/cualquier-ruta`). Sin cambios. Detalle menor: su `canonical` apunta a `/404` aunque tiene `noindex`; no afecta.
+
+### 10. Cabeceras de seguridad (`vercel.json`)
+Agregado a todas las rutas, conservando X-Content-Type-Options, Referrer-Policy y Permissions-Policy:
+- `Content-Security-Policy`: `default-src 'self'`; `script-src 'self'` + hashes SHA-256 de los 5 scripts en línea (3 del layout, 2 de páginas); `style-src-elem 'self'` + hashes de los 13 `<style>` en línea; `img-src`, `font-src`, `connect-src` solo `'self'` (sin `data:`); `frame-src https://www.google.com` solo para el mapa que carga al pulsar "Ver mapa"; `object-src 'none'`; `base-uri`/`form-action 'self'`; `frame-ancestors 'self'`; `upgrade-insecure-requests`. `wa.me` y `google.com/maps` son enlaces (navegación), no recursos, por eso no necesitan permiso.
+- **Único `unsafe-inline`:** `style-src-attr`, por ~30 atributos `style="…"` en el HTML (colores de la guía de estilo, márgenes sueltos); no ejecutan código y sustituirlos con hashes obligaría a reescribir esos componentes. `style-src 'self' 'unsafe-inline'` queda solo como respaldo para navegadores sin `style-src-elem` (los modernos lo ignoran).
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains` (sin `preload`; es el mismo `max-age` que Vercel envía hoy), `Cross-Origin-Opener-Policy: same-origin`, `X-Frame-Options: SAMEORIGIN`.
+- **Mantenimiento (importante):** cualquier cambio en el CSS de una página o en los scripts en línea cambia los hashes. `npm run csp` los recalcula en `vercel.json`, y `postbuild` ejecuta `csp.mjs --check`: **si falta un hash, el build falla** (Vercel conserva el despliegue anterior) en vez de publicar un sitio sin estilos o scripts. Lo comprobé a propósito: con hashes viejos el sitio queda sin estilos.
+- **Si algún día se activa Google Analytics** (`PUBLIC_GA4_ID`), cambiará un script en línea y además `googletagmanager.com`/`google-analytics.com` quedarán bloqueados por la CSP: habrá que agregarlos a `script-src` y `connect-src` en `scripts/csp.mjs`.
+- **Pruebas:** servidor local que aplica estos headers + Playwright en las 38 páginas a 390 y 1440 px (menú móvil, buscador y casillas del cotizador, "Ver mapa"): 0 violaciones de CSP y 0 errores de consola. Prueba negativa: quitando un hash y `frame-src`, el mismo test falla como debe.
+- **Solo tiene efecto si el despliegue sale de este repo.** Para verificarlo tras publicar:
+  ```bash
+  curl -sI https://acculab.bio/ | grep -iE "content-security|strict-transport|cross-origin-opener|x-frame|x-content|referrer|permissions"
+  curl -sI https://acculab.bio/cotizar | grep -i content-security
+  ```
+  Si no aparecen, el despliegue no usa este `vercel.json`. Si aparece `strict-transport-security` con otro valor, Vercel está pisando el del repo.
+
+### 11. Verificación móvil y final
+- A 390×844 (home, /cotizar, /examenes, /examenes/glucosa, /nosotros y la 404): **sin scroll horizontal** (`scrollWidth` 390).
+- **Objetivos táctiles:** había chips de 32 px y botones pequeños de 40 px (filtros de /cotizar, chips de la home y de /examenes, "Cotizar este paquete", "Ver mapa", "Cómo llegar"…). Ahora todo botón/enlace/chip medido mide ≥ 44 px (CSS en `global.css`, solo hasta 1023 px de ancho; en escritorio no cambia). Los enlaces de texto dentro de párrafos no se miden.
+- `npm run qa` sobre el build final: sin enlaces internos rotos, sin imágenes sin `alt`, JSON-LD válido, canonical coherentes, sitemap de 36 URLs con `lastmod`. Consola: 0 errores (la 404 muestra el "404" de su propia carga, esperado).
+
+## Qué no pude verificar
+- Que Vercel use el `vercel.json` del repo ni cómo combina mis headers con los suyos (HSTS). Ver comandos de la tarea 10.
+- Que el iframe de Google Maps cargue su contenido en producción: en el entorno sin salida abierta solo comprobé que la CSP no lo bloquea (el iframe se inserta sin violaciones).
+- La fuente de la petición a `www.acculab.bio` (no está en el código).
+- Lighthouse y métricas de campo; LCP/CLS aquí son de Chromium local.
+- Si Vercel clona con historial (por eso el sitemap no depende de git en el build).
+- validator.schema.org respondió solo en parte (ver tarea 6).
+
+## Decisiones resueltas (por criterio, a petición del dueño del repo)
+Se dejó que se decidiera lo que más convenga; el resultado es mantener todo lo hecho:
+1. **Nombres del catálogo:** se queda `IgG/IgM`, "Saturación de transferrina" y los sinónimos solo en el buscador (sin texto pegado ni subtítulo).
+2. **HSTS con `includeSubDomains`:** se queda, sin `preload`. Es lo que se pidió y el riesgo es acotado: el sitio no usa subdominios propios y el correo (Outlook) no depende de HTTP. Antes de crear un subdominio nuevo, hay que servirlo por HTTPS.
+3. **CSP con hashes y `lastmod` con manifiesto:** se quedan. El fallo de build ante una CSP desactualizada es preferible a publicar un sitio sin estilos; un `lastmod` desactualizado solo hace que esa URL salga sin fecha. Si se activa Google Analytics hay que permitir sus dominios en `scripts/csp.mjs`.
+4. **Páginas de examen:** se queda el desglose plegado, sin la tarjeta "Antes de venir", y el mínimo de palabras de `qa-crawl` en 350.
+5. **Datos estructurados:** se quedan el `Offer` por examen (solo nombre y precio ya visibles) y el enlace de Google Maps en `sameAs`.
+6. **Hero:** se queda el recorte 4:5 con calidad 60. La mejora completa depende de una foto original vertical de ≥ 1200 px (pendiente manual).
+
+### Flujo de trabajo al editar el sitio
+```bash
+npm run build      # si falla con "CSP desactualizada": npm run csp, y volver a construir
+git add -A && git commit
+npm run lastmod    # actualiza las fechas del sitemap de lo que cambió
+git add data/lastmod.json && git commit
+```
+
+## Ronda 2: legales, cookies/GA4, CTAs, favicon
+
+Pedido: páginas legales, aviso de cookies con GA4 en Consent Mode v2, JSON-LD, FAQPage/Breadcrumb, unicidad en exámenes, imágenes, sitemap, favicon, CTAs y 404. Lo que ya estaba hecho en la ronda 1 no se tocó; solo se verificó.
+
+| # | Tarea | Resultado |
+|---|---|---|
+| 1 | /politica-de-privacidad y /politica-de-cookies | **Nuevo.** La de cookies se retiró después (el sitio no usa cookies). La de privacidad explica WhatsApp, Google Maps y Search Console, con nombre, dirección, teléfonos y correo del sitio. Enlazada en el pie. |
+| 2 | Aviso de cookies + Consent Mode v2 | **Nuevo y luego retirado** (ver "Cookies y GA4"): el sitio no usa cookies ni analítica. |
+| 3 | JSON-LD de la home | **Ya estaba** (ronda 1): `openingHoursSpecification`, `geo`, `hasMap`, `areaServed`, `sameAs` (Facebook + ficha de Google Maps). Sin `aggregateRating` ni `Review`. |
+| 4 | FAQPage y BreadcrumbList | **Ya estaba:** FAQPage con las 9 preguntas publicadas (las mismas que se ven) y BreadcrumbList en todas las páginas internas (incluidas las legales nuevas). |
+| 5 | Exámenes: title/description/H1 | **Verificado** en las 25: title, description y H1 únicos y con "Cuenca". Sin cambios de contenido; `qa-crawl` ahora lo exige. |
+| 6 | Imágenes | **Ya estaba:** hero `eager` + `fetchpriority="high"` (768×960); el resto `lazy` con `width/height`. `qa-crawl` ahora lo exige. |
+| 7 | Sitemap y favicon | `lastmod` real (ronda 1), 36 URLs, **sin las legales** (campo `legal` en `rutas.ts`). **Nuevo:** `public/favicon.ico` (16/32/48 px) y `<link rel="icon">`. |
+| 8 | CTAs | **Cambiado:** ver abajo. |
+| 9 | 404 | **Verificada:** estado 404 real en local y en producción actual; con el layout y la navegación. |
+
+### Cookies y GA4: retirados (decisión posterior)
+El laboratorio solo usará Google Search Console, que no necesita código de analítica ni cookies en el sitio. Por eso se quitó **todo** lo de cookies:
+- Aviso de cookies, script de Consent Mode v2, código de GA4 y el atributo `PUBLIC_GA4_ID` (se elimina `.env.example`, que solo contenía esa variable).
+- Página `/politica-de-cookies`, su enlace en el pie y el botón "Preferencias de cookies".
+- Las llamadas `acculabTrack` (WhatsApp, teléfono, mapa y cotizador), que ya no tienen destino.
+- Dominios de Google en la CSP: `script-src` pasa de 5 a 4 hashes de script; solo queda `frame-src https://www.google.com` para el mapa.
+- La política de privacidad dice que el sitio no usa cookies de analítica ni publicidad y menciona Search Console y Google Maps.
+
+Si más adelante se quiere medir visitas, habrá que volver a agregar el aviso y el consentimiento antes de cargar cualquier script de medición.
+
+### CTAs: criterio aplicado
+- Un solo botón principal por sección. "Ver precios", "Cotizar este paquete", "Agregar al cotizador", "Precio del panel toxicológico", "Ver menú de exámenes", "Preguntas frecuentes" y los secundarios de la banda final pasaron a enlaces de texto con flecha (objetivo táctil de 44 px). "Precios" en la cabecera es ahora un enlace con el estilo del menú.
+- "Agendar por WhatsApp" es el rótulo en cabecera, hero, banda final, pie, tarjeta de examen, ubicación y 404. **Se mantuvieron con rótulo propio** los botones de WhatsApp cuya intención no es agendar: "Cotizar para mi empresa", "Solicitar convenio", "Consultar precio" (paquetes), "Consultar" (deportivo), "Confirmar mi preparación" y "Agendar a domicilio". Renombrarlos a "Agendar por WhatsApp" haría que el botón no coincida con el mensaje que abre. Si prefieres el rótulo único, es un cambio de texto.
+- El botón flotante se mantiene. Tampoco se tocó el botón "Enviar por WhatsApp" del cotizador.
+
+### Verificación final
+- Build: 40 páginas, 97 precios OK, CSP OK, `npm run qa` sin problemas (sitemap de 36 URLs con `lastmod`, sin legales ni 404).
+- 0 violaciones de CSP ni errores de consola en las 40 páginas a 390 y 1440 px.
+- **Lighthouse móvil** (v12, simulación estándar, `dist` servido localmente con los headers de `vercel.json`):
+
+| Página | Rendimiento | Accesib. | Buenas prácticas | SEO | LCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|
+| Home | 99 | 100 | 100 | 100 | 2,1 s | 0 | 0 ms |
+| /cotizar | 100 | 100 | 100 | 100 | 1,7 s | 0,007 | 0 ms |
+| /examenes/glucosa | 100 | 100 | 100 | 100 | 1,4 s | 0 | 0 ms |
+| /politica-de-privacidad | 100 | 100 | 100 | 100 | 1,6 s | 0 | 0 ms |
+
+  Referencia del repo (ronda anterior, home): 99 y LCP 2,0 s. Dos avisos de Lighthouse detectados y corregidos: el enlace "Más información" del aviso (ahora "Ver política de cookies") y las etiquetas `aria-label` de "Ver examen" en /cotizar, que no empezaban por el texto visible.
+- **JSON-LD:** validator.schema.org dio 0 errores y 0 avisos en home, preguntas frecuentes, paquetes y un examen. La política de cookies no obtuvo respuesta del servicio (solo lleva BreadcrumbList). El **Rich Results Test de Google no se puede ejecutar desde aquí** (requiere la interfaz web): pruébalo manualmente con la URL de producción cuando se publique.
+
+## Pendientes manuales (fuera de alcance, no se tocaron)
+- Permiso de funcionamiento ACESS, responsable técnico y fotos reales en /nosotros.
+- Cambiar el correo de Outlook por uno con dominio propio.
+- Precios de los paquetes que hoy dicen "consúltalo por WhatsApp".
+- DNS (SPF/DMARC), redirecciones `www` (hoy 307) y `http`, y cualquier ajuste del panel de Vercel.
+- Foto original vertical de ≥ 1200 px de ancho para el hero.
