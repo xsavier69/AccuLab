@@ -7,7 +7,7 @@ import Faq from '../../components/Faq.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { PAGINAS, type PaginaExamen } from '../../data/paginas';
 import { componentes, precioPagina, paquetesDePagina, examen, nombreCategoria, paginaBySlug } from '../../lib/catalogo';
-import { medicalWebPageSchema } from '../../lib/schema';
+import { medicalWebPageSchema, faqSchema, examenServiceSchema } from '../../lib/schema';
 import { precio, waLink, mesAnio } from '../../lib/site';
 
 export function getStaticPaths() {
@@ -33,8 +33,19 @@ const schema = medicalWebPageSchema({
     ? { '@type': 'MedicalTestPanel', name: p.nombre, alternateName: p.sinonimos, subTest: cs.map((c) => ({ '@type': 'MedicalTest', name: c.nombre })) }
     : { '@type': 'MedicalTest', name: p.nombre, alternateName: p.sinonimos },
 });
+
+// FAQPage: las preguntas son visibles en la página (acordeón), requisito de Google.
+const faqLd = p.faqs.length > 0 ? faqSchema(p.faqs) : null;
+
+// Service + Offer: el precio del examen como dato estructurado propio de esta URL.
+const servicioLd = examenServiceSchema({
+  path, nombre: p.nombre, alternateName: p.sinonimos, precio: pr.valor,
+  categoria: nombreCategoria(p.categoria), desde: pr.desde,
+});
+
+const schemas = [schema, servicioLd, ...(faqLd ? [faqLd] : [])];
 ---
-<Layout title={title} description={p.descripcion} path={path} schemas={[schema]} waMensaje={waMsg}
+<Layout title={title} description={p.descripcion} path={path} schemas={schemas} waMensaje={waMsg}
   crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Exámenes', path: '/examenes' }, { name: p.h1, path }]}>
   <section class="exam-hero">
     <Pattern variant="petri" />

@@ -2,4 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /_styleguide
 
+# Resumen del sitio para asistentes de IA: https://llmstxt.org/
+# https://acculab.bio/llms.txt
+
 Sitemap: https://acculab.bio/sitemap.xml

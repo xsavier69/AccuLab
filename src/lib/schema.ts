@@ -99,3 +99,31 @@ export function medicalWebPageSchema(o: {
     isPartOf: { '@type': 'WebSite', '@id': `${U}/#website`, url: `${U}/`, name: 'Accu-Lab' },
   };
 }
+
+/** Servicio + Offer de una página de examen: da al precio un nodo propio y enlazable. */
+export function examenServiceSchema(o: {
+  path: string; nombre: string; alternateName?: string[]; precio: number;
+  categoria?: string; desde?: boolean;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${U}${o.path}#servicio`,
+    name: o.nombre,
+    ...(o.alternateName?.length ? { alternateName: o.alternateName } : {}),
+    serviceType: o.categoria ?? 'Examen de laboratorio clínico',
+    provider: { '@id': LAB_ID },
+    areaServed: { '@type': 'City', name: 'Cuenca' },
+    isRelatedTo: { '@id': `${U}${o.path}#webpage` },
+    offers: {
+      '@type': 'Offer',
+      url: `${U}${o.path}`,
+      price: o.precio.toFixed(2),
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      seller: { '@id': LAB_ID },
+      // El precio publicado es referencial; se confirma al agendar.
+      ...(o.desde ? { priceSpecification: { '@type': 'PriceSpecification', minPrice: o.precio.toFixed(2), priceCurrency: 'USD' } } : {}),
+    },
+  };
+}

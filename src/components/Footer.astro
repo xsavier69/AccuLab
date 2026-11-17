@@ -9,6 +9,10 @@ import { PAGINAS } from '../data/paginas';
 const TOP = ['biometria-hematica', 'glucosa', 'perfil-lipidico', 'examen-de-orina-emo', 'coproparasitario',
   'perfil-tiroideo', 'prueba-de-embarazo-en-sangre', 'hemoglobina-glicosilada', 'psa', 'prueba-vih']
   .map((s) => PAGINAS.find((p) => p.slug === s)!);
+// Índice completo de exámenes: cada ficha queda a un clic desde cualquier página del sitio.
+// Sin esto, 10 de las 25 fichas quedaban demasiado profundas y Google las dejaba
+// en "Descubierta: actualmente sin indexar" (ver TAREAS-MANUALES.md).
+const TODOS = [...PAGINAS].sort((a, b) => a.h1.localeCompare(b.h1, 'es'));
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -52,9 +56,22 @@ const year = new Date().getFullYear();
         </ul>
       </div>
     </div>
+    <nav class="footer-index" aria-label="Índice de exámenes">
+      <p class="footer-title">Todos nuestros exámenes</p>
+      <ul class="footer-index__list" role="list">
+        {TODOS.map((e) => <li><a href={`/examenes/${e.slug}`}>{e.h1}</a></li>)}
+      </ul>
+    </nav>
+
     <div class="footer-bottom">
       <p>© {year} Accu-Lab. Todos los derechos reservados.</p>
       <p>Los precios publicados son referenciales; confírmalos con nosotros.</p>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-index { margin-top: var(--s-12); padding-top: var(--s-8); border-top: 1px solid rgb(255 255 255 / 0.1); }
+  .footer-index__list { display: grid; gap: 8px var(--s-6); padding: 0; list-style: none; margin-top: var(--s-4); grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+  .footer-index__list a { font-size: var(--fs-sm); color: #c9d4d6; }
+</style>
