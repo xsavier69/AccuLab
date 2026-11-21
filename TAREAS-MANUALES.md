@@ -21,21 +21,38 @@ curl -s  https://acculab.bio/robots.txt
 curl -s  https://acculab.bio/sitemap.xml | grep -c "<loc>"                    # 36
 ```
 
-## 2. Vercel: redirección de `www` permanente
+## 2. Vercel: redirección de `www` permanente — HECHO (20/11/2026)
 
-Hoy `https://www.acculab.bio/` responde **307 (temporal)** → debe ser permanente.
-- **Project → Settings → Domains** → en `www.acculab.bio`, pulsa **Edit** → "Redirect to" `acculab.bio` → código **308 Permanent Redirect** (o 301) → **Save**.
-- Comprueba con el `curl` del paso 1.
+`www.acculab.bio` no estaba dado de alta en ninguna parte: el 307 lo generaba
+Vercel por defecto al ser un dominio con sus nameservers sin `www` asignado.
+Se añadió al proyecto como **308 Permanent Redirect** a `acculab.bio`, con la
+casilla "Redirect apex domains to www" **desmarcada** (el canónico es el apex).
+
+Verificado: `https://www.acculab.bio/examenes/glucosa` → 308 → la misma ruta en
+el apex, en un solo salto.
 
 ## 3. GA4
 
 1. En https://analytics.google.com, crea la propiedad "Accu-Lab" (zona horaria de Ecuador, moneda USD) y luego un **flujo de datos web** para `https://acculab.bio`.
 2. Copia el **ID de medición** (`G-XXXXXXXXXX`).
 3. En Vercel, ve a **Settings → Environment Variables** → agrega `PUBLIC_GA4_ID` = `G-XXXXXXXXXX` (entorno *Production*) → **Redeploy**.
+   HECHO (20/11/2026): propiedad "acculab.bio" (zona horaria Ecuador GMT-05:00, USD),
+   flujo "acculab.bio - Web", y `PUBLIC_GA4_ID` cargada en Production como variable
+   de tipo *Config* (el ID de medición es público: viaja en el HTML).
 4. En GA4, marca como **eventos clave** (conversiones): `whatsapp_click`, `cotizador_enviar` y `phone_click`. `maps_click` queda como evento normal.
 5. Comprueba en **Informes → Tiempo real** haciendo clic en un botón de WhatsApp del sitio.
 
-## 4. Google Search Console
+## 4. Google Search Console — HECHO en parte (20/11/2026)
+
+Propiedad de dominio `acculab.bio` verificada automáticamente por el proveedor
+de DNS (Vercel), sin necesidad de registro TXT. Sitemap enviado y leído
+correctamente (36 URLs). Quedan los pasos 4.6 (revisión a las 2–4 semanas).
+
+Estado de indexación al 20/11/2026: 26 páginas indexadas, 17 sin indexar
+(4 redirecciones, 3 canónicas alternativas y 10 "Descubierta: actualmente sin
+indexar"). Las 10 eran fichas de examen que Google nunca había rastreado por
+falta de enlaces internos; se solicitó su indexación a mano y se corrigió la
+causa con el índice de exámenes del footer (commit 1e38e2d).
 
 1. En https://search.google.com/search-console, agrega una **propiedad de dominio** `acculab.bio`.
 2. Copia el registro **TXT** que te muestra y agrégalo en el DNS del dominio (en el proveedor donde compraste acculab.bio o en Vercel → Domains → DNS, según dónde estén los nameservers). Espera a que se verifique.
