@@ -21,7 +21,7 @@ export const GET: APIRoute = () => {
 
 > Laboratorio de análisis clínicos en Consultorios El Batán, Cuenca (Azuay, Ecuador), en
 > funcionamiento desde ${SITE.fundacion}. Atiende sin cita previa, entrega la mayoría de resultados
-> en 24 horas por WhatsApp o correo, y ofrece toma de muestras a domicilio dentro de Cuenca.
+> en 24 horas por WhatsApp o correo, y ofrece toma de muestras a domicilio dentro de Cuenca, sin costo adicional.
 > Los precios publicados están en dólares estadounidenses y son referenciales: se confirman
 > al agendar.
 

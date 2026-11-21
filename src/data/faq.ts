@@ -6,7 +6,7 @@ export const FAQ: FaqItem[] = [
   { grupo: 'Atención', p: '¿Cuál es el horario de atención?', r: 'Atendemos de lunes a viernes de 7:30 a 13:00 y de 15:00 a 17:00, y los sábados de 8:00 a 12:00. Los domingos permanecemos cerrados.' },
   { grupo: 'Atención', p: '¿Necesito cita para hacerme exámenes?', r: 'No. Puedes venir directamente dentro de nuestro horario de atención o, si prefieres, escribirnos antes por WhatsApp para coordinar y confirmar la preparación.' },
   { grupo: 'Atención', p: '¿Dónde están ubicados?', r: 'Estamos en la Calle Ecuador y Av. de las Américas, esquina, en Consultorios El Batán, 2.º piso, en Cuenca. La referencia es: altos de la farmacia Cruz Azul.' },
-  { grupo: 'Atención', p: '¿Hacen toma de muestras a domicilio?', r: 'Sí. Es ideal para adultos mayores, pacientes post cirugía o personas con poca disponibilidad de tiempo. Escríbenos por WhatsApp para confirmar la cobertura en tu sector.' },
+  { grupo: 'Atención', p: '¿Hacen toma de muestras a domicilio?', r: 'Sí, y sin costo adicional. Es ideal para adultos mayores, pacientes post cirugía o personas con poca disponibilidad de tiempo. Escríbenos por WhatsApp para confirmar la cobertura en tu sector.' },
   { grupo: 'Resultados', p: '¿Cuándo están listos mis resultados?', r: 'La mayoría de nuestros exámenes tiene resultados en 24 horas. Algunos análisis especializados pueden tomar más tiempo; te lo indicamos al agendar.' },
   { grupo: 'Resultados', p: '¿Cómo recibo mis resultados?', r: 'Te enviamos tus resultados por WhatsApp o por correo electrónico, según prefieras.' },
   { grupo: 'Precios y exámenes', p: '¿Los precios publicados son finales?', r: 'Son precios referenciales. Te recomendamos confirmarlos con nosotros por WhatsApp antes de tu visita.' },

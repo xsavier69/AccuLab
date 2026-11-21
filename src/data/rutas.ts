@@ -15,7 +15,7 @@ export const RUTAS: Record<string, Ruta> = {
     title: 'Laboratorio Clínico en Cuenca – Resultados en 24 h | Accu-Lab',
     description: 'Laboratorio clínico en Cuenca: consulta el precio de tu examen, recibe resultados en 24 h y pide toma a domicilio. En El Batán. Agenda por WhatsApp.',
     og: 'Laboratorio clínico en Cuenca con resultados en 24 horas',
-    lastmod: '2026-09-24',
+    lastmod: '2026-11-21',
   },
   examenes: {
     path: '/examenes',
@@ -48,9 +48,9 @@ export const RUTAS: Record<string, Ruta> = {
   domicilio: {
     path: '/domicilio',
     title: 'Exámenes de Laboratorio a Domicilio en Cuenca | Accu-Lab',
-    description: 'Toma de muestras a domicilio en Cuenca para adultos mayores, pacientes post cirugía y personas ocupadas. Consulta la cobertura en tu sector por WhatsApp.',
+    description: 'Toma de muestras a domicilio en Cuenca sin costo adicional, ideal para adultos mayores y pacientes post cirugía. Consulta tu sector por WhatsApp.',
     og: 'Exámenes de laboratorio a domicilio en Cuenca',
-    lastmod: '2026-09-24',
+    lastmod: '2026-11-21',
   },
   preparacion: {
     path: '/preparacion',
@@ -64,14 +64,14 @@ export const RUTAS: Record<string, Ruta> = {
     title: 'Preguntas Frecuentes | Accu-Lab Laboratorio Clínico en Cuenca',
     description: 'Horarios, citas, entrega de resultados, ubicación en El Batán y toma a domicilio: respuestas a las preguntas más frecuentes sobre Accu-Lab en Cuenca.',
     og: 'Preguntas frecuentes',
-    lastmod: '2026-09-24',
+    lastmod: '2026-11-21',
   },
   servicios: {
     path: '/servicios',
     title: 'Servicios de Laboratorio Clínico en Cuenca | Accu-Lab',
     description: 'Servicios de Accu-Lab en Cuenca: exámenes para empresas, deportistas, toxicología, convenios médicos, toma a domicilio y paquetes. Agenda por WhatsApp.',
     og: 'Servicios de laboratorio clínico en Cuenca',
-    lastmod: '2026-09-24',
+    lastmod: '2026-11-21',
   },
   cotizar: {
     path: '/cotizar',
