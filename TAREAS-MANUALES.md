@@ -68,7 +68,7 @@ El Lighthouse de AUDIT.md y del resumen final se midió localmente. Confírmalo 
 ## 6. Google Business Profile (lo que más pesa para "laboratorio clínico cuenca" y "cerca de mí")
 
 - Confirma quién administra la ficha `cid=12753375528872564517`. Si nadie la administra, reclámala.
-- **NAP idéntico al sitio:** "Accu-Lab" · "Calle Ecuador y Av. de las Américas, esquina, Consultorios El Batán, 2.º piso" · 099-640-5647 · horarios L–V 07:00–18:00, S 08:00–13:00.
+- **NAP idéntico al sitio:** "Accu-Lab" · "Calle Ecuador y Av. de las Américas, esquina, Consultorios El Batán, 2.º piso" · 099-640-5647 · horarios L–V 7:30–13:00 y 15:00–17:00, S 8:00–12:00 (confirmados por el cliente el 21/11/2026; Google ya los tenía así).
 - Categoría principal: "Laboratorio médico" (o "Laboratorio clínico"). Sitio web: `https://acculab.bio/`.
 - Sube fotos reales (fachada, recepción, toma de muestra) y pide reseñas a los pacientes. Con esas reseñas se puede activar la sección oculta del home (PENDIENTES.md).
 

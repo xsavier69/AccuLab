@@ -21,11 +21,12 @@ export const SITE = {
   mapsEmbed:
     'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d727.2271893411493!2d-79.0270565!3d-2.8995369!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91cd22a396ade1d9%3A0xb0fd1779259bd725!2sAccu-Lab!5e1!3m2!1ses-419!2sec!4v1772419075209!5m2!1ses-419!2sec',
   facebook: 'https://www.facebook.com/ACCULABORATORIO/',
+  // Horario real confirmado por el cliente el 21/11/2026 (coincide con Google Business Profile).
   horarios: [
-    { dias: 'Lunes a viernes', horas: '07:00 – 18:00' },
-    { dias: 'Sábados', horas: '08:00 – 13:00' },
+    { dias: 'Lunes a viernes', horas: '7:30 – 13:00 y 15:00 – 17:00' },
+    { dias: 'Sábados', horas: '8:00 – 12:00' },
   ],
-  horarioCorto: 'L–V 07:00–18:00 · S 08:00–13:00',
+  horarioCorto: 'L–V 7:30–13:00 y 15:00–17:00 · S 8:00–12:00',
 } as const;
 
 /** Enlace de WhatsApp con mensaje prellenado. */
