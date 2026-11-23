@@ -79,3 +79,17 @@ En la página https://www.facebook.com/ACCULABORATORIO/, pon `https://acculab.bi
 ## 8. Validación médica
 
 Pide a un profesional del laboratorio que revise la sección 3 de PENDIENTES.md y, si acepta figurar, agrega su nombre y cargo en `revisadoPor` (se publicará como `reviewedBy` en el schema).
+
+---
+
+## 9. Estado a 23/11/2026 (revisión)
+
+**GA4.** Eventos clave marcados: `whatsapp_click` y `phone_click`. Desmarcados `close_convert_lead` y `qualify_lead` (GA4 los crea por defecto y este sitio no los usa; al quitarlos pide confirmar en un diálogo). `purchase` no se puede quitar: Google lo bloquea. **Falta `cotizador_enviar`**: se envió el 23/11 desde el cotizador real y GA4 tarda un par de días en listarlo; hay una tarea programada que lo marca cuando aparezca. Ojo: `whatsapp_click`, `phone_click` y `cotizador_enviar` tienen cada uno al menos un disparo de prueba hecho por Claude el 21–23/11 (propiedad recién creada, con muy pocos usuarios reales).
+
+**Search Console.** Propiedad de dominio verificada. A 23/11: 26 indexadas y 17 sin indexar. De las 10 fichas que Google no había rastreado, 9 ya fueron rastreadas pero siguen en «Rastreada: actualmente sin indexar» (prueba-vih, testosterona, torch, vdrl-sifilis, coproparasitario, hormonas-femeninas, panel-toxicologico, perfil-renal y otra más) y 1 sigue en «Descubierta». Ya no es un problema de enlaces internos: Google las vio y decidió esperar. Lo más probable es la combinación de dominio nuevo sin enlaces externos y temas de salud sensibles sin revisor médico visible (sección 8 y PENDIENTES.md). Pedir indexación otra vez no acelera nada. 5 URLs nuevas pedidas el 23/11 y sitemap reenviado (41 URLs).
+
+**Dominio (Vercel).** `acculab.bio` expira el **11/03/2027**, renovación automática **desactivada**, renovación **$74/año**. La dirección de facturación del método de pago está incompleta y la cuenta no tiene 2FA. Pendiente del titular.
+
+**Facebook.** La sesión de Chrome no estaba iniciada: pendiente poner `https://acculab.bio` como sitio web de la página.
+
+**Directorios** (ubica.ec, guiatelefonica.com.ec, worldorgs): pendiente. Usar exactamente el mismo nombre, dirección y teléfono que el sitio y la ficha de Google.
