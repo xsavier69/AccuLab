@@ -265,4 +265,53 @@ export const ESPECIALES: PaginaExamen[] = [
     actualizado: ACTUALIZADO,
     revisadoPor: null,
   },
+  {
+    slug: 'urocultivo',
+    nombre: 'Urocultivo (cultivo de orina)',
+    h1: 'Urocultivo (cultivo de orina)',
+    tituloSeo: 'Urocultivo',
+    descripcion: 'Urocultivo (cultivo de orina) en Cuenca: cultivos desde $13.00 en Accu-Lab. Te explicamos cómo recoger la muestra. Confirma tu cultivo por WhatsApp.',
+    categoria: 'toxicologia',
+    sinonimos: ['cultivo de orina', 'cultivo urinario', 'cultivo para infección urinaria'],
+    componentes: ['cultivos-varios'],
+    modoPrecio: 'unico',
+    complementos: ['emo'],
+    muestra: 'Orina (recolección estéril)',
+    resumenPrep: 'Frasco estéril y chorro medio',
+    entrega: ENTREGA_A_CONFIRMAR,
+    intro:
+      'El urocultivo es un examen que busca bacterias en una muestra de orina. Se usa para confirmar una infección urinaria e identificar qué germen la causa.',
+    queEs: [
+      'En condiciones normales la orina no contiene bacterias. En el laboratorio, la muestra se coloca en un medio donde las bacterias, si las hay, se multiplican; así se puede saber si hay infección y de qué germen se trata.',
+      'No es lo mismo que el examen de orina (EMO): el EMO describe el aspecto, la química y las células de la orina, mientras que el urocultivo detecta el crecimiento de bacterias. Con frecuencia el médico pide ambos.',
+    ],
+    cuando: {
+      intro: 'Tu médico puede solicitarlo, por ejemplo, en estos casos:',
+      items: [
+        'Ardor al orinar, necesidad de orinar con mucha frecuencia o dolor en la parte baja del abdomen.',
+        'Un EMO que sugiere infección urinaria.',
+        'Control después de un tratamiento con antibióticos.',
+        'Infecciones urinarias que se repiten.',
+        'Durante el embarazo, según el control prenatal.',
+      ],
+    },
+    preparacion: [
+      'Consigue un frasco estéril de boca ancha en una farmacia; no uses frascos reutilizados.',
+      'Lávate las manos y limpia la zona genital con agua y jabón, y sécala.',
+      'Descarta el primer chorro, recoge el chorro medio en el frasco y termina de orinar en el inodoro. No toques el interior del frasco ni la tapa.',
+      'Cierra bien el frasco, escribe tu nombre y entrégalo lo antes posible, idealmente dentro de la primera hora.',
+      'Si estás tomando antibióticos, avísanos. No los suspendas por tu cuenta: consulta a tu médico.',
+    ],
+    notaPrecio:
+      'En nuestro listado de precios el cultivo figura como «Cultivos varios». Antes de venir, confirma por WhatsApp que tu urocultivo está incluido y pregunta si tu orden pide algo adicional, como antibiograma.',
+    faqs: [
+      { p: '¿Cuál es la diferencia entre el EMO y el urocultivo?', r: 'El EMO analiza el aspecto, la química y las células de la orina. El urocultivo busca el crecimiento de bacterias para identificar el germen. A menudo se piden juntos.' },
+      { p: '¿Puedo recoger la muestra en casa?', r: 'Sí, siguiendo los pasos de esta página y con un frasco estéril. Entrégala lo antes posible para que el resultado sea confiable.' },
+      { p: '¿Cuánto tarda el resultado?', r: 'Los cultivos necesitan tiempo para que las bacterias crezcan, por eso suelen tardar más que un examen de química. Te confirmamos el plazo al agendar.' },
+    ],
+    relacionados: ['examen-de-orina-emo', 'perfil-renal', 'coproparasitario'],
+    medline: { url: 'https://medlineplus.gov/spanish/pruebas-de-laboratorio/prueba-de-cultivo-de-bacterias/', titulo: 'Prueba de cultivo de bacterias' },
+    actualizado: '2026-11-23',
+    revisadoPor: null,
+  },
 ];

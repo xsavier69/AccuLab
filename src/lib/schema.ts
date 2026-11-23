@@ -84,6 +84,7 @@ export function faqSchema(faqs: { p: string; r: string }[]) {
 export function medicalWebPageSchema(o: {
   path: string; name: string; description: string; lastReviewed: string;
   about?: Record<string, unknown>; reviewedBy?: { nombre: string; cargo: string } | null;
+  inLanguage?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -92,7 +93,7 @@ export function medicalWebPageSchema(o: {
     url: `${U}${o.path}`,
     name: o.name,
     description: o.description,
-    inLanguage: 'es-EC',
+    inLanguage: o.inLanguage ?? 'es-EC',
     lastReviewed: o.lastReviewed,
     ...(o.about ? { about: o.about } : {}),
     // reviewedBy: se agrega solo cuando exista un revisor profesional real (ver PENDIENTES.md).

@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { GUIAS, guiaBySlug, type Guia } from '../../data/guias';
+import { RUTAS } from '../../data/rutas';
+import { examen, type Examen } from '../../lib/catalogo';
+import { medicalWebPageSchema, faqSchema } from '../../lib/schema';
+import { precio, waLink, mesAnio } from '../../lib/site';
+
+export function getStaticPaths() {
+  return GUIAS.map((g) => ({ params: { slug: g.slug }, props: { g } }));
+}
+interface Props { g: Guia }
+const { g } = Astro.props;
+const r = RUTAS[g.ruta];
+
+const grupos = g.grupos.map((gr) => ({ ...gr, items: gr.items.map(examen) }));
+// Con ficha propia: enlaza a la ficha (precio y preparación). Sin ficha: directo al cotizador.
+const href = (e: Examen) => (e.pagina ? `/examenes/${e.pagina}` : `/cotizar?add=${e.slug}`);
+const otras = g.relacionadas.map((s) => guiaBySlug(s)!);
+
+const schemas = [
+  medicalWebPageSchema({
+    path: r.path, name: r.title, description: r.description, lastReviewed: r.lastmod,
+    about: { '@type': 'MedicalEntity', name: g.tema },
+  }),
+  faqSchema(g.faqs),
+];
+---
+<Layout title={r.title} description={r.description} path={r.path} schemas={schemas} waMensaje={g.waMsg}
+  crumbs={[{ name: 'Inicio', path: '/' }, { name: 'Exámenes', path: '/examenes' }, { name: g.h1, path: r.path }]}>
+  <PageHero title={g.h1} lead={g.lead}>
+    <div class="cluster mt-8">
+      <a class="btn btn--whatsapp" href={waLink(g.waMsg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Consultar por WhatsApp</a>
+      <a class="btn btn--secondary" href="/cotizar">Armar mi cotización</a>
+    </div>
+  </PageHero>
+
+  <section class="section section--tint" style="padding-top:var(--s-12)" aria-labelledby="examenes-guia">
+    <div class="container container--narrow">
+      <div class="note note--educativo" role="note">
+        <Icon name="info" size={18} />
+        <p>{g.aviso}</p>
+      </div>
+
+      <h2 id="examenes-guia" class="mt-12">Exámenes y precios en Accu-Lab</h2>
+      <p class="muted mt-4">Precios referenciales en dólares; cada examen se cobra por separado. Confírmalos al agendar.</p>
+
+      {grupos.map((gr) => (
+        <div class="guia-grupo mt-8">
+          <h3>{gr.titulo}</h3>
+          {gr.intro && <p class="muted small">{gr.intro}</p>}
+          <ul class="guia-lista" role="list">
+            {gr.items.map((e) => (
+              <li>
+                <a class="guia-nombre" href={href(e)}>{e.nombre}</a>
+                <span class="guia-precio">{precio(e.precio)}</span>
+                <a class="exam-card__add" href={`/cotizar?add=${e.slug}`} aria-label={`Cotizar ${e.nombre}`}><Icon name="plus" size={16} /> Cotizar</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="preparacion-guia">
+    <div class="container container--narrow prose">
+      <h2 id="preparacion-guia">Preparación</h2>
+      <ul>{g.preparacion.map((p) => <li>{p}</li>)}</ul>
+      <p>Consulta también nuestra <a href="/preparacion">guía de preparación para exámenes de laboratorio</a>.</p>
+
+      {g.extras.map((x) => (
+        <>
+          <h2>{x.titulo}</h2>
+          {x.parrafos.map((p) => <p>{p}</p>)}
+          {x.enlace && <p><a href={x.enlace[0]}>{x.enlace[1]}</a></p>}
+        </>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="faq-guia">
+    <div class="container container--narrow">
+      <h2 id="faq-guia">Preguntas frecuentes</h2>
+      <div class="mt-6"><Faq items={g.faqs} /></div>
+      <div class="note note--educativo mt-8" role="note">
+        <Icon name="info" size={18} />
+        <p>Información educativa; no reemplaza la indicación de tu médico. Confirma la preparación con nosotros antes de tu examen.</p>
+      </div>
+      <p class="small muted mt-6">Actualizado: <time datetime={r.lastmod}>{mesAnio(r.lastmod)}</time>.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="mas-guias">
+    <div class="container container--narrow">
+      <h2 id="mas-guias">Te puede interesar</h2>
+      <ul class="chips mt-6" role="list">
+        {otras.map((o) => <li><a class="chip" href={RUTAS[o.ruta].path}>{o.h1}</a></li>)}
+        <li><a class="chip" href="/preparacion">Preparación para exámenes</a></li>
+        <li><a class="chip" href="/domicilio">Exámenes a domicilio</a></li>
+        <li><a class="chip" href="/examenes">Todos los exámenes</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand titulo="Agenda tus exámenes" texto="Escríbenos con tu orden o tu lista y te confirmamos precio y preparación. Atendemos sin cita en Consultorios El Batán." mensaje={g.waMsg} />
+</Layout>
+
+<style>
+  .guia-grupo h3 { font-size: var(--fs-md); margin-bottom: var(--s-2); }
+  .guia-lista { list-style: none; padding: 0; margin-top: var(--s-4); background: var(--card); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+  .guia-lista li { display: grid; grid-template-columns: 1fr auto auto; gap: var(--s-4); align-items: center; padding: 12px 16px; border-top: 1px solid var(--line); }
+  .guia-lista li:first-child { border-top: 0; }
+  .guia-nombre { color: var(--ink); font-weight: 600; text-decoration: none; }
+  .guia-nombre:hover { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+  .guia-precio { font-variant-numeric: tabular-nums; font-weight: 600; }
+  @media (max-width: 480px) { .guia-lista li { grid-template-columns: 1fr auto; } .guia-lista .exam-card__add { grid-column: 1 / -1; } }
+</style>

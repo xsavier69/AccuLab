@@ -1513,8 +1513,8 @@
       ],
       "categoria": "toxicologia",
       "precio": 13.0,
-      "tienePagina": false,
-      "pagina": null,
+      "tienePagina": true,
+      "pagina": "urocultivo",
       "preparacion": "La preparación depende del tipo de muestra; consúltala con nosotros antes de venir.",
       "relacionados": []
     }

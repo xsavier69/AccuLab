@@ -25,12 +25,17 @@ interface Props {
   article?: { published: string; modified: string }; // solo guías
   hideWaFloat?: boolean;
   waMensaje?: string;
+  lang?: 'es-EC' | 'en'; // idioma del contenido de la página
+  waLabel?: string; // texto del botón flotante de WhatsApp
 }
-const { title, description, path, crumbs, schemas = [], catalogo = false, noindex = false, ogType = 'website', article, hideWaFloat = false, waMensaje = WA_GENERAL } = Astro.props;
+const { title, description, path, crumbs, schemas = [], catalogo = false, noindex = false, ogType = 'website', article, hideWaFloat = false, waMensaje = WA_GENERAL, lang = 'es-EC', waLabel = 'Agendar por WhatsApp' } = Astro.props;
 const canonical = path === '/' ? `${SITE.url}/` : `${SITE.url}${path}`;
 const ogImage = `${SITE.url}/assets/og/${ogSlug(path)}.png`;
 const jsonld = [labSchema(catalogo), ...(crumbs ? [breadcrumbSchema(crumbs)] : []), ...schemas];
 const GA_ID = import.meta.env.PUBLIC_GA4_ID || '';
+// hreflang: la home en español y su resumen en inglés se declaran como equivalentes.
+const PAR_IDIOMA = path === '/' || path === '/en';
+const ogLocale = lang === 'en' ? 'en_US' : 'es_EC';
 
 const fontCss = `
 @font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url(${manrope400}) format('woff2')}
@@ -40,13 +45,16 @@ const fontCss = `
 @font-face{font-family:'Fraunces';font-style:italic;font-weight:400;font-display:swap;src:url(${fraunces400i}) format('woff2')}`;
 ---
 <!doctype html>
-<html lang="es-EC">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {PAR_IDIOMA && <link rel="alternate" hreflang="es-EC" href={`${SITE.url}/`} />}
+    {PAR_IDIOMA && <link rel="alternate" hreflang="en" href={`${SITE.url}/en`} />}
+    {PAR_IDIOMA && <link rel="alternate" hreflang="x-default" href={`${SITE.url}/`} />}
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
     <meta name="author" content="Accu-Lab" />
     <meta name="theme-color" content="#faf8f5" />
@@ -59,7 +67,7 @@ const fontCss = `
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Accu-Lab" />
-    <meta property="og:locale" content="es_EC" />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -88,7 +96,7 @@ const fontCss = `
     <Footer />
     {!hideWaFloat && (
       <a class="wa-float" href={waLink(waMensaje)} target="_blank" rel="noopener" data-track="wa-float">
-        <Icon name="whatsapp" size={20} /> Agendar por WhatsApp
+        <Icon name="whatsapp" size={20} /> {waLabel}
       </a>
     )}
 

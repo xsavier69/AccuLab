@@ -4,6 +4,8 @@ import Icon from './Icon.astro';
 import logo from '../assets/fotos/logo.png';
 import { SITE, waLink, WA_GENERAL } from '../lib/site';
 import { PAGINAS } from '../data/paginas';
+import { GUIAS } from '../data/guias';
+import { RUTAS } from '../data/rutas';
 
 // Los 10 exámenes más buscados (orden según el análisis SEO de palabras clave)
 const TOP = ['biometria-hematica', 'glucosa', 'perfil-lipidico', 'examen-de-orina-emo', 'coproparasitario',
@@ -42,6 +44,8 @@ const year = new Date().getFullYear();
           <li><a href="/preparacion">Preparación para exámenes</a></li>
           <li><a href="/preguntas-frecuentes">Preguntas frecuentes</a></li>
           <li><a href="/nosotros">Sobre nosotros</a></li>
+          {GUIAS.map((g) => <li><a href={RUTAS[g.ruta].path}>{g.h1.replace(' en Cuenca', '')}</a></li>)}
+          <li><a href="/en" hreflang="en" lang="en">English guide</a></li>
         </ul>
       </div>
       <div>

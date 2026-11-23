@@ -6,6 +6,7 @@ import PhotoSlot from '../components/PhotoSlot.astro';
 import CtaBand from '../components/CtaBand.astro';
 import equipo from '../assets/fotos/equipo.jpeg';
 import { RUTAS } from '../data/rutas';
+import { GUIAS } from '../data/guias';
 import { PAQUETES } from '../lib/catalogo';
 import { waLink } from '../lib/site';
 
@@ -80,26 +81,22 @@ const DEPORTIVO: [string, string | null][] = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="ocupacional-resumen">
-    <div class="container grid grid--3">
-      <article class="card reveal">
-        <span class="card__icon"><Icon name="briefcase" /></span>
-        <h2 id="ocupacional-resumen" class="h3">Servicios ocupacionales</h2>
-        <p class="muted">Exámenes de ingreso laboral y periódicos, perfil bioquímico y lipídico, hemograma, función hepática y renal, examen de orina, pruebas de alcohol y drogas, y marcadores según el riesgo laboral.</p>
-        <div class="card__foot"><a class="link-arrow" href="/empresas">Exámenes para empresas <Icon name="arrow-right" /></a></div>
-      </article>
-      <article class="card reveal">
-        <span class="card__icon"><Icon name="handshake" /></span>
-        <h2 class="h3">Convenios con médicos</h2>
-        <p class="muted">Trabajamos en alianza con médicos de medicina general, ginecología, pediatría, medicina interna, urología, endocrinología, gastroenterología, medicina deportiva y medicina ocupacional.</p>
-        <div class="card__foot"><a class="link-arrow" href="/medicos">Solicitar convenio médico <Icon name="arrow-right" /></a></div>
-      </article>
-      <article class="card reveal">
-        <span class="card__icon"><Icon name="house" /></span>
-        <h2 class="h3">Toma de muestras a domicilio</h2>
-        <p class="muted">Tomamos tus muestras en casa, sin costo adicional. Consúltanos por WhatsApp la cobertura en tu sector.</p>
-        <div class="card__foot"><a class="link-arrow" href="/domicilio">Exámenes a domicilio en Cuenca <Icon name="arrow-right" /></a></div>
-      </article>
+  <section class="section" aria-labelledby="guias-servicios">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="guias-servicios">Guías por trámite</h2>
+        <p class="muted">Qué exámenes se piden con más frecuencia en cada caso y cuánto cuestan en Accu-Lab.</p>
+      </div>
+      <div class="grid grid--3">
+        {GUIAS.map((g) => (
+          <article class="card card--link reveal">
+            <span class="card__icon"><Icon name="clipboard-list" /></span>
+            <h3><a class="stretched" href={RUTAS[g.ruta].path} style="text-decoration:none">{g.h1}</a></h3>
+            <p class="muted">{g.lead.split('. ')[0]}.</p>
+            <div class="card__foot"><span class="link-arrow">Ver la guía <Icon name="arrow-right" /></span></div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 

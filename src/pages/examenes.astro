@@ -5,6 +5,7 @@ import PageHero from '../components/PageHero.astro';
 import ExamCard from '../components/ExamCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { RUTAS } from '../data/rutas';
+import { GUIAS } from '../data/guias';
 import { CATEGORIAS, EXAMENES, PAGINAS } from '../lib/catalogo';
 import { precio } from '../lib/site';
 
@@ -60,6 +61,17 @@ const cats = CATEGORIAS.map((c) => {
       </div>
     </section>
   ))}
+
+  <section class="section" aria-labelledby="guias-examenes">
+    <div class="container">
+      <div class="section-head"><h2 id="guias-examenes">Guías por trámite</h2><p class="muted">¿Te pidieron exámenes para un trámite o una cirugía? Mira cuáles suelen pedirse y su precio.</p></div>
+      <ul class="chips" role="list">
+        {GUIAS.map((g) => <li><a class="chip" href={RUTAS[g.ruta].path}>{g.h1}</a></li>)}
+        <li><a class="chip" href="/preparacion">Preparación para exámenes</a></li>
+        <li><a class="chip" href="/en" hreflang="en" lang="en">English guide</a></li>
+      </ul>
+    </div>
+  </section>
 
   <CtaBand titulo="¿No encuentras tu examen?" texto="Escríbenos con tu orden médica por WhatsApp y te confirmamos si lo realizamos, su precio y la preparación." mensaje="Hola, quiero consultar si realizan un examen." secundario={{ href: '/cotizar', label: 'Ver lista de precios' }} />
 </Layout>

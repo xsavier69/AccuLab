@@ -1,0 +1,146 @@
+---
+// Resumen en inglés para residentes y visitantes extranjeros en Cuenca.
+// Solo afirma lo que ya está confirmado en el resto del sitio (horario, dirección, precios, entrega, domicilio sin costo adicional).
+// No promete atención en inglés: lo dice explícitamente el aviso inicial.
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import Faq from '../components/Faq.astro';
+import Pattern from '../components/Pattern.astro';
+import { RUTAS } from '../data/rutas';
+import { paginaBySlug, precioPagina } from '../lib/catalogo';
+import { medicalWebPageSchema, faqSchema } from '../lib/schema';
+import { SITE, precio, waLink } from '../lib/site';
+
+const r = RUTAS.en;
+const WA_EN = 'Hello, I would like to book a lab test at Accu-Lab.';
+
+const DIAS_EN: Record<string, string> = { 'Lunes a viernes': 'Monday to Friday', 'Sábados': 'Saturday' };
+const horarios = SITE.horarios.map((h) => ({ dias: DIAS_EN[h.dias] ?? h.dias, horas: h.horas.replace(' y ', ' and ') }));
+
+const TESTS: [string, string][] = [
+  ['biometria-hematica', 'Complete blood count (CBC)'],
+  ['glucosa', 'Blood glucose'],
+  ['perfil-lipidico', 'Lipid profile: cholesterol, HDL, LDL and triglycerides'],
+  ['hemoglobina-glicosilada', 'HbA1c (average blood sugar over the last 2–3 months)'],
+  ['perfil-tiroideo', 'Thyroid profile: TSH, free T3 and free T4'],
+  ['examen-de-orina-emo', 'Urinalysis'],
+  ['coproparasitario', 'Stool parasite test'],
+  ['prueba-de-embarazo-en-sangre', 'Pregnancy blood test (beta hCG)'],
+  ['grupo-sanguineo', 'Blood type and Rh factor'],
+  ['prueba-vih', 'HIV test'],
+].map(([slug, nombre]) => [slug, nombre] as [string, string]);
+const tests = TESTS.map(([slug, nombre]) => {
+  const p = paginaBySlug(slug)!;
+  return { nombre, slug, ...precioPagina(p) };
+});
+
+const FAQS = [
+  { p: 'Do I need an appointment?', r: 'No. You can walk in during opening hours at Consultorios El Batán, or message us on WhatsApp first to confirm what you need.' },
+  { p: 'How do I get my results?', r: 'By WhatsApp or email, as you prefer. Most of our basic tests are ready in 24 hours; for specialized tests we confirm the time when you book.' },
+  { p: 'Do I need to fast?', r: 'For blood glucose and the lipid profile, fast for 8 to 12 hours (water is fine). Many other tests do not require fasting, but preparation depends on the test and on your doctor’s instructions, so confirm with us before you come.' },
+  { p: 'Can you collect the sample at my home?', r: 'Yes, and there is no additional charge for home sample collection. Message us on WhatsApp with your area and the tests you need, and we will confirm coverage and timing.' },
+  { p: 'What currency are the prices in?', r: 'US dollars. The prices on this page are reference prices; we confirm them when you book.' },
+  { p: 'Where exactly are you?', r: 'Calle Ecuador and Av. de las Américas (corner), Consultorios El Batán, 2nd floor, in Cuenca. Landmark: above the Cruz Azul pharmacy.' },
+];
+
+const schemas = [
+  medicalWebPageSchema({
+    path: r.path, name: r.title, description: r.description, lastReviewed: r.lastmod, inLanguage: 'en',
+    about: { '@type': 'MedicalBusiness', name: 'Accu-Lab Laboratorio Clínico' },
+  }),
+  { ...faqSchema(FAQS.map((f) => ({ p: f.p, r: f.r }))), inLanguage: 'en' },
+];
+---
+<Layout title={r.title} description={r.description} path={r.path} schemas={schemas} lang="en" waLabel="Book on WhatsApp" waMensaje={WA_EN}
+  crumbs={[{ name: 'Home', path: '/' }, { name: 'English guide', path: '/en' }]}>
+  <PageHero title="Medical laboratory in Cuenca, Ecuador"
+    lead="Accu-Lab is a clinical laboratory in El Batán, Cuenca. Walk in without an appointment, check our prices in US dollars, and get most results within 24 hours by WhatsApp or email.">
+    <div class="cluster mt-8">
+      <a class="btn btn--whatsapp" href={waLink(WA_EN)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Message us on WhatsApp</a>
+      <a class="btn btn--secondary" href={SITE.mapsUrl} target="_blank" rel="noopener"><Icon name="navigation" /> Get directions</a>
+    </div>
+    <p class="small muted mt-6">This page is an English summary of our services. The rest of this website is in Spanish.</p>
+  </PageHero>
+
+  <section class="section section--tint" aria-labelledby="visit">
+    <div class="container grid grid--2" style="align-items:start">
+      <div class="stack">
+        <h2 id="visit">Visit us</h2>
+        <ul class="icon-list mt-4">
+          <li><Icon name="map-pin" /><span><strong>Calle Ecuador and Av. de las Américas (corner)</strong><br />Consultorios El Batán, 2nd floor, Cuenca, Azuay<br /><span class="muted">Landmark: above the Cruz Azul pharmacy.</span></span></li>
+          <li><Icon name="clock" /><span>{horarios.map((h) => <>{h.dias}: <strong>{h.horas}</strong><br /></>)}<span class="muted">Closed on Sundays. No appointment needed.</span></span></li>
+          <li><Icon name="phone" /><span>{SITE.telefonos.map((t, i) => <>{i > 0 && ' · '}<a href={`tel:${t.tel}`}>{t.visible}</a></>)}</span></li>
+          <li><Icon name="mail" /><span><a href={`mailto:${SITE.email}`}>{SITE.email}</a></span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="card__icon"><Icon name="house" /></span>
+        <h3>Home sample collection</h3>
+        <p class="muted">We can collect your sample at home, with no additional charge. It suits older adults, people recovering from surgery and anyone short on time. Message us on WhatsApp with your area to confirm coverage.</p>
+        <div class="card__foot"><a class="link-arrow" href={waLink('Hello, I would like to ask about home sample collection. My area is: ')} target="_blank" rel="noopener">Ask about home collection <Icon name="arrow-right" /></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="how">
+    <div class="container">
+      <div class="section-head"><h2 id="how">How it works</h2></div>
+      <ol class="steps">
+        <li class="reveal"><h3>Walk in or message us</h3><p class="muted">Come to Consultorios El Batán during opening hours, or write to us on WhatsApp. Bring your doctor’s order if you have one, on paper or as a photo.</p></li>
+        <li class="reveal"><h3>Sample collection</h3><p class="muted">We tell you how to prepare. For example, glucose and lipid tests need 8 to 12 hours of fasting, and urinalysis uses first-morning urine.</p></li>
+        <li class="reveal"><h3>Get your results</h3><p class="muted">Most basic tests are ready in 24 hours, sent by WhatsApp or email. For specialized tests we confirm the time when you book.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="prices">
+    <div class="container container--narrow">
+      <h2 id="prices">Common tests and prices</h2>
+      <p class="muted mt-4">Reference prices in US dollars. Each test has a detail page in Spanish with preparation notes. See the <a href="/cotizar">full price list</a> to build your own quote.</p>
+      <ul class="en-lista" role="list">
+        {tests.map((t) => (
+          <li>
+            <span class="en-nombre">{t.nombre}</span>
+            <span class="en-precio">{t.desde ? 'from ' : ''}{precio(t.valor)}</span>
+            <a class="exam-card__add" href={`/examenes/${t.slug}`} aria-label={`${t.nombre}: details in Spanish`}>Details (ES) <Icon name="arrow-right" size={16} /></a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-en">
+    <div class="container container--narrow">
+      <h2 id="faq-en">Frequently asked questions</h2>
+      <div class="mt-6"><Faq items={FAQS} /></div>
+      <div class="note note--educativo mt-8" role="note">
+        <Icon name="info" size={18} />
+        <p>General information only; it does not replace your doctor’s instructions. Confirm your preparation with us before your test.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-band reveal">
+        <Pattern variant="petri" />
+        <h2>Book your lab test</h2>
+        <p class="mt-4">Message us on WhatsApp, or walk in at Consultorios El Batán. We confirm the price and the preparation before you come.</p>
+        <div class="cluster">
+          <a class="btn btn--whatsapp" href={waLink(WA_EN)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Book on WhatsApp</a>
+          <a class="btn btn--light" href="/cotizar">See prices (Spanish)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .en-lista { list-style: none; padding: 0; margin-top: var(--s-6); background: var(--card); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+  .en-lista li { display: grid; grid-template-columns: 1fr auto auto; gap: var(--s-4); align-items: center; padding: 12px 16px; border-top: 1px solid var(--line); }
+  .en-lista li:first-child { border-top: 0; }
+  .en-nombre { font-weight: 600; }
+  .en-precio { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  @media (max-width: 560px) { .en-lista li { grid-template-columns: 1fr auto; } .en-lista .exam-card__add { grid-column: 1 / -1; } }
+</style>

@@ -50,3 +50,14 @@ Texto general y prudente; conviene que lo revise un profesional del laboratorio:
 6. **"Apoyo en interpretación de pruebas"** (beneficio del convenio médico, texto del sitio anterior): confirmar su alcance.
 7. **Paquete "Hormonal Masculino" → PSA:** confirmar si es PSA total o total + libre (hoy `?paquete=` preselecciona el PSA total como sugerencia, sin precio).
 8. **Signos de alarma del dengue** (página /examenes/dengue): texto de salud pública; validar la redacción.
+
+---
+
+## 4. Guías, urocultivo y página en inglés (23/11/2026)
+
+Páginas creadas **sin pedir datos al cliente**, usando solo exámenes y precios del catálogo. Qué conviene que el laboratorio confirme:
+
+1. **Urocultivo** (`/examenes/urocultivo`, ficha 26): el precio sale de «Cultivos varios» ($13.00), cuyo sinónimo `urocultivo` ya figuraba en el catálogo. La página pide confirmar por WhatsApp que el urocultivo está incluido y no promete plazo ni antibiograma. Si el laboratorio lo confirma, se puede afinar el texto.
+2. **Guías por trámite** (`/guias/…`): prenupciales, licencia de conducir y prequirúrgicos. No fijan requisitos oficiales, no muestran totales ni paquetes y remiten al médico o a la entidad. La de licencia solo ofrece el examen de grupo sanguíneo y no afirma que el resultado sea aceptado por ninguna entidad. Si el laboratorio emite algún certificado específico, hay que decírselo para añadirlo.
+3. **Página en inglés** (`/en`): resume dirección, horario, precios y cómo funciona. **No afirma que haya personal que hable inglés** (dato sin confirmar); solo avisa de que el resto del sitio está en español. Si hay atención en inglés, se puede añadir.
+4. **Pruebas de paternidad**: Google las menciona en la ficha; no están publicadas porque no se han confirmado.
